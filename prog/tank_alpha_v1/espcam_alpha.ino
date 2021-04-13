@@ -2,6 +2,8 @@
 
 #ifdef COMPILE_ESPCAM_ALPHA
 
+#include "Arduino.h"
+
 #include "src/core/Esp32DualCore.h"
 
 #include "src/utils/timer/TimerMicros.h"

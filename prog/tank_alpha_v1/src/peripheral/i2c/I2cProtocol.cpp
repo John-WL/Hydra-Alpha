@@ -2,12 +2,9 @@
 
 #include "I2cProtocol.h"
 
-#include "../../utils/timer/TimerMicros.h"
+#include "Wire.h"
 
-void I2cProtocol::init()
-{
-    Wire.begin();
-}
+#include "../../utils/timer/TimerMicros.h"
 
 void I2cProtocol::transmit(unsigned char deviceAddress, unsigned char* data, unsigned char dataLength)
 {

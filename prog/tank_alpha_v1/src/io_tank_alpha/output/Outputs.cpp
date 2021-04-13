@@ -9,8 +9,8 @@
 
 #include "../../utils/sequence/Sequence.h"
 
-#include "../bdc_motor/BdcMotor.h"
-#include "../servo_motor/ServoMotor.h"
+#include "bdc_motor/BdcMotor.h"
+#include "servo_motor/ServoMotor.h"
 
 #include "../../peripheral/i2c/xra1201/Xra1201.h"
 

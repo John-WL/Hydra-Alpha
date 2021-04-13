@@ -4,7 +4,7 @@
 
 #include "Arduino.h"
 
-#include "../../peripheral/i2c/xra1201/Xra1201.h"
+#include "../../../peripheral/i2c/xra1201/Xra1201.h"
 
 BdcMotor::BdcMotor(unsigned char channelNumber) : 
     _channelNumber{channelNumber},

@@ -11,8 +11,8 @@
 
 #include "../../utils/function_container/FunctionContainer.h"
 
-#include "../bdc_motor/BdcMotor.h"
-#include "../servo_motor/ServoMotor.h"
+#include "bdc_motor/BdcMotor.h"
+#include "servo_motor/ServoMotor.h"
 
 class Outputs
 {

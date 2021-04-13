@@ -11,8 +11,8 @@
 
 #include "../../peripheral/i2c/bno055/Bno055.h"
 
-#include "../battery/BatteryVoltageSensor.h"
-#include "../sonar/Sonar.h"
+#include "battery/BatteryVoltageSensor.h"
+#include "sonar/Sonar.h"
 
 void Inputs::init()
 {

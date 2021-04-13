@@ -2,6 +2,10 @@
 
 #ifdef COMPILE_MAIN_TANK_ALPHA
 
+#include "Arduino.h"
+
+#include "Wire.h"
+
 #include "src/core/Esp32DualCore.h"
 
 #include "src/mode/FunctioningMode.h"
@@ -27,8 +31,8 @@ TimerMicros programTimer
 void setup()
 {
     Serial.begin(9600);
-    
-    I2cProtocol::init();
+    Wire.begin();
+
     Inputs::init();
     Outputs::init();
     Esp32DualCore::init();

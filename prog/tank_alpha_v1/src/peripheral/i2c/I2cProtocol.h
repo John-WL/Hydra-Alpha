@@ -8,12 +8,9 @@
 
 #include "Arduino.h"
 
-#include <Wire.h>
-
 class I2cProtocol
 {
     public:
-        static void init();
         static void transmit(unsigned char deviceAddress, unsigned char* data, unsigned char dataLength);
         static unsigned char* receive(unsigned char deviceAddress, unsigned char dataLength);
     private:

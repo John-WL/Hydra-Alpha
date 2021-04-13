@@ -2,7 +2,7 @@
 
 #include "ServoMotor.h"
 
-#include "../../peripheral/i2c/pca9685/Pca9685.h"
+#include "../../../peripheral/i2c/pca9685/Pca9685.h"
 
 ServoMotor::ServoMotor(unsigned char channelNumber) : 
     _channelNumber{channelNumber}, 
