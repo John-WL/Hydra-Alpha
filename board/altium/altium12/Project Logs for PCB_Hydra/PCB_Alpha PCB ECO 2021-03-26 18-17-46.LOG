@@ -1,0 +1,45 @@
+Added Component: Designator=U1_1(ESP32WROOM32D16MB)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "3.2mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Espressif Systems"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "ESP32-WROOM-32 (16MB)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "356-ESPWROOM3216MB"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Espressif-Systems/ESP32-WROOM-32-16MB?qs=w%2Fv1CP2dgqrcPyEPuQvO1A%3D%3D"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=U1_1-1
+Added Pin To Net: NetName=3v3 Pin=U1_1-2
+Added Pin To Net: NetName=NetR1_12_1 Pin=U1_1-3
+Added Pin To Net: NetName=BatteryLevel Pin=U1_1-4
+Added Pin To Net: NetName=NetD1_3_1 Pin=U1_1-9
+Added Pin To Net: NetName=SonarTrig Pin=U1_1-10
+Added Pin To Net: NetName=SonarEcho Pin=U1_1-11
+Added Pin To Net: NetName=GND Pin=U1_1-15
+Added Pin To Net: NetName=SpiSck Pin=U1_1-20
+Added Pin To Net: NetName=SpiMosi Pin=U1_1-21
+Added Pin To Net: NetName=SpiMiso Pin=U1_1-22
+Added Pin To Net: NetName=NetR1_14_1 Pin=U1_1-24
+Added Pin To Net: NetName=NetR1_13_2 Pin=U1_1-25
+Added Pin To Net: NetName=SpiCeNrf Pin=U1_1-26
+Added Pin To Net: NetName=SpiCsnNrf Pin=U1_1-29
+Added Pin To Net: NetName=NrfIrq Pin=U1_1-30
+Added Pin To Net: NetName=Sda3v3 Pin=U1_1-33
+Added Pin To Net: NetName=TxFt232Uart Pin=U1_1-34
+Added Pin To Net: NetName=RxFt232Uart Pin=U1_1-35
+Added Pin To Net: NetName=Scl3v3 Pin=U1_1-36
+Added Pin To Net: NetName=GND Pin=U1_1-38
+Added Pin To Net: NetName=GND Pin=U1_1-39
+Added Pin To Net: NetName=GND Pin=U1_1-40
+Added Pin To Net: NetName=GND Pin=U1_1-41
+Added Pin To Net: NetName=GND Pin=U1_1-42
+Added Pin To Net: NetName=GND Pin=U1_1-43
+Added Pin To Net: NetName=GND Pin=U1_1-44
+Added Pin To Net: NetName=GND Pin=U1_1-45
+Added Pin To Net: NetName=GND Pin=U1_1-46
+Added Pin To Net: NetName=GND Pin=U1_1-47
+Added Member To Class: ClassName=main_control Member=Component C1_6 CML1206C0G470JT50V
+Added Member To Class: ClassName=main_control Member=Component U1_1 ESP32-WROOM-32__16MB_
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

@@ -1,0 +1,23 @@
+Added Component: Designator=R4_6(2512)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100m"; VariantName = "[No Variations]"
+Added Component: Designator=R4_7(2512)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100m"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetR4_6_1 Pin=R4_6-1
+Added Pin To Net: NetName=GND Pin=R4_6-2
+Added Pin To Net: NetName=NetR4_7_1 Pin=R4_7-1
+Added Pin To Net: NetName=GND Pin=R4_7-2
+Added Member To Class: ClassName=brushed_motor_drivers Member=Component R4_6 PCS2512DR1000ET
+Added Member To Class: ClassName=brushed_motor_drivers Member=Component R4_7 PCS2512DR1000ET
+Added Room: Name=power_supply_and_battery_management

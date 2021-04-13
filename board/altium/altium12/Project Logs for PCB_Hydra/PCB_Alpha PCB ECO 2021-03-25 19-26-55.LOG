@@ -1,0 +1,15 @@
+Added Component: Designator=C4_15(C1206)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Radial Cap, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "RAD-0.3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10nF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=DriverCurrentControl Pin=C4_15-1
+Added Pin To Net: NetName=GND Pin=C4_15-2
+Added Member To Class: ClassName=brushed_motor_drivers Member=Component C4_15 C1206C103M5RACTU
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

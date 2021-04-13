@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=NetD3_1_2 Pin=U3_3-1
+Removed Pin From Net: NetName=NetR3_13_1 Pin=U3_3-2
+Removed Pin From Net: NetName=Schmitt Pin=U3_3-3
+Removed Pin From Net: NetName=Battery Pin=U3_3-4
+Removed Pin From Net: NetName=GND Pin=U3_3-5
+Added Pin To Net: NetName=Schmitt Pin=U3_3-1
+Added Pin To Net: NetName=GND Pin=U3_3-2
+Added Pin To Net: NetName=NetR3_13_1 Pin=U3_3-3
+Added Pin To Net: NetName=NetD3_1_2 Pin=U3_3-4
+Added Pin To Net: NetName=Battery Pin=U3_3-5
+Added Room: Name=power_supply_and_battery_management

@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'FT232RL'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT", "TJ", "MTBF", "POWER", "SLOPE", "SUBTYPE", "PACKAGE", "RJA", "VCC_MAX", "VCC_MIN", "IOUT_MAX", "IOUT_MIN", "ICC", "IGND", "RCA", "RJC", "ICCQ", "TECHNOLOGY";
+{========================================================================================}
+ "FTDI Chip", "FT232RL" (!) = "", "SOP65P778X200-28N", "Small Outline Packages", "", "", "FT232RL", "https://www.arrow.com/en/products/ft232rl/ftdi-chip", "USB to serial TTL level UART FT232RL FT232RL, Universal Asynchronous Receiver & Transmitter 3MBd, 28-Pin, SSOP", "http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232R.pdf", "2 mm", "85", "", "500m", "", "USB TO UART SMD", "SSOP-28", "55.82", "6", "-0.5", "", "", "15m", "", "", "24.04", "", "CMOS_TTL"
+END_PART
+
+END.

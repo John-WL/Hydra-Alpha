@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'DRV8829PWP'
+CLASS = DISCRETE
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Texas Instruments", "DRV8829PWP" (!) = "", "SOP65P640X120-28N", "Small Outline Packages", "595-DRV8829PWP", "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/DRV8829PWP?qs=UlfnwZ2x8nTwexgNYqnN7g%3D%3D", "DRV8829PWP", "https://www.arrow.com/en/products/drv8829pwp/texas-instruments", "5A Half Bipolar Stepper Motor Driver with 32-Level Current Regulation (PH/EN Ctrl)", "http://www.ti.com/product/DRV8829/datasheet", "1.2 mm"
+END_PART
+
+END.

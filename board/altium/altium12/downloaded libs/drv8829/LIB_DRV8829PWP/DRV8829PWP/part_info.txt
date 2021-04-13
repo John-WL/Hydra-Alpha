@@ -1,0 +1,9 @@
+Manufacturer=Texas Instruments
+PartNumber=DRV8829PWP
+PartCategory=Motor
+PackageCategory=Small Outline Packages
+PinCount=28
+Version=2.1
+Released=2018-03-26 09:22:13
+Downloaded=2021-03-22 19:59:57
+3D=Y

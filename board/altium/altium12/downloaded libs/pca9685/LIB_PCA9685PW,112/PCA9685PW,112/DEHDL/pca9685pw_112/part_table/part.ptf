@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'PCA9685PW_112'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "NXP", "PCA9685PW,112" (!) = "", "SOP65P640X110-28N", "Small Outline Packages", "771-PCA9685PW,112", "https://www.mouser.co.uk/ProductDetail/NXP-Semiconductors/PCA9685PW112/?qs=6YAT8rHPFU9wZqiAeiOMZw%3D%3D", "PCA9685PW,112", "https://www.arrow.com/en/products/pca9685pw112/nxp-semiconductors", "16-channel, 12-bit PWM Fm+ I2C-bus LED controller", "http://www.nxp.com/docs/en/data-sheet/PCA9685.pdf", "1.1 mm"
+END_PART
+
+END.

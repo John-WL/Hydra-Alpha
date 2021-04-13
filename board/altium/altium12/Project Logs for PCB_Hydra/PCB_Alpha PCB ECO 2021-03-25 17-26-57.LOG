@@ -1,0 +1,24 @@
+Added Component: Designator=C2_2(CAP-ELECTRO-530530)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Radial Cap, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "RAD-0.3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100µF"; VariantName = "[No Variations]"
+Added Component: Designator=C2_3(CAP-ELECTRO-530530)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Radial Cap, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "RAD-0.3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100µF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=5v-1 Pin=C2_2-1
+Added Pin To Net: NetName=GND Pin=C2_2-2
+Added Pin To Net: NetName=5v-2 Pin=C2_3-1
+Added Pin To Net: NetName=GND Pin=C2_3-2
+Added Member To Class: ClassName=servo_driver_and_imu_device Member=Component C2_2 107AXZ016MQ5
+Added Member To Class: ClassName=servo_driver_and_imu_device Member=Component C2_3 107AXZ016MQ5
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management

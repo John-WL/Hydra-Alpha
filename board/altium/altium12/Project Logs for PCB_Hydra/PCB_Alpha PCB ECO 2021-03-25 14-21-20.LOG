@@ -1,0 +1,3 @@
+Change Component Designator: OldDesignator=Q3_4 NewDesignator=Q3_2
+Change Net Name : Old Net Name=NetQ3_4_1 New Net Name=NetQ3_2_1
+Added Room: Name=power_supply_and_battery_management

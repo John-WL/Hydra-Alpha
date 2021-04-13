@@ -1,0 +1,9 @@
+Manufacturer=NXP
+PartNumber=PCA9685PW,112
+PartCategory=Integrated Circuit
+PackageCategory=Small Outline Packages
+PinCount=28
+Version=1.1
+Released=2017-12-29 14:41:49
+Downloaded=2021-03-22 22:13:23
+3D=Y

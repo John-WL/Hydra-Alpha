@@ -1,0 +1,194 @@
+Altium Designer Pick and Place Locations
+C:\Users\John\Desktop\projet 6e session\board\altium\altium12\Project Outputs for PCB_Hydra\Pick Place\Pick Place for PCB_Alpha.txt
+
+========================================================================================================================
+File Design Information:
+
+Date:       12-04-21
+Time:       09:49
+Revision:   Not in VersionControl
+Variant:    No variations
+Units used: mil
+
+Designator Comment                 Layer    Footprint                     Center-X(mil) Center-Y(mil) Rotation Description                        
+P1_3       EspCam                  TopLayer HDR1X5-42                     4925.000      4100.000      90       "Header, 5-Pin"                    
+U4_2       Drv8829                 TopLayer SOP65P640X120-28N-GROUND_SINK 3750.000      4325.000      270      ""                                 
+R4_15      Res1                    TopLayer C1206                         3650.000      3400.000      360      Resistor                           
+C2_4       EMHS250GRA102MKE0S      TopLayer CAP-ELECTRO-KE0               5160.000      4625.000      180      Capacitor                          
+C2_3       EMHS250GRA102MKE0S      TopLayer CAP-ELECTRO-KE0               4460.000      350.000       180      Capacitor                          
+C4_12      107AXZ016MQ5            TopLayer CAP-ELECTRO-530530            4100.000      4311.614      270      Capacitor                          
+C4_9       107AXZ016MQ5            TopLayer CAP-ELECTRO-530530            3125.000      4311.614      270      Capacitor                          
+U1_1       ESP32-WROOM-32__16MB_   TopLayer ESP32WROOM32D16MB             4984.646      3180.315      0        "Integrated Circuit"               
+C1_8       CL31A226KOHNNNE         TopLayer C1206                         4350.000      3450.000      90       Capacitor                          
+R4_14      Res1                    TopLayer C1206                         3650.000      3300.000      360      Resistor                           
+U4_1       Drv8829                 TopLayer SOP65P640X120-28N-GROUND_SINK 2775.000      4325.000      270      ""                                 
+T3_12      "Mounting Hole"         TopLayer TESTPOINT                     3700.000      900.000       90       "Generic Antenna"                  
+T3_11      "Mounting Hole"         TopLayer TESTPOINT                     4400.000      3775.000      0        "Generic Antenna"                  
+T3_10      "Mounting Hole"         TopLayer TESTPOINT                     2425.000      3950.000      90       "Generic Antenna"                  
+T3_9       "Mounting Hole"         TopLayer TESTPOINT                     5500.000      3775.000      0        "Generic Antenna"                  
+T3_8       "Mounting Hole"         TopLayer TESTPOINT                     2900.000      2675.000      0        "Generic Antenna"                  
+T3_7       "Mounting Hole"         TopLayer TESTPOINT                     4450.000      1675.000      0        "Generic Antenna"                  
+T3_6       "Mounting Hole"         TopLayer TESTPOINT                     2775.000      3950.000      0        "Generic Antenna"                  
+T3_5       "Mounting Hole"         TopLayer TESTPOINT                     3950.000      1550.000      0        "Generic Antenna"                  
+T3_4       "Mounting Hole"         TopLayer TESTPOINT                     3375.000      2250.000      0        "Generic Antenna"                  
+T3_3       "Mounting Hole"         TopLayer TESTPOINT                     4380.000      2230.000      0        "Generic Antenna"                  
+T3_2       "Mounting Hole"         TopLayer TESTPOINT                     2900.000      3650.000      0        "Generic Antenna"                  
+T3_1       "Mounting Hole"         TopLayer TESTPOINT                     3200.000      3650.000      0        "Generic Antenna"                  
+T1_6       "Mounting Hole"         TopLayer TESTPOINT                     5450.000      2500.000      0        "Generic Antenna"                  
+T1_5       "Mounting Hole"         TopLayer TESTPOINT                     5250.000      2500.000      0        "Generic Antenna"                  
+T1_4       "Mounting Hole"         TopLayer TESTPOINT                     5050.000      2500.000      0        "Generic Antenna"                  
+T1_3       "Mounting Hole"         TopLayer TESTPOINT                     4850.000      2500.000      0        "Generic Antenna"                  
+T1_2       "Mounting Hole"         TopLayer TESTPOINT                     5725.000      2750.000      0        "Generic Antenna"                  
+T1_1       "Mounting Hole"         TopLayer TESTPOINT                     5525.000      2750.000      0        "Generic Antenna"                  
+C4_15      C1206C103M5RACTU        TopLayer C1206                         3575.000      4550.000      180      Capacitor                          
+R3_25      ST4ETA103               TopLayer ST-4ETA103                    3200.000      2000.000      90       Potentiometer                      
+P1_2       Nrf24L01                TopLayer HDR2X4-42                     5975.000      2325.000      180      "Header, 4-Pin, Dual row"          
+C2_2       EMHS250GRA102MKE0S      TopLayer CAP-ELECTRO-KE0               4460.000      1300.000      180      Capacitor                          
+U3_2       Mic37252                TopLayer TO-263_(5)                    3975.000      2475.000      90       ""                                 
+S1_2       FSM4LPASTR              TopLayer SW4-SMT                       5363.583      2140.354      90       Switch                             
+R1_14      Res1                    TopLayer C1206                         5155.000      2230.000      270      Resistor                           
+R1_13      Res1                    TopLayer C1206                         5155.000      2030.000      270      Resistor                           
+R4_7       PCS2512DR1000ET         TopLayer 2512                          3900.000      4850.000      360      Resistor                           
+R4_6       PCS2512DR1000ET         TopLayer 2512                          2925.000      4850.000      360      Resistor                           
+L3_3       MPXV1D0830L3R3          TopLayer mpxv1D0830                    2700.274      3358.321      270      Inductor                           
+L3_2       MPXV1D0830L3R3          TopLayer mpxv1D0830                    3208.321      3049.726      360      Inductor                           
+L3_1       MPXV1D0830L3R3          TopLayer mpxv1D0830                    3208.321      2599.726      360      Inductor                           
+U4_3       Xra1201                 TopLayer SOP65P640X110-24N             4600.000      4450.000      360      ""                                 
+U3_3       TS391SN2T1G             TopLayer TSOP5(6)                      3472.240      3712.002      90       ""                                 
+U3_1       Xr77103-A1r0            TopLayer 32-TQFN_(4x4)                 2700.000      2700.000      360      "Dc to dc step down converter"     
+U2_1       Pca9685                 TopLayer SOP65P640X110-28N             3950.000      600.000       360      "Serial pwm led driver"            
+U1_2       FT232RL                 TopLayer SOP65P778X200-28N             3075.000      850.000       360      ""                                 
+S3_1       S1A                     TopLayer SW2-THR                       2200.000      1400.000      270      "Single-Pole, Single-Throw Switch" 
+S1_1       FSM4LPASTR              TopLayer SW4-SMT                       4788.583      2140.354      270      Switch                             
+R4_13      Res1                    TopLayer C1206                         4650.000      4850.000      90       Resistor                           
+R4_12      Res1                    TopLayer C0805                         4550.000      4850.000      90       Resistor                           
+R4_11      Res1                    TopLayer C1206                         4625.000      2600.000      270      Resistor                           
+R4_10      Res1                    TopLayer C1206                         4525.000      2600.000      270      Resistor                           
+R4_9       Res1                    TopLayer C1206                         4425.000      2600.000      270      Resistor                           
+R4_8       Res1                    TopLayer C1206                         4325.000      2600.000      270      Resistor                           
+R4_5       Res1                    TopLayer C1206                         3950.000      4675.000      360      Resistor                           
+R4_4       Res1                    TopLayer C1206                         2975.000      4675.000      360      Resistor                           
+R4_3       ST32ETB203              TopLayer ST-32EB                       3650.000      3025.000      180      Potentiometer                      
+R4_2       Res1                    TopLayer C1206                         2600.000      4650.000      180      Resistor                           
+R4_1       Res1                    TopLayer C1206                         3650.000      3200.000      360      Resistor                           
+R3_27      ST4ETA103               TopLayer ST-4ETA103                    3800.000      2000.000      90       Potentiometer                      
+R3_26      ST4ETA103               TopLayer ST-4ETA103                    3500.000      2000.000      90       Potentiometer                      
+R3_24      Res1                    TopLayer C1206                         3400.000      1500.000      270      Resistor                           
+R3_23      Res1                    TopLayer C1206                         3600.000      1500.000      270      Resistor                           
+R3_22      Res1                    TopLayer C1206                         3500.000      1500.000      270      Resistor                           
+R3_21      Res1                    TopLayer C1206                         3300.000      3450.000      270      Resistor                           
+R3_20      Res1                    TopLayer C1206                         4050.000      2100.000      180      Resistor                           
+R3_19      Res1                    TopLayer C1206                         4050.000      1900.000      360      Resistor                           
+R3_18      Res1                    TopLayer C1206                         3000.000      3800.000      180      Resistor                           
+R3_16      Res1                    TopLayer C1206                         3600.000      3925.000      360      Resistor                           
+R3_15      Res1                    TopLayer C1206                         3175.000      3850.000      360      Resistor                           
+R3_14      Res1                    TopLayer C1206                         3425.000      4025.000      360      Resistor                           
+R3_13      Res1                    TopLayer C1206                         3600.000      4025.000      360      Resistor                           
+R3_11      Res1                    TopLayer C1206                         4250.000      2000.000      360      Resistor                           
+R3_10      Res1                    TopLayer C1206                         4250.000      1900.000      180      Resistor                           
+R3_9       Res1                    TopLayer C1206                         2800.000      2000.000      180      Resistor                           
+R3_8       Res1                    TopLayer C1206                         2800.000      2100.000      360      Resistor                           
+R3_7       Res1                    TopLayer C1206                         2800.000      2200.000      360      Resistor                           
+R3_6       Res1                    TopLayer C1206                         2975.000      2000.000      180      Resistor                           
+R3_5       Res1                    TopLayer C1206                         2975.000      2100.000      360      Resistor                           
+R3_4       Res1                    TopLayer C1206                         2975.000      2200.000      360      Resistor                           
+R3_3       Res1                    TopLayer C1206                         2275.000      2775.000      360      Resistor                           
+R3_2       Res1                    TopLayer C1206                         2275.000      2675.000      180      Resistor                           
+R3_1       Res1                    TopLayer C1206                         2275.000      2575.000      180      Resistor                           
+R2_4       Res1                    TopLayer C1206                         3850.000      1153.740      360      Resistor                           
+R2_3       Res1                    TopLayer C1206                         4025.000      1153.740      360      Resistor                           
+R2_2       Res1                    TopLayer C1206                         3850.000      1253.740      360      Resistor                           
+R2_1       Res1                    TopLayer C1206                         4025.000      1253.740      360      Resistor                           
+R1_12      Res1                    TopLayer C1206                         4575.000      2021.850      90       Resistor                           
+R1_11      Res1                    TopLayer C1206                         3150.000      525.000       180      Resistor                           
+R1_10      Res1                    TopLayer C1206                         3150.000      425.000       180      Resistor                           
+R1_9       Res1                    TopLayer C1206                         5525.000      3500.000      270      Resistor                           
+R1_8       Res1                    TopLayer C1206                         5525.000      3296.850      270      Resistor                           
+R1_7       Res1                    TopLayer C1206                         3550.000      900.000       90       Resistor                           
+R1_6       Res1                    TopLayer C1206                         3450.000      900.000       90       Resistor                           
+R1_5       Res1                    TopLayer C1206                         5600.000      275.000       90       Resistor                           
+R1_4       Res1                    TopLayer C1206                         5700.000      275.000       270      Resistor                           
+R1_3       Res1                    TopLayer C1206                         5700.000      475.000       90       Resistor                           
+R1_2       Res1                    TopLayer C1206                         5600.000      475.000       270      Resistor                           
+R1_1       Res1                    TopLayer C1206                         4350.000      3125.000      270      Resistor                           
+Q3_2       T2N7002AK,LM            TopLayer SOT23_L                       3175.000      4025.000      90       "N-Channel MOSFET"                 
+Q3_1       RQ5L015SPTL             TopLayer SOT23_L                       3000.000      4025.000      90       "P-Channel MOSFET"                 
+Q2_2       T2N7002AK,LM            TopLayer SOT23_L                       3700.000      503.740       90       "N-Channel MOSFET"                 
+Q2_1       T2N7002AK,LM            TopLayer SOT23_L                       3700.000      703.740       90       "N-Channel MOSFET"                 
+Q1_2       T2N7002AK,LM            TopLayer SOT23_L                       5375.000      450.000       270      "N-Channel MOSFET"                 
+Q1_1       T2N7002AK,LM            TopLayer SOT23_L                       5375.000      250.000       270      "N-Channel MOSFET"                 
+P4_2       "Left Motor Connector"  TopLayer HDR1X2-42                     3800.000      5075.000      180      "Header, 2-Pin"                    
+P4_1       "Right Motor Connector" TopLayer HDR1X2-42                     2825.000      5075.000      180      "Header, 2-Pin"                    
+P3_1       1521860000              TopLayer HDR1X2-508-POLARIZED          2975.000      1450.000      360      "Header, 2-Pin"                    
+P2_13      "Bno055 port"           TopLayer HDR1X8-42                     4250.000      3675.000      90       "Header, 8-Pin"                    
+P2_12      "Header 3"              TopLayer HDR1X3-42                     4200.000      800.000       90       "Header, 3-Pin"                    
+P2_11      "Header 3"              TopLayer HDR1X3-42                     4350.000      800.000       90       "Header, 3-Pin"                    
+P2_10      "Header 3"              TopLayer HDR1X3-42                     4500.000      800.000       90       "Header, 3-Pin"                    
+P2_9       "Header 3"              TopLayer HDR1X3-42                     4650.000      800.000       90       "Header, 3-Pin"                    
+P2_8       "Header 3"              TopLayer HDR1X3-42                     4800.000      800.000       90       "Header, 3-Pin"                    
+P2_7       "Header 3"              TopLayer HDR1X3-42                     4950.000      800.000       90       "Header, 3-Pin"                    
+P2_6       "Header 3"              TopLayer HDR1X3-42                     5100.000      800.000       90       "Header, 3-Pin"                    
+P2_5       "Header 3"              TopLayer HDR1X3-42                     5250.000      800.000       90       "Header, 3-Pin"                    
+P2_4       "Header 3"              TopLayer HDR1X3-42                     5400.000      800.000       90       "Header, 3-Pin"                    
+P2_3       "Header 3"              TopLayer HDR1X3-42                     4530.000      4100.000      90       "Header, 3-Pin"                    
+P2_2       "Header 3"              TopLayer HDR1X3-42                     4700.000      4100.000      90       "Header, 3-Pin"                    
+P2_1       "Header 3"              TopLayer HDR1X3-42                     4925.000      325.000       90       "Header, 3-Pin"                    
+P1_4       Sonar                   TopLayer HDR1X4-42                     5150.000      375.000       90       "Header, 4-Pin"                    
+P1_1       USB3085-30-A            TopLayer USB-MICRO-CONNECTOR           2572.520      153.228       360      ""                                 
+M3_5       "Mounting Hole"         TopLayer MOUNTING-HOLE-M3              6043.000      257.000       0        "Generic Antenna"                  
+M3_4       "Mounting Hole"         TopLayer MOUNTING-HOLE-M3              1957.000      257.000       0        "Generic Antenna"                  
+M3_3       "Mounting Hole"         TopLayer MOUNTING-HOLE-M3              4000.000      3000.000      0        "Generic Antenna"                  
+M3_2       "Mounting Hole"         TopLayer MOUNTING-HOLE-M3              5492.250      5243.500      0        "Generic Antenna"                  
+M3_1       "Mounting Hole"         TopLayer MOUNTING-HOLE-M3              2507.750      5243.500      0        "Generic Antenna"                  
+D4_4       APT3216QBC/D            TopLayer C1206-POLARIZED               4450.000      2800.000      270      "Typical INFRARED GaAs LED"        
+D4_3       APT3216QBC/D            TopLayer C1206-POLARIZED               4350.000      2800.000      270      "Typical INFRARED GaAs LED"        
+D4_2       APT3216QBC/D            TopLayer C1206-POLARIZED               4250.000      2800.000      270      "Typical INFRARED GaAs LED"        
+D4_1       APT3216QBC/D            TopLayer C1206-POLARIZED               4150.000      2800.000      270      "Typical INFRARED GaAs LED"        
+D3_8       APT3216SGC              TopLayer C1206-POLARIZED               3400.000      1675.000      270      "Typical INFRARED GaAs LED"        
+D3_7       APT3216SGC              TopLayer C1206-POLARIZED               3600.000      1675.000      270      "Typical INFRARED GaAs LED"        
+D3_6       APT3216SGC              TopLayer C1206-POLARIZED               3500.000      1675.000      270      "Typical INFRARED GaAs LED"        
+D3_5       ACDBN160-HF             TopLayer C1206-POLARIZED               3200.000      3450.000      90       "Default Diode"                    
+D3_4       ACDBN160-HF             TopLayer C1206-POLARIZED               3100.000      3450.000      90       "Default Diode"                    
+D3_3       CZRF52C3V3              TopLayer C1206-POLARIZED               4250.000      2100.000      360      "Zener Diode"                      
+D3_1       CZRF52C3V3              TopLayer C1206-POLARIZED               3425.000      3925.000      360      "Zener Diode"                      
+D1_3       APT3216QBC/D            TopLayer C1206-POLARIZED               4450.000      3125.000      90       "Typical INFRARED GaAs LED"        
+D1_2       LTST-C230KRKT           TopLayer C1206-POLARIZED               3550.000      725.000       270      "Typical INFRARED GaAs LED"        
+D1_1       LTST-C230KRKT           TopLayer C1206-POLARIZED               3450.000      725.000       270      "Typical INFRARED GaAs LED"        
+C4_14      C1206C103M5RACTU        TopLayer C1206                         2600.000      4550.000      180      Capacitor                          
+C4_13      12063C104MAT2A          TopLayer C1206                         4650.000      4675.000      180      Capacitor                          
+C4_11      12063C104MAT2A          TopLayer C1206                         4125.000      4550.000      360      Capacitor                          
+C4_10      12063C104MAT2A          TopLayer C1206                         3575.000      4650.000      180      Capacitor                          
+C4_8       12063C104MAT2A          TopLayer C1206                         3150.000      4550.000      360      Capacitor                          
+C4_7       12063C104MAT2A          TopLayer C1206                         2600.000      4750.000      180      Capacitor                          
+C4_5       C1206C474M5RECAUTO      TopLayer C1206                         2500.000      4250.000      90       Capacitor                          
+C4_4       12063C104MAT2A          TopLayer C1206                         4125.000      4675.000      360      Capacitor                          
+C4_3       12063C104MAT2A          TopLayer C1206                         3150.000      4675.000      360      Capacitor                          
+C4_2       C1206C103M5RACTU        TopLayer C1206                         3950.000      4550.000      180      Capacitor                          
+C4_1       C1206C103M5RACTU        TopLayer C1206                         2975.000      4550.000      180      Capacitor                          
+C3_19      CM316X5R475K25AT        TopLayer C1206                         2800.000      2450.000      90       Capacitor                          
+C3_18      CM316X5R475K25AT        TopLayer C1206                         2625.000      2450.000      90       Capacitor                          
+C3_17      EMK316BBJ476ML-T        TopLayer C1206                         4050.000      2000.000      180      Capacitor                          
+C3_16      885382208005            TopLayer C1206                         4325.000      2400.000      270      Capacitor                          
+C3_15      12063C104MAT2A          TopLayer C1206                         2075.000      2375.000      360      Capacitor                          
+C3_14      EMK316BJ106MLHT         TopLayer C1206                         2075.000      2475.000      360      Capacitor                          
+C3_13      12063C104MAT2A          TopLayer C1206                         3650.000      3750.000      180      Capacitor                          
+C3_12      885382208005            TopLayer C1206                         2450.000      2775.000      360      Capacitor                          
+C3_11      CM316X5R475K25AT        TopLayer C1206                         2869.994      3050.000      270      Capacitor                          
+C3_10      CM316X5R475K25AT        TopLayer C1206                         2650.000      2950.000      270      Capacitor                          
+C3_9       885012208085            TopLayer C1206                         2900.000      3250.000      270      Capacitor                          
+C3_8       885012208085            TopLayer C1206                         3100.000      2850.000      360      Capacitor                          
+C3_7       885012208085            TopLayer C1206                         3100.000      2400.000      360      Capacitor                          
+C3_6       CML1206X7R472KT50V      TopLayer C1206                         2525.000      3025.000      360      Capacitor                          
+C3_5       CML1206X7R472KT50V      TopLayer C1206                         2450.000      2675.000      180      Capacitor                          
+C3_4       CML1206X7R472KT50V      TopLayer C1206                         2450.000      2575.000      180      Capacitor                          
+C3_3       CL31A226KOHNNNE         TopLayer C1206                         2900.000      3450.000      90       Capacitor                          
+C3_2       CL31A226KOHNNNE         TopLayer C1206                         3375.000      2850.000      360      Capacitor                          
+C3_1       CL31A226KOHNNNE         TopLayer C1206                         3375.000      2400.000      360      Capacitor                          
+C2_1       12063C104MAT2A          TopLayer C1206                         4000.000      850.000       180      Capacitor                          
+C1_7       CML1206C0G470JT50V      TopLayer C1206                         2975.000      525.000       180      Capacitor                          
+C1_6       CML1206C0G470JT50V      TopLayer C1206                         2975.000      425.000       360      Capacitor                          
+C1_5       EMK316BJ106MLHT         TopLayer C1206                         6000.000      2500.000      360      Capacitor                          
+C1_4       12063C104MAT2A          TopLayer C1206                         4450.000      3450.000      90       Capacitor                          
+C1_3       12063C104MAT2A          TopLayer C1206                         2825.000      900.000       270      Capacitor                          
+C1_2       C1206C103M5RACTU        TopLayer C1206                         3350.000      900.000       90       Capacitor                          
+C1_1       12063C104MAT2A          TopLayer C1206                         3350.000      725.000       90       Capacitor                          

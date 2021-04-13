@@ -1,0 +1,18 @@
+.DRV8829PWP :1 ;5A Half Bipolar Stepper Motor Driver with 32-Level Current Regulation (PH/EN Ctrl)
+SOP65P640X120-28N
+*STM M
+*NGS
+*PLB 1="CP1" 2="CP2" 3="VCP" 4="VM_1" 5="OUT1_1" 6="ISEN_1" 7="OUT2_1" 8="OUT2_2" 9="ISEN_2" 10="OUT1_2" 11="VM_2" 12="VREF_1" 13="VREF_2" 14="GND_1" 15="V3P3OUT" 16="NRESET" 17="NSLEEP" 18="NFAULT" 19="DECAY" 20="PHASE" 21="ENBL" 22="NC" 23="I0" 24="I1" 25="I2" 26="I3" 27="I4" 28="GND_2"
+*MXP 28
+*DFN DRV8829PWP
+~!Manufacturer_Name (Texas Instruments)
+~!Manufacturer_Part_Number (DRV8829PWP)
+~!Mouser Part Number (595-DRV8829PWP)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Texas-Instruments/DRV8829PWP?qs=UlfnwZ2x8nTwexgNYqnN7g%3D%3D)
+~!Arrow Part Number (DRV8829PWP)
+~!Link Arrow Price/Stock (https://www.arrow.com/en/products/drv8829pwp/texas-instruments)
+~!Link Datasheet (http://www.ti.com/product/DRV8829/datasheet)
+~!Height (1.2mm)
+~!3D_Model (DRV8829PWP)
+DRV8829PWP
+1.1!U 2.1!U 3.1!U 4.1!P 5.1!U 6.1!U 7.1!Y 8.1!Y 9.1!P 10.1!Y 11.1!P 12.1!I 13.1!I 14.1!G 28.1!G 27.1!I 26.1!I 25.1!I 24.1!I 23.1!I 22.1!U 21.1!I 20.1!I 19.1!I 18.1!Y 17.1!I 16.1!I 15.1!Y 

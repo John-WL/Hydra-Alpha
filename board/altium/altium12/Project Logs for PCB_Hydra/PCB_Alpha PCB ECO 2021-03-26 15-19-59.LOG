@@ -1,0 +1,58 @@
+Added Component: Designator=U4_1(SOP65P640X120-28N-GROUND_SINK)
+Added Component: Designator=U4_2(SOP65P640X120-28N-GROUND_SINK)
+Added Pin To Net: NetName=NetC4_1_1 Pin=U4_1-1
+Added Pin To Net: NetName=NetC4_1_2 Pin=U4_1-2
+Added Pin To Net: NetName=NetC4_3_2 Pin=U4_1-3
+Added Pin To Net: NetName=Battery Pin=U4_1-4
+Added Pin To Net: NetName=VRightMotor Pin=U4_1-5
+Added Pin To Net: NetName=NetR4_6_1 Pin=U4_1-6
+Added Pin To Net: NetName=NetP4_1_2 Pin=U4_1-7
+Added Pin To Net: NetName=NetP4_1_2 Pin=U4_1-8
+Added Pin To Net: NetName=NetR4_6_1 Pin=U4_1-9
+Added Pin To Net: NetName=VRightMotor Pin=U4_1-10
+Added Pin To Net: NetName=Battery Pin=U4_1-11
+Added Pin To Net: NetName=DriverCurrentControl Pin=U4_1-12
+Added Pin To Net: NetName=DriverCurrentControl Pin=U4_1-13
+Added Pin To Net: NetName=GND Pin=U4_1-14
+Added Pin To Net: NetName=NetC4_5_1 Pin=U4_1-15
+Added Pin To Net: NetName=bdcEnable Pin=U4_1-16
+Added Pin To Net: NetName=bdcEnable Pin=U4_1-17
+Added Pin To Net: NetName=NetU4_1_20 Pin=U4_1-20
+Added Pin To Net: NetName=bdcEnable Pin=U4_1-21
+Added Pin To Net: NetName=NetU4_1_23 Pin=U4_1-23
+Added Pin To Net: NetName=NetU4_1_24 Pin=U4_1-24
+Added Pin To Net: NetName=NetU4_1_25 Pin=U4_1-25
+Added Pin To Net: NetName=NetU4_1_26 Pin=U4_1-26
+Added Pin To Net: NetName=NetU4_1_27 Pin=U4_1-27
+Added Pin To Net: NetName=GND Pin=U4_1-28
+Added Pin To Net: NetName=GND Pin=U4_1-28
+Added Pin To Net: NetName=NetC4_2_1 Pin=U4_2-1
+Added Pin To Net: NetName=NetC4_2_2 Pin=U4_2-2
+Added Pin To Net: NetName=NetC4_4_2 Pin=U4_2-3
+Added Pin To Net: NetName=Battery Pin=U4_2-4
+Added Pin To Net: NetName=VLeftMotor Pin=U4_2-5
+Added Pin To Net: NetName=NetR4_7_1 Pin=U4_2-6
+Added Pin To Net: NetName=NetP4_2_2 Pin=U4_2-7
+Added Pin To Net: NetName=NetP4_2_2 Pin=U4_2-8
+Added Pin To Net: NetName=NetR4_7_1 Pin=U4_2-9
+Added Pin To Net: NetName=VLeftMotor Pin=U4_2-10
+Added Pin To Net: NetName=Battery Pin=U4_2-11
+Added Pin To Net: NetName=DriverCurrentControl Pin=U4_2-12
+Added Pin To Net: NetName=DriverCurrentControl Pin=U4_2-13
+Added Pin To Net: NetName=GND Pin=U4_2-14
+Added Pin To Net: NetName=bdcEnable Pin=U4_2-16
+Added Pin To Net: NetName=bdcEnable Pin=U4_2-17
+Added Pin To Net: NetName=NetU4_2_20 Pin=U4_2-20
+Added Pin To Net: NetName=bdcEnable Pin=U4_2-21
+Added Pin To Net: NetName=NetU4_2_23 Pin=U4_2-23
+Added Pin To Net: NetName=NetU4_2_24 Pin=U4_2-24
+Added Pin To Net: NetName=NetU4_2_25 Pin=U4_2-25
+Added Pin To Net: NetName=NetU4_2_26 Pin=U4_2-26
+Added Pin To Net: NetName=NetU4_2_27 Pin=U4_2-27
+Added Pin To Net: NetName=GND Pin=U4_2-28
+Added Pin To Net: NetName=GND Pin=U4_2-28
+Added Member To Class: ClassName=brushed_motor_drivers Member=Component U4_1 Drv8829
+Added Member To Class: ClassName=brushed_motor_drivers Member=Component U4_2 Drv8829
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

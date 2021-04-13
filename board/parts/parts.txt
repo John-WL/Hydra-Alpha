@@ -1,0 +1,18 @@
+p-chan: https://www.digikey.ca/en/products/detail/rohm-semiconductor/RQ5L015SPTL/5042803
+
+n-chan: https://www.digikey.ca/en/products/detail/diodes-incorporated/DMN61D9UW-7/5453122
+
+single comparator: https://www.digikey.ca/en/products/detail/on-semiconductor/TS391SN2T1G/3906387
+
+quad comparator: https://www.digikey.ca/en/products/detail/stmicroelectronics/TSX339IYPT/10057114
+
+voltage regulator for usb: https://www.digikey.ca/en/products/detail/microchip-technology/MIC37252WU/1029361
+
+
+
+n-chan puissance: https://www.diodes.com/assets/Datasheets/ds31959.pdf
+
+p-chan puissance: https://www.digikey.ca/en/products/detail/stmicroelectronics/STD15P6F6AG/6138297
+
+flyback diodes pour puissance: https://www.digikey.ca/en/products/detail/nexperia-usa-inc/PMEG6045ETPX/4289725
+                             : https://ixapps.ixys.com/DataSheet/bb18b9ad-80c5-450d-b256-6c9a3ad87b6b.pdf

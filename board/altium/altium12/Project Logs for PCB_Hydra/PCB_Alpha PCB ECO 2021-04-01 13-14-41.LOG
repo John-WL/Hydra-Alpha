@@ -1,0 +1,57 @@
+Removed Pin From Net: NetName=GND_S Pin=C3_10-1
+Removed Pin From Net: NetName=GND_S Pin=C3_12-1
+Removed Pin From Net: NetName=GND_S Pin=C3_13-1
+Removed Pin From Net: NetName=GND_S Pin=C3_14-1
+Removed Pin From Net: NetName=GND_S Pin=C3_15-1
+Removed Pin From Net: NetName=GND_S Pin=C3_18-1
+Removed Pin From Net: NetName=GND_S Pin=C3_19-1
+Removed Pin From Net: NetName=GND_S Pin=D3_1-1
+Removed Pin From Net: NetName=GND_S Pin=D3_3-1
+Removed Pin From Net: NetName=GND_S Pin=Q3_2-2
+Removed Pin From Net: NetName=GND_S Pin=R3_1-2
+Removed Pin From Net: NetName=GND_S Pin=R3_2-2
+Removed Pin From Net: NetName=GND_S Pin=R3_3-1
+Removed Pin From Net: NetName=GND_S Pin=R3_7-1
+Removed Pin From Net: NetName=GND_S Pin=R3_8-1
+Removed Pin From Net: NetName=GND_S Pin=R3_9-2
+Removed Pin From Net: NetName=GND_S Pin=R3_11-1
+Removed Pin From Net: NetName=GND_S Pin=R3_14-1
+Removed Pin From Net: NetName=GND_S Pin=R3_18-1
+Removed Pin From Net: NetName=GND_S Pin=T3_7-1
+Removed Pin From Net: NetName=GND_S Pin=T3_9-1
+Removed Pin From Net: NetName=GND_S Pin=U3_1-5
+Removed Pin From Net: NetName=GND_S Pin=U3_1-19
+Removed Pin From Net: NetName=GND_S Pin=U3_1-25
+Removed Pin From Net: NetName=GND_S Pin=U3_1-27
+Removed Pin From Net: NetName=GND_S Pin=U3_3-2
+Added Pin To Net: NetName=GND Pin=C3_10-1
+Added Pin To Net: NetName=GND Pin=C3_12-1
+Added Pin To Net: NetName=GND Pin=C3_13-1
+Added Pin To Net: NetName=GND Pin=C3_14-1
+Added Pin To Net: NetName=GND Pin=C3_15-1
+Added Pin To Net: NetName=GND Pin=C3_18-1
+Added Pin To Net: NetName=GND Pin=C3_19-1
+Added Pin To Net: NetName=GND Pin=D3_1-1
+Added Pin To Net: NetName=GND Pin=D3_3-1
+Added Pin To Net: NetName=GND Pin=Q3_2-2
+Added Pin To Net: NetName=GND Pin=R3_1-2
+Added Pin To Net: NetName=GND Pin=R3_2-2
+Added Pin To Net: NetName=GND Pin=R3_3-1
+Added Pin To Net: NetName=GND Pin=R3_7-1
+Added Pin To Net: NetName=GND Pin=R3_8-1
+Added Pin To Net: NetName=GND Pin=R3_9-2
+Added Pin To Net: NetName=GND Pin=R3_11-1
+Added Pin To Net: NetName=GND Pin=R3_14-1
+Added Pin To Net: NetName=GND Pin=R3_18-1
+Added Pin To Net: NetName=GND Pin=T3_7-1
+Added Pin To Net: NetName=GND Pin=T3_9-1
+Added Pin To Net: NetName=GND Pin=U3_1-5
+Added Pin To Net: NetName=GND Pin=U3_1-19
+Added Pin To Net: NetName=GND Pin=U3_1-25
+Added Pin To Net: NetName=GND Pin=U3_1-27
+Added Pin To Net: NetName=GND Pin=U3_3-2
+Added Member To Class: ClassName=main_control Member=Component C1_6 CML1206C0G470JT50V
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

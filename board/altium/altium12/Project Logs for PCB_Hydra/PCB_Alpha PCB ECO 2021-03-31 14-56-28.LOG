@@ -1,0 +1,16 @@
+Added Component: Designator=C2_4(CAP-ELECTRO-KE0)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Radial Cap, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "RAD-0.3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "1000µF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=5v-2 Pin=C2_4-1
+Added Pin To Net: NetName=GND Pin=C2_4-2
+Added Member To Class: ClassName=main_control Member=Component C1_6 CML1206C0G470JT50V
+Added Member To Class: ClassName=servo_driver_and_imu_device Member=Component C2_4 EMHS250GRA102MKE0S
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

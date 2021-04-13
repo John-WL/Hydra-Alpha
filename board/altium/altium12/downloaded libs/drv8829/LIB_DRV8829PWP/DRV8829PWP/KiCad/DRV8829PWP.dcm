@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP DRV8829PWP
+D 5A Half Bipolar Stepper Motor Driver with 32-Level Current Regulation (PH/EN Ctrl)
+K
+F http://www.ti.com/product/DRV8829/datasheet
+$ENDCMP
+#
+#End Doc Library

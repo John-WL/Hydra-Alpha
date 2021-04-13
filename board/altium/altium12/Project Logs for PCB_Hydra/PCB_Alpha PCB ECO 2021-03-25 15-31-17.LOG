@@ -1,0 +1,10 @@
+Added Component: Designator=U3_2(TO-263 (5))
+Added Pin To Net: NetName=5vProgUsb Pin=U3_2-1
+Added Pin To Net: NetName=5vProgUsb Pin=U3_2-2
+Added Pin To Net: NetName=GND Pin=U3_2-3
+Added Pin To Net: NetName=GND Pin=U3_2-3
+Added Pin To Net: NetName=NetD3_5_1 Pin=U3_2-4
+Added Pin To Net: NetName=NetR3_19_2 Pin=U3_2-5
+Added Member To Class: ClassName=power_supply_and_battery_management Member=Component U3_2 Mic37252
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management

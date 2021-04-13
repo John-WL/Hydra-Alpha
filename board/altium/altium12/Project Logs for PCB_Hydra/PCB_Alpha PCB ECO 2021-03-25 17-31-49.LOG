@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=3v3 Pin=C2_1-1
+Added Pin To Net: NetName=5v-2 Pin=C2_1-1
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management

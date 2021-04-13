@@ -1,0 +1,18 @@
+.FT232RL :1 ;USB to serial TTL level UART FT232RL FT232RL, Universal Asynchronous Receiver & Transmitter 3MBd, 28-Pin, SSOP
+SOP65P778X200-28N
+*STM IC
+*NGS
+*PLB 1="TXD" 2="DTR#" 3="RTS#" 4="VCCIO" 5="RXD" 6="RI#" 7="GND_1" 8="NC_1" 9="DSR#" 10="DCD#" 11="CTS#" 12="CBUS4" 13="CBUS2" 14="CBUS3" 15="USBDP" 16="USBDM" 17="3V3OUT" 18="GND_2" 19="RESET#" 20="VCC" 21="GND_3" 22="CBUS1" 23="CBUS0" 24="NC_2" 25="AGND" 26="TEST" 27="OSCI" 28="OSCO"
+*MXP 28
+*DFN FT232RL
+~!Manufacturer_Name (FTDI Chip)
+~!Manufacturer_Part_Number (FT232RL)
+~!Mouser Part Number (-)
+~!Mouser Price/Stock (-)
+~!Arrow Part Number (FT232RL)
+~!Link Arrow Price/Stock (https://www.arrow.com/en/products/ft232rl/ftdi-chip)
+~!Link Datasheet (http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232R.pdf)
+~!Height (2mm)
+~!3D_Model (FT232RL)
+FT232RL
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 8.1!U 9.1!U 10.1!U 11.1!U 12.1!U 13.1!U 14.1!U 28.1!U 27.1!U 26.1!U 25.1!U 24.1!U 23.1!U 22.1!U 21.1!U 20.1!U 19.1!U 18.1!U 17.1!U 16.1!U 15.1!U 

@@ -1,0 +1,14 @@
+Change Component Comment : Designator=C2_2 Old Comment=107AXZ016MQ5 New Comment=EMHS250GRA102MKE0S
+Change component parameters: Designator = "C2_2" ("C2_2"); Footprint = "CAP-ELECTRO-KE0"; UniqueID = "\MAWMVWPA" ("\MAWMVWPA")
+Change component parameters (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageDescription"; Value = "Radial Cap, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageReference"; Value = "RAD-0.3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "1000µF"; VariantName = "[No Variations]"
+Added Member To Class: ClassName=main_control Member=Component C1_6 CML1206C0G470JT50V
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

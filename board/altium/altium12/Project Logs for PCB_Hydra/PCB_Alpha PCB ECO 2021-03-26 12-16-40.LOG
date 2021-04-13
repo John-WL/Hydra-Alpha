@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=GND Pin=T3_10-1
+Added Pin To Net: NetName=Battery Pin=T3_10-1
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

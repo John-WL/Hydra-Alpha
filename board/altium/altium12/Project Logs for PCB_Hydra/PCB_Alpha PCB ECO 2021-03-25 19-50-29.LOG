@@ -1,0 +1,18 @@
+Removed Pin From Net: NetName=Battery Pin=C4_7-1
+Removed Pin From Net: NetName=Battery Pin=C4_8-1
+Removed Pin From Net: NetName=Battery Pin=C4_9-1
+Removed Pin From Net: NetName=Battery Pin=C4_10-1
+Removed Pin From Net: NetName=Battery Pin=C4_11-1
+Removed Pin From Net: NetName=Battery Pin=C4_12-1
+Added Pin To Net: NetName=NetP4_1_1 Pin=C4_7-1
+Added Pin To Net: NetName=NetP4_1_1 Pin=C4_8-1
+Added Pin To Net: NetName=NetP4_1_1 Pin=C4_9-1
+Added Pin To Net: NetName=NetP4_2_1 Pin=C4_10-1
+Added Pin To Net: NetName=NetP4_2_1 Pin=C4_11-1
+Added Pin To Net: NetName=NetP4_2_1 Pin=C4_12-1
+Change Net Name : Old Net Name=NetP4_1_1 New Net Name=VRightMotor
+Change Net Name : Old Net Name=NetP4_2_1 New Net Name=VLeftMotor
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

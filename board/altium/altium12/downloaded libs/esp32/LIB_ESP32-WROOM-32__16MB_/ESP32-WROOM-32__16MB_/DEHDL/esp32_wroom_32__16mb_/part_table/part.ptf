@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'ESP32_WROOM_32__16MB_'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Espressif Systems", "ESP32-WROOM-32 (16MB)" (!) = "", "ESP32WROOM3216MB", "Other", "356-ESPWROOM3216MB", "https://www.mouser.co.uk/ProductDetail/Espressif-Systems/ESP32-WROOM-32-16MB?qs=w%2Fv1CP2dgqrcPyEPuQvO1A%3D%3D", "", "", "WiFi Modules (802.11)", "https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf", "3.2 mm"
+END_PART
+
+END.

@@ -1,0 +1,25 @@
+Removed Pin From Net: NetName=3v3 Pin=Q1_1-2
+Removed Pin From Net: NetName=SonarTrig Pin=Q1_1-3
+Removed Pin From Net: NetName=3v3 Pin=Q1_2-2
+Removed Pin From Net: NetName=SonarEcho Pin=Q1_2-3
+Removed Pin From Net: NetName=3v3 Pin=Q2_1-2
+Removed Pin From Net: NetName=Sda3v3 Pin=Q2_1-3
+Removed Pin From Net: NetName=3v3 Pin=Q2_2-2
+Removed Pin From Net: NetName=Scl3v3 Pin=Q2_2-3
+Removed Pin From Net: NetName=Schmitt Pin=Q3_1-2
+Removed Pin From Net: NetName=5vVccBuckLogic Pin=Q3_1-3
+Removed Pin From Net: NetName=Schmitt Pin=Q3_4-2
+Removed Pin From Net: NetName=GND Pin=Q3_4-3
+Added Pin To Net: NetName=SonarTrig Pin=Q1_1-2
+Added Pin To Net: NetName=3v3 Pin=Q1_1-3
+Added Pin To Net: NetName=SonarEcho Pin=Q1_2-2
+Added Pin To Net: NetName=3v3 Pin=Q1_2-3
+Added Pin To Net: NetName=Sda3v3 Pin=Q2_1-2
+Added Pin To Net: NetName=3v3 Pin=Q2_1-3
+Added Pin To Net: NetName=Scl3v3 Pin=Q2_2-2
+Added Pin To Net: NetName=3v3 Pin=Q2_2-3
+Added Pin To Net: NetName=5vVccBuckLogic Pin=Q3_1-2
+Added Pin To Net: NetName=Schmitt Pin=Q3_1-3
+Added Pin To Net: NetName=GND Pin=Q3_4-2
+Added Pin To Net: NetName=Schmitt Pin=Q3_4-3
+Added Room: Name=power_supply_and_battery_management

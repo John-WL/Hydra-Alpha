@@ -1,0 +1,42 @@
+Removed Pin From Net: NetName=DriverCurrentControl Pin=C4_15-1
+Removed Pin From Net: NetName=DriverCurrentControl Pin=U4_2-12
+Removed Pin From Net: NetName=DriverCurrentControl Pin=U4_2-13
+Change component parameters: Designator = "C4_2" ("C4_2"); Footprint = "C1206"; UniqueID = "\YIUPAMMA" ("\YIUPAMMA")
+Change component parameters (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageDescription"; Value = "Radial Cap, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageReference"; Value = "RAD-0.3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C4_14" ("C4_14"); Footprint = "C1206"; UniqueID = "\MMNMDFBQ" ("\MMNMDFBQ")
+Change component parameters (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageDescription"; Value = "Radial Cap, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageReference"; Value = "RAD-0.3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=R4_14(C1206)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.3 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "4K3"; VariantName = "[No Variations]"
+Change Net Name : Old Net Name=DriverCurrentControl New Net Name=NetC4_14_1
+Added Pin To Net: NetName=DriverCurrentControl Pin=R4_1-2
+Added Pin To Net: NetName=DriverCurrentControl Pin=R4_3-2
+Added Pin To Net: NetName=DriverCurrentControl Pin=R4_14-2
+Added Net: Name=DriverCurrentControl
+Added Pin To Net: NetName=NetC4_15_1 Pin=C4_15-1
+Added Pin To Net: NetName=NetC4_15_1 Pin=R4_14-1
+Added Pin To Net: NetName=NetC4_15_1 Pin=U4_2-12
+Added Pin To Net: NetName=NetC4_15_1 Pin=U4_2-13
+Added Net: Name=NetC4_15_1
+Added Member To Class: ClassName=brushed_motor_drivers Member=Component R4_14 Res1
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

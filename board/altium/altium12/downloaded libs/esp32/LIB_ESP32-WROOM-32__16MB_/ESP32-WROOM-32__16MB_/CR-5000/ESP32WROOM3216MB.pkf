@@ -1,0 +1,10 @@
+(unit MM)
+
+(package "ESP32WROOM3216MB"
+    (type UNDEF)
+    (uver 2)
+    (mountForm default
+        (footprintRef "ESP32WROOM3216MB")
+        (spec "default")
+    )
+)

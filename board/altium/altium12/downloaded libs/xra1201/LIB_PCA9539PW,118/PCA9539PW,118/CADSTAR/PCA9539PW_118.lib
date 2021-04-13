@@ -1,0 +1,18 @@
+.PCA9539PW_118 :1 ;16-bit I2C-bus and SMBus low power I/O port with interrupt and reset
+SOP65P640X110-24N
+*STM IC
+*NGS
+*PLB 1="'INT'" 2="A1" 3="'RESET'" 4="IO0_0" 5="IO0_01" 6="IO0_02" 7="IO0_03" 8="IO0_04" 9="IO0_05" 10="IO0_06" 11="IO0_07" 12="VSS" 13="IO1_0" 14="IO1_1" 15="IO1_2" 16="IO1_3" 17="IO1_4" 18="IO1_5" 19="IO1_6" 20="IO1_7" 21="A0" 22="SCL" 23="SDA" 24="VDD"
+*MXP 24
+*DFN PCA9539PW_118
+~!Manufacturer_Name (NXP)
+~!Manufacturer_Part_Number (PCA9539PW,118)
+~!Mouser Part Number (771-PCA9539PW-T)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/NXP-Semiconductors/PCA9539PW118?qs=LOCUfHb8d9tPW%252BCH%252Bhc6uw%3D%3D)
+~!Arrow Part Number (PCA9539PW,118)
+~!Link Arrow Price/Stock (https://www.arrow.com/en/products/pca9539pw118/nxp-semiconductors)
+~!Link Datasheet (http://www.nxp.com/docs/en/data-sheet/PCA9539_PCA9539R.pdf)
+~!Height (1.1mm)
+~!3D_Model (PCA9539PW,118)
+PCA9539PW_118
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 8.1!U 9.1!U 10.1!U 11.1!U 12.1!U 24.1!U 23.1!U 22.1!U 21.1!U 20.1!U 19.1!U 18.1!U 17.1!U 16.1!U 15.1!U 14.1!U 13.1!U 
