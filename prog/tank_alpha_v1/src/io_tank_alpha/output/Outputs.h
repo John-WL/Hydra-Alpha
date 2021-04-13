@@ -12,6 +12,7 @@
 #include "../../utils/function_container/FunctionContainer.h"
 
 #include "../bdc_motor/BdcMotor.h"
+#include "../servo_motor/ServoMotor.h"
 
 class Outputs
 {
@@ -21,6 +22,10 @@ class Outputs
 
         static BdcMotor bdcMotorLeft;
         static BdcMotor bdcMotorRight;
+
+        static ServoMotor servoMotorSonarZ;
+        static ServoMotor servoMotorCameraZ;
+        static ServoMotor servoMotorCameraY;
         
     private:
         static std::vector<void (*)(void)> _updateFunctions;

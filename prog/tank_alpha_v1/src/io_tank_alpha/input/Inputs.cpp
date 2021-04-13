@@ -12,10 +12,12 @@
 #include "../../peripheral/i2c/bno055/Bno055.h"
 
 #include "../battery/BatteryVoltageSensor.h"
+#include "../sonar/Sonar.h"
 
 void Inputs::init()
 {
     BatteryVoltageSensor::init();
+    Sonar::init([](long distance){});
     Bno055::init();
 }
 
@@ -28,11 +30,7 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     []()
     {
         BatteryVoltageSensor::sample();
-        //Serial.println(BatteryVoltageSensor::getValue());
-    },
-    []()
-    {
-        //Serial.println("this is the part where I send useless data into the monitor for no apparent reason");
+        Sonar::requestUpdate();
     }
 };
 

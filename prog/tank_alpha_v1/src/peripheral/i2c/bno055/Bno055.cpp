@@ -10,7 +10,8 @@ void Bno055::init()
 
 void Bno055::update()
 {
-    _bno055.getEvent(&data);
+    _bno055.getEvent(&_data);
 }
 
+sensors_event_t Bno055::_data = {};
 Adafruit_BNO055 Bno055::_bno055 = Adafruit_BNO055(55, 0x29);

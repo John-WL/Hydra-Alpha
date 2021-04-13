@@ -15,8 +15,8 @@ class Bno055
         static void init();
         static void update();
 
-        static sensors_event_t data;
     private:
+        static sensors_event_t _data;
         static Adafruit_BNO055 _bno055;
 };
 

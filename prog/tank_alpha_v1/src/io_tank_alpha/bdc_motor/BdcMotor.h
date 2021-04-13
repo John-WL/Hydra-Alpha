@@ -2,27 +2,23 @@
 
 // class used to control the bdc motors
 
-// ********important********
-// the bdcs are swapped in the schematic!!!
-// (left is actually right and right is actually left)
-
 #ifndef BDC_MOTOR_H
 #define BDC_MOTOR_H
 
 #define MAX_BDC_MOTOR_TORQUE 32
 
+#define BDC_MOTOR_BITS_PER_CHANNEL 6
+
 class BdcMotor
 {
     public:
-        BdcMotor(void (*)(signed char));
+        BdcMotor(unsigned char channelNumber);
         void update();
         void setMotorTorque(signed char);
 
-        static void generalHardwareAccess(signed char motorTorque, unsigned char bitOffset);
-
     private:
-        signed char _motorTorque;
-        void (*_hardwareAccessFunction)(signed char);
+        unsigned char _channelNumber;
+        float _motorTorque;
 };
 
 #endif

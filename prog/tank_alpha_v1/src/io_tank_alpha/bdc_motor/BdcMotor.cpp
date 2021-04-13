@@ -2,45 +2,36 @@
 
 #include "BdcMotor.h"
 
-//#include "../../peripheral/i2c/xra1201/Xra1201.h"
+#include "Arduino.h"
 
-// initialization done once every time we create a new object of this type
-BdcMotor::BdcMotor(void (*hardwareAccessFunction)(signed char)) : 
-    _hardwareAccessFunction{hardwareAccessFunction}, 
+#include "../../peripheral/i2c/xra1201/Xra1201.h"
+
+BdcMotor::BdcMotor(unsigned char channelNumber) : 
+    _channelNumber{channelNumber},
     _motorTorque{0}
 {}
 
 void BdcMotor::update()
 {
-    this->_hardwareAccessFunction(this->_motorTorque);
+    unsigned char unsignedMotorTorque = abs(_motorTorque);
+    unsigned int bitShiftAmount = _channelNumber * BDC_MOTOR_BITS_PER_CHANNEL;
+
+    Xra1201::value &= ~0x3F << bitShiftAmount;
+    Xra1201::value |= unsignedMotorTorque << bitShiftAmount;
+    Xra1201::value |= _motorTorque < 0 ? 0x20 << bitShiftAmount : 0;
+    
+    Xra1201::update();
 }
 
-void BdcMotor::setMotorTorque(signed char newTorque)
+void BdcMotor::setMotorTorque(signed char desiredMotorTorque)
 {
-    if(newTorque > MAX_BDC_MOTOR_TORQUE)
+    _motorTorque = desiredMotorTorque;
+    if(desiredMotorTorque > MAX_BDC_MOTOR_TORQUE)
     {
-        newTorque = MAX_BDC_MOTOR_TORQUE;
+        _motorTorque = MAX_BDC_MOTOR_TORQUE;
     }
-    else if(newTorque < -MAX_BDC_MOTOR_TORQUE)
+    else if(desiredMotorTorque < -MAX_BDC_MOTOR_TORQUE)
     {
-        newTorque = -MAX_BDC_MOTOR_TORQUE;
+        _motorTorque = -MAX_BDC_MOTOR_TORQUE;
     }
-    this->_motorTorque = newTorque;
-}
-
-void BdcMotor::generalHardwareAccess(signed char motorTorque, unsigned char bitOffset)
-{
-    /*bool isTorqueNegative = false;
-    if(motorTorque < 0)
-    {
-        isTorqueNegative = true;
-        motorTorque = -motorTorque;
-    }
-    Xra1201::value ^= 0x3F << bitOffset;
-    Xra1201::value |= motorTorque << bitOffset;
-    if(isTorqueNegative)
-    {
-        Xra1201::value |= 0x20 << bitOffset;
-    }
-    Xra1201::update();*/
 }

@@ -17,6 +17,7 @@ class Xra1201
 
     private:
         static I2cDevice _i2cDevice;
+        static unsigned int _previousValue;
 };
 
 #endif

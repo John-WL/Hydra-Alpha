@@ -1,0 +1,8 @@
+Change Component Comment : Designator=P4_2 Old Comment=Left Motor Connector New Comment=Right Motor Connector
+Change Component Comment : Designator=P4_1 Old Comment=Right Motor Connector New Comment=Left Motor Connector
+Change Net Name : Old Net Name=VLeftMotor New Net Name=VRightMotor
+Change Net Name : Old Net Name=VRightMotor New Net Name=VLeftMotor
+Added Room: Name=brushed_motor_drivers
+Added Room: Name=main_control
+Added Room: Name=power_supply_and_battery_management
+Added Room: Name=servo_driver_and_imu_device

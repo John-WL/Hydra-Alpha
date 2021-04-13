@@ -9,6 +9,9 @@
 
 #include "../../utils/sequence/Sequence.h"
 
+#include "../bdc_motor/BdcMotor.h"
+#include "../servo_motor/ServoMotor.h"
+
 #include "../../peripheral/i2c/xra1201/Xra1201.h"
 
 void Outputs::init()
@@ -22,28 +25,26 @@ void Outputs::update()
 }
 
 // bdc definitions
-BdcMotor Outputs::bdcMotorLeft
-{
-    [](signed char motorTorque)
-    {
-        BdcMotor::generalHardwareAccess(motorTorque, 0);
-    }
-};
+BdcMotor Outputs::bdcMotorLeft{0};
+BdcMotor Outputs::bdcMotorRight{1};
 
-BdcMotor Outputs::bdcMotorRight
-{
-    [](signed char motorTorque)
-    {
-        BdcMotor::generalHardwareAccess(motorTorque, 6);
-    }
-};
+// servo definitions
+ServoMotor Outputs::servoMotorSonarZ{0};
+ServoMotor Outputs::servoMotorCameraZ{1};
+ServoMotor Outputs::servoMotorCameraY{2};
 
 // function sequence to update
 std::vector<void (*)(void)> Outputs::_updateFunctions = {
     []()
     {
-        Outputs::bdcMotorLeft.update();
-        Outputs::bdcMotorRight.update();
+        bdcMotorLeft.update();
+        bdcMotorRight.update();
+    },
+    []()
+    {
+        servoMotorSonarZ.update();
+        servoMotorCameraZ.update();
+        servoMotorCameraY.update();
     }
 };
 
