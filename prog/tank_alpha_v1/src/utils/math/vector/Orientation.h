@@ -13,6 +13,10 @@ class Orientation3
         Vector3 front;
         Vector3 roof;
 
+        Orientation3 rotate(Vector3 rotator);
+
+        static Orientation3 eulerXyzToOrientation(Vector3 eulerXyz);
+
     private:
 
 };
