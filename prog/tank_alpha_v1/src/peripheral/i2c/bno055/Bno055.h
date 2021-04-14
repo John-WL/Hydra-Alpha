@@ -15,14 +15,14 @@ class Bno055 : Imu
 {
     public:
         Bno055();
-        void update();
+        void update() const&;
 
     private:
         sensors_event_t _data;
         Adafruit_BNO055 _bno055;
-        Vector3* _acceleration;
-        Orientation3* _orientation;
-        Vector3* _angularVelocity;
+        Vector3 _acceleration;
+        Orientation3 _orientation;
+        Vector3 _angularVelocity;
         
 };
 

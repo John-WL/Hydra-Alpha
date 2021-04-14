@@ -6,10 +6,10 @@
 class Imu
 {
     public:
-        virtual Vector3* acceleration() = 0;
+        virtual Vector3 acceleration() = 0;
 
-        virtual Orientation3* orientation() = 0;
-        virtual Vector3* angularVelocity() = 0;
+        virtual Orientation3 orientation() = 0;
+        virtual Vector3 angularVelocity() = 0;
 
     private:
         
