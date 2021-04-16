@@ -3,15 +3,19 @@
 #ifndef I2C_DEVICE_H
 #define I2C_DEVICE_H
 
+#include "Vector.h"
+
 class I2cDevice
 {
     public:
         I2cDevice(unsigned char i2cDeviceAddress);
 
-        void transmit(unsigned char* data, unsigned char dataLength);
-        unsigned char* receive(unsigned char dataLength);
+        void transmit(std::vector<unsigned char> data);
+        std::vector<unsigned char> receive(unsigned char dataLengthRequest);
+
     private:
         unsigned char _i2cDeviceAddress;
+        
 };
 
 #endif

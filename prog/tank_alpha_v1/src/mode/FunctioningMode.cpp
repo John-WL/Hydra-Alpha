@@ -27,4 +27,14 @@ void FunctioningMode::execute()
     }
 }
 
+void FunctioningMode::set(unsigned char functionningMode)
+{
+    _functioningMode = functionningMode;
+}
+
+unsigned char FunctioningMode::get()
+{
+    return _functioningMode;
+}
+
 unsigned char FunctioningMode::_functioningMode = LISTENING_TO_YOUR_COMMANDS_FUNCTIONING_MODE;

@@ -12,6 +12,8 @@ class FunctioningMode
 {
     public:
         static void execute();
+        static void set(unsigned char functionningMode);
+        static unsigned char get();
         
     private:
         static unsigned char _functioningMode;

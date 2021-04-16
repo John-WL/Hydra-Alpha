@@ -2,40 +2,44 @@
 
 #include "Xra1201.h"
 
+#include "Vector.h"
+
 void Xra1201::init()
 {
-    static unsigned char data[2];
+    std::vector<unsigned char> data{};
 
     // Set the output registers value to 0 before 
     // changing the gpios to actual outputs.
     value = 0;
     update();
     
-    data[0] = 0x06; // gpio config P0-P7
-    data[1] = 0;    // the whole port is set as output
-    _i2cDevice.transmit(data, sizeof(data));
+    data.push_back(0x06); // gpio config P0-P7
+    data.push_back(0);    // the whole port is set as output
+    _i2cDevice.transmit(data);
 
-    data[0] = 0x07; // gpio config P8-P15
-    data[1] = 0;    // the whole port is set as output
-    _i2cDevice.transmit(data, sizeof(data));
+    data.clear();
+    data.push_back(0x07); // gpio config P8-P15
+    data.push_back(0);    // the whole port is set as output
+    _i2cDevice.transmit(data);
 }
 
 void Xra1201::update()
 {
-    static unsigned char data[2];
+    std::vector<unsigned char> data{};
 
     // don't communicate for no reason
     if(value == _previousValue) return;
 
     // set P0-P7
-    data[0] = 0x02; // gpio output control register
-    data[1] = (unsigned char)value;
-    _i2cDevice.transmit(data, 2);
+    data.push_back(0x02); // gpio output control register
+    data.push_back((unsigned char) value);
+    _i2cDevice.transmit(data);
 
     // set P8-P15
-    data[0] = 0x03; // gpio output control register
-    data[1] = (unsigned char)(value >> 8);
-    _i2cDevice.transmit(data, 2);
+    data.clear();
+    data.push_back(0x03); // gpio output control register
+    data.push_back((unsigned char)(value >> 8));
+    _i2cDevice.transmit(data);
 
     // Update the previous state so we can know if "value" changed
     // next time this function is called.

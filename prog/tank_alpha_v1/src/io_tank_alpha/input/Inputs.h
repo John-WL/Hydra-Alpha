@@ -14,8 +14,6 @@ class Inputs
     public:
         static void init();
         static void update();
-
-        static Imu* onBoardImu;
         
     private:
         

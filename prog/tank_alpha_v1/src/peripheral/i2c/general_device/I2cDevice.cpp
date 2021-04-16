@@ -4,15 +4,18 @@
 
 #include "../I2cProtocol.h"
 
-I2cDevice::I2cDevice(unsigned char i2cDeviceAddress) : _i2cDeviceAddress{i2cDeviceAddress}
+#include "Vector.h"
+
+I2cDevice::I2cDevice(unsigned char i2cDeviceAddress) :
+    _i2cDeviceAddress{i2cDeviceAddress}
 {}
 
-void I2cDevice::transmit(unsigned char* data, unsigned char dataLength)
+void I2cDevice::transmit(std::vector<unsigned char> data)
 {
-    I2cProtocol::transmit(_i2cDeviceAddress, data, dataLength);
+    I2cProtocol::transmit(_i2cDeviceAddress, data);
 }
 
-unsigned char* I2cDevice::receive(unsigned char dataLength)
+std::vector<unsigned char> I2cDevice::receive(unsigned char dataLengthRequest)
 {
-    return I2cProtocol::receive(_i2cDeviceAddress, dataLength);
+    return I2cProtocol::receive(_i2cDeviceAddress, dataLengthRequest);
 }

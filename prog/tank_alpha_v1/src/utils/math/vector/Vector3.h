@@ -3,13 +3,21 @@
 #ifndef VECTOR3_H
 #define VECTOR3_H
 
-#include "Quaternion.h"
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BNO055.h>
+#include <utility/imumaths.h>
 
 class Vector3
 {
     public:
         Vector3();
         Vector3(float x, float y, float z);
+        Vector3(imu::Vector<3> adafruitVector);
+        Vector3(sensors_event_t adafruitSensor);
+        Vector3 operator=(Vector3 that);
+        Vector3 operator*(float scalar);
+        Vector3 operator+(Vector3 that);
+        Vector3 operator-(Vector3 that);
         float x;
         float y;
         float z;
@@ -20,7 +28,6 @@ class Vector3
         Vector3 normalize();
         Vector3 scaledToMagnitude(float magnitude);
         
-        Quaternion toQuaternion();
         Vector3 rotate(Vector3 rotator);
         Vector3 findRotator(Vector3 rotated);
 

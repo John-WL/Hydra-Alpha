@@ -6,13 +6,17 @@
 
 void Sonar::init(void (*callback)(long))
 {
+    // this is called when we have a response of our sonar
     _callback = callback;
 
+    // setup IOs
     pinMode(SONAR_TRIG_PIN, OUTPUT);
     pinMode(SONAR_ECHO_PIN, INPUT);
 
+    // make sure trig is low
     digitalWrite(SONAR_TRIG_PIN, LOW);
 
+    // interrupt to handle sonar responses
     attachInterrupt(digitalPinToInterrupt(SONAR_ECHO_PIN), onEchoReceive, CHANGE);
 }
 
@@ -31,7 +35,7 @@ void Sonar::requestUpdate()
     // we already requested.
     // Don't request again if we
     // are already waiting for a
-    // request.
+    // response.
     if(_waitingForReception)
     {
         return;

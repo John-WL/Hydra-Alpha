@@ -8,14 +8,20 @@
 
 #include "Arduino.h"
 
+#include "../../utils/timer/TimerMicros.h"
+
 class I2cProtocol
 {
     public:
-        static void transmit(unsigned char deviceAddress, unsigned char* data, unsigned char dataLength);
-        static unsigned char* receive(unsigned char deviceAddress, unsigned char dataLength);
+        static void transmit(unsigned char deviceAddress, std::vector<unsigned char> data);
+        static std::vector<unsigned char> receive(unsigned char deviceAddress, unsigned char dataLengthRequest);
+
     private:
-        static void endReception();
-        static bool transmissionDone;
+        static void _endReception();
+
+        static bool _receptionDone;
+        static TimerMicros _receptionTimeoutTimer;
+
 };
 
 #endif

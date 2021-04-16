@@ -39,12 +39,17 @@ std::vector<void (*)(void)> Outputs::_updateFunctions = {
     {
         bdcMotorLeft.update();
         bdcMotorRight.update();
+        Xra1201::update();
     },
     []()
     {
         servoMotorSonarZ.update();
         servoMotorCameraZ.update();
         servoMotorCameraY.update();
+    },
+    []()
+    {
+        
     }
 };
 

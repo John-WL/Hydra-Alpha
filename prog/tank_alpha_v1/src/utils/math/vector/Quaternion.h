@@ -8,14 +8,13 @@ class Quaternion
     public:
         Quaternion();
         Quaternion(float r, float i, float j, float k);
+        Quaternion operator*(Quaternion that);
+        Quaternion operator*=(Quaternion that);
+        Quaternion operator*(float scalar);
         float r;
         float i;
         float j;
         float k;
-
-        Quaternion operator*(Quaternion that);
-        Quaternion operator*(float scalar);
-        Vector3 toVector3();
 
     private:
 

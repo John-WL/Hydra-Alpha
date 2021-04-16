@@ -6,7 +6,7 @@
 
 #include "../constants/Constants.h"
 
-TimerMicros::TimerMicros(long durationMicroseconds, void (*recurrentCallback)(void)) : 
+TimerMicros::TimerMicros(long durationMicroseconds, void (*recurrentCallback)(void)) :
     _duration{durationMicroseconds},
     _recurrentCallback{recurrentCallback},
     _nextTime{LONG_MAX_VALUE}

@@ -18,6 +18,7 @@ void Inputs::init()
 {
     BatteryVoltageSensor::init();
     Sonar::init([](long distance){});
+    Bno055::init();
 }
 
 void Inputs::update()
@@ -32,8 +33,6 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
         Sonar::requestUpdate();
     }
 };
-
-Imu* Inputs::onBoardImu = new Bno055{};
 
 Sequence Inputs::_inputSequencer{_updateFunctions};
 

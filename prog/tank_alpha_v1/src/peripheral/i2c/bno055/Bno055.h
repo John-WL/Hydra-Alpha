@@ -5,24 +5,29 @@
 #ifndef BNO055_H
 #define BNO055_H
 
-#include "../../../io_tank_alpha/input/imu/Imu.h"
+#include "../../../utils/math/vector/Vector3.h"
+#include "../../../utils/math/vector/Orientation3.h"
 
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 
-class Bno055 : Imu
+class Bno055
 {
     public:
-        Bno055();
-        void update() const&;
+        static void init();
+        static void update();
+
+        static Vector3 acceleration();
+        static Orientation3 orientation();
+        static Vector3 angularVelocity();
 
     private:
-        sensors_event_t _data;
-        Adafruit_BNO055 _bno055;
-        Vector3 _acceleration;
-        Orientation3 _orientation;
-        Vector3 _angularVelocity;
+        static sensors_event_t _data;
+        static Adafruit_BNO055 _bno055;
+        static Vector3 _acceleration;
+        static Orientation3 _orientation;
+        static Vector3 _angularVelocity;
         
 };
 
