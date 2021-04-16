@@ -7,7 +7,9 @@
 
 #include "Vector.h"
 
-#include "../../../../tank_alpha_v1/src/utils/math/shape/Rectangle2.h"
+#include "../../utils/math/shape/Rectangle2.h"
+
+#include "camera_pins.h"
 
 void CameraSensor::init(void (*sendOverWiFiCallback)(camera_fb_t*))
 {
@@ -76,7 +78,7 @@ void CameraSensor::update()
 {
     // if we don't need to query the camera image, 
     // then don't query it for no reason
-    if(!_isSendingFramesOverWiFi && _rectanglesBakingStatus != ESP_CAM_PENDING_RECTANGLES_BAKING_STATUS))
+    if(!_isSendingFramesOverWiFi && _rectanglesBakingStatus != ESP_CAM_PENDING_RECTANGLES_BAKING_STATUS)
     {
         return;
     }
@@ -94,27 +96,45 @@ void CameraSensor::update()
     if(_rectanglesBakingStatus == ESP_CAM_PENDING_RECTANGLES_BAKING_STATUS)
     {
         // Hmm... Smells good.
-        _generateRectanglesFromFaceRecognition(cameraFramebuffer);
-        _rectanglesBakingStatus = ESP_CAM_BAKED_RECTANGLES_BAKING_STATUS;
+        _generateRectanglesFromFaceDetection(cameraFramebuffer);
     }
 }
 
-void CameraSensor::_generateRectanglesFromFaceRecognition(camera_fb_t* cameraFramebuffer)
+void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFramebuffer)
 {
     dl_matrix3du_t* image_matrix = dl_matrix3du_alloc(1, cameraFramebuffer->width, cameraFramebuffer->height, 3);
     fmt2rgb888(cameraFramebuffer->buf, cameraFramebuffer->len, cameraFramebuffer->format, image_matrix->item);
     
     esp_camera_fb_return(cameraFramebuffer);
     
-    box_array_t* boxes = face_detect(image_matrix, &mtmn_config);
-    
-    
+    box_array_t* boxes = face_detect(image_matrix, &_mtmnConfig);
 
-    if (boxes != NULL) {
+    if(boxes != NULL)
+    {
+        faceRectangles.clear();
+
+        for(int i = 0; i < boxes->len; i++)
+        {
+            box_t* faceBox = boxes[i].box;
+            Vector2 upperLeft{faceBox->box_p[0], faceBox->box_p[1]};
+            Vector2 lowerRight{faceBox->box_p[2], faceBox->box_p[3]};
+            Rectangle2 faceLocation{upperLeft, lowerRight};
+            faceRectangles.push_back(faceLocation);
+        }
+
+        _rectanglesBakingStatus = ESP_CAM_BAKED_RECTANGLES_BAKING_STATUS;
+        
+        // gives an error?
+        /*
         dl_lib_free(boxes->score);
         dl_lib_free(boxes->box);
         dl_lib_free(boxes->landmark);
         dl_lib_free(boxes);
+        */
+        free(boxes->score);
+        free(boxes->box);
+        free(boxes->landmark);
+        free(boxes);
     }
     
     dl_matrix3du_free(image_matrix);
@@ -136,8 +156,10 @@ void CameraSensor::resetBakedFaceRectanglesStatus()
     }
 }
 
-bool CameraSensor::_isSendingFramesOverWiFi = false;
-unsigned char CameraSensor::_rectanglesBakingStatus = 0;
-void (*CameraSensor::_sendOverWiFiCallback)(camera_fb_t*) = [](){};
+std::vector<Rectangle2> CameraSensor::faceRectangles;
 
-mtmn_config_t _mtmnConfig{0};
+bool CameraSensor::_isSendingFramesOverWiFi{false};
+unsigned char CameraSensor::_rectanglesBakingStatus{0};
+void (*CameraSensor::_sendOverWiFiCallback)(camera_fb_t*) = [](camera_fb_t* cameraFrameBuffer){};
+
+mtmn_config_t CameraSensor::_mtmnConfig{0};

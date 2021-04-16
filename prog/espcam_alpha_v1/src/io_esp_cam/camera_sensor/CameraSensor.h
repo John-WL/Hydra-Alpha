@@ -20,7 +20,9 @@
 
 #include "Vector.h"
 
-#include "../../../../tank_alpha_v1/src/utils/math/shape/Rectangle2.h"
+#include "../../utils/math/shape/Rectangle2.h"
+
+#define CAMERA_MODEL_AI_THINKER
 
 #define ESP_CAM_IDLE_RECTANGLES_BAKING_STATUS 0
 #define ESP_CAM_PENDING_RECTANGLES_BAKING_STATUS 1
@@ -40,7 +42,7 @@ class CameraSensor
         static std::vector<Rectangle2> faceRectangles;
 
     private:
-        static void _generateRectanglesFromFaceRecognition(camera_fb_t* cameraFramebuffer);
+        static void _generateRectanglesFromFaceDetection(camera_fb_t* cameraFramebuffer);
 
         static bool _isSendingFramesOverWiFi;
         static unsigned char _rectanglesBakingStatus;

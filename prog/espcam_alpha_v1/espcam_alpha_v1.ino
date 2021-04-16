@@ -4,28 +4,23 @@
 
 #include "esp_camera.h"
 
-#include "../tank_alpha_v1/src/core/Esp32DualCore.h"
+#include "src/core/Esp32DualCore.h"
 
-#include "../tank_alpha_v1/src/utils/timer/TimerMicros.h"
-
-#define CAMERA_DESIRED_FPS 4
-#define CAMERA_DESIRED_REFRESH_PERIOD (1 / CAMERA_DESIRED_FPS)
-#define CAMERA_DESIRED_REFRESH_PERIOD_MICROSECONDS (1000000 * CAMERA_DESIRED_REFRESH_PERIOD)
-
-TimerMicros cameraShotTimer{CAMERA_DESIRED_REFRESH_PERIOD_MICROSECONDS, handlerCameraFrame};
+#include "src/io_esp_cam/camera_sensor/CameraSensor.h"
 
 void setup()
 {
     Serial.begin(115200);
     Serial.setDebugOutput(true);
-    Serial.println();
 
-    cameraShotTimer.start();
+    // put your WiFi sender implementation in
+    // the brackets
+    CameraSensor::init([](camera_fb_t* cameraFrameBuffer){});
 }
 
 void loop()
 {
-    cameraShotTimer.update();
+    CameraSensor::update();
 }
 
 void Esp32DualCore::main()
