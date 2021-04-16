@@ -12,6 +12,6 @@ typedef struct
     unsigned int distanceSonar;
     unsigned char mode;
     unsigned char checkSum;
-} AlphaToRemoteCommunicationFormat;
+} OutgoingCommunicationFormat;
 
 #endif

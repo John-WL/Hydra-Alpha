@@ -6,7 +6,7 @@
 #include "../../../utils/math/shape/Rectangle2.h"
 #include "../general_device/I2cDevice.h"
 
-#define I2C_ESP_CAM_SLAVE_ADDRESS 0x25
+#define I2C_ESP_CAM_SLAVE_ADDRESS 0x24
 
 #define ESP_CAM_HARDWARE_RESET_PIN 32
 
@@ -24,7 +24,7 @@ class EspCamSlave
     public:
         static void init();
         static void update();
-        static void sendingImagesOverWifi(bool isSendingImagesOverWiFi);
+        static void enableSendingImagesOverWifi(bool isSendingImagesOverWiFi);
 
         static Rectangle2* rectangleOfTankOmegaInFrame;
 
@@ -43,6 +43,7 @@ class EspCamSlave
         static bool _wasSendingImagesOverWiFi;
 
         static I2cDevice _i2cDevice;
+
 };
 
 #endif

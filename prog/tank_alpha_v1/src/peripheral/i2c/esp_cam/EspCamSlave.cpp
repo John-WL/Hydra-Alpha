@@ -21,7 +21,7 @@ void EspCamSlave::update()
     _updateWiFiCameraRequest();
 }
 
-void EspCamSlave::sendingImagesOverWifi(bool isSendingImagesOverWiFi)
+void EspCamSlave::enableSendingImagesOverWifi(bool isSendingImagesOverWiFi)
 {
     _isSendingImagesOverWiFi = isSendingImagesOverWiFi;
 }

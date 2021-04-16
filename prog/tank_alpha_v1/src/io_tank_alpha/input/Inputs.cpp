@@ -9,16 +9,19 @@
 
 #include "../../utils/sequence/Sequence.h"
 
-#include "../../peripheral/i2c/bno055/Bno055.h"
-
 #include "battery/BatteryVoltageSensor.h"
 #include "sonar/Sonar.h"
+
+#include "../../peripheral/i2c/bno055/Bno055.h"
+
+#include "../../peripheral/i2c/esp_cam/EspCamSlave.h"
 
 void Inputs::init()
 {
     BatteryVoltageSensor::init();
     Sonar::init([](long distance){});
     Bno055::init();
+    EspCamSlave::init();
 }
 
 void Inputs::update()
@@ -31,6 +34,11 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     {
         BatteryVoltageSensor::sample();
         Sonar::requestUpdate();
+    },
+    []()
+    {
+        Bno055::update();
+        EspCamSlave::update();
     }
 };
 

@@ -16,10 +16,9 @@ class Inputs
         static void update();
         
     private:
-        
         static std::vector<void (*)(void)> _updateFunctions;
-
         static Sequence _inputSequencer;
+
 };
 
 #endif
