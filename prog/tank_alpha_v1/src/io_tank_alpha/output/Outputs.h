@@ -13,6 +13,7 @@
 
 #include "bdc_motor/BdcMotor.h"
 #include "servo_motor/ServoMotor.h"
+#include "debug_leds/DebugLeds.h"
 
 class Outputs
 {

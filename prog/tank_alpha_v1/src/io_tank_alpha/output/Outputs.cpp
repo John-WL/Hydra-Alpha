@@ -11,12 +11,14 @@
 
 #include "bdc_motor/BdcMotor.h"
 #include "servo_motor/ServoMotor.h"
+#include "debug_leds/DebugLeds.h"
 
 #include "../../peripheral/i2c/xra1201/Xra1201.h"
 
 void Outputs::init()
 {
     Xra1201::init();
+    DebugLeds::init();
 }
 
 void Outputs::update()
@@ -39,6 +41,7 @@ std::vector<void (*)(void)> Outputs::_updateFunctions = {
     {
         bdcMotorLeft.update();
         bdcMotorRight.update();
+        DebugLeds::update();
         Xra1201::update();
     },
     []()
@@ -49,7 +52,7 @@ std::vector<void (*)(void)> Outputs::_updateFunctions = {
     },
     []()
     {
-        
+
     }
 };
 

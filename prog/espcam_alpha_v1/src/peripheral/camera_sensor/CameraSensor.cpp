@@ -9,9 +9,9 @@
 
 #include "../../utils/math/shape/Rectangle2.h"
 
-#include "camera_pins.h"
+#include "../../../config/camera_pins.h"
 
-void CameraSensor::init(void (*sendOverWiFiCallback)(camera_fb_t*))
+void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
 {
     // save the callback
     _sendOverWiFiCallback = sendOverWiFiCallback;
@@ -36,14 +36,15 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(camera_fb_t*))
     config.pin_sscb_scl = SIOC_GPIO_NUM;
     config.pin_pwdn = PWDN_GPIO_NUM;
     config.pin_reset = RESET_GPIO_NUM;
-    config.xclk_freq_hz = 20000000;
+    config.xclk_freq_hz = 10000000;
     config.pixel_format = PIXFORMAT_JPEG;
+
     // frame size is 320x240 frame size,
     // what we need for the lcd, and
     // optimal for face detection!
     config.frame_size = FRAMESIZE_QVGA;
-    config.jpeg_quality = 20;
-    config.fb_count = 1;
+    config.jpeg_quality = 10;
+    config.fb_count = 2;
 
     // checking for errors when initializing
     esp_err_t errorId = esp_camera_init(&config);
@@ -78,7 +79,7 @@ void CameraSensor::update()
 {
     // if we don't need to query the camera image, 
     // then don't query it for no reason
-    if(!_isSendingFramesOverWiFi && _rectanglesBakingStatus != ESP_CAM_PENDING_RECTANGLES_BAKING_STATUS)
+    if(!_isSendingFramesOverWiFi && _rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING)
     {
         return;
     }
@@ -89,11 +90,19 @@ void CameraSensor::update()
     // send over WiFi the way you want, I don't care anymore
     if(_isSendingFramesOverWiFi)
     {
-        _sendOverWiFiCallback(cameraFramebuffer);
+        // convert the data array to a vector<uint8_t>
+        std::vector<uint8_t> cameraFramebufferVector{};
+        cameraFramebufferVector.insert(
+            cameraFramebufferVector.end(),
+            &(cameraFramebuffer->buf[0]),
+            &(cameraFramebuffer->buf[cameraFramebuffer->len])
+        );
+
+        _sendOverWiFiCallback(cameraFramebufferVector);
     }
 
     // Bake rectangles!
-    if(_rectanglesBakingStatus == ESP_CAM_PENDING_RECTANGLES_BAKING_STATUS)
+    if(_rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
     {
         // Hmm... Smells good.
         _generateRectanglesFromFaceDetection(cameraFramebuffer);
@@ -122,7 +131,7 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
             faceRectangles.push_back(faceLocation);
         }
 
-        _rectanglesBakingStatus = ESP_CAM_BAKED_RECTANGLES_BAKING_STATUS;
+        _rectanglesBakingStatus = EspCamRectanglesBakingStatus::BAKED;
         
         // gives an error?
         /*
@@ -142,17 +151,17 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
 
 void CameraSensor::requestToBakeFaceRectangles()
 {
-    if(_rectanglesBakingStatus == ESP_CAM_IDLE_RECTANGLES_BAKING_STATUS)
+    if(_rectanglesBakingStatus == EspCamRectanglesBakingStatus::IDLE)
     {
-        _rectanglesBakingStatus = ESP_CAM_PENDING_RECTANGLES_BAKING_STATUS;
+        _rectanglesBakingStatus = EspCamRectanglesBakingStatus::PENDING;
     }
 }
 
 void CameraSensor::resetBakedFaceRectanglesStatus()
 {
-    if(_rectanglesBakingStatus == ESP_CAM_BAKED_RECTANGLES_BAKING_STATUS)
+    if(_rectanglesBakingStatus == EspCamRectanglesBakingStatus::BAKED)
     {
-        _rectanglesBakingStatus = ESP_CAM_IDLE_RECTANGLES_BAKING_STATUS;
+        _rectanglesBakingStatus = EspCamRectanglesBakingStatus::IDLE;
     }
 }
 
@@ -160,6 +169,6 @@ std::vector<Rectangle2> CameraSensor::faceRectangles;
 
 bool CameraSensor::_isSendingFramesOverWiFi{false};
 unsigned char CameraSensor::_rectanglesBakingStatus{0};
-void (*CameraSensor::_sendOverWiFiCallback)(camera_fb_t*) = [](camera_fb_t* cameraFrameBuffer){};
+void (*CameraSensor::_sendOverWiFiCallback)(std::vector<uint8_t>) = [](std::vector<uint8_t> cameraFrameBuffer){};
 
 mtmn_config_t CameraSensor::_mtmnConfig{0};

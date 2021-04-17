@@ -45,46 +45,6 @@ void EspCamSlave::_requestHandlingOfSendingImagesOverWiFi(bool isSendingData)
     data.push_back(0x00);                           // WiFi camera command id
     data.push_back(isSendingData ? 0x80 : 0x00);    // set the state depending on what was passed as parameter
     _i2cDevice.transmit(data);                      // transmit that
-
-    // gather data
-    std::vector<unsigned char> receivedData = _i2cDevice.receive(1); // receive 1 byte
-
-    // check for weird errors
-    if(receivedData.size() != 1)
-    {
-        Serial.println("Can't gather EspCam WiFi status.");
-        return;
-    }
-
-    // handle the received status
-    switch(receivedData[0])
-    {
-        case ESP_CAM_OK_WIFI_STATUS:
-        case ESP_CAM_SEARCHING_WIFI_STATUS:
-            break;
-        case ESP_CAM_FAILURE_WIFI_STATUS:
-            Serial.println("Hard reseting EspCam because the device couldn't find any WiFi access point.");
-            _hardReset();
-            break;
-        default:
-            // wtf??
-            Serial.println("Gathered EspCam WiFi status is not valid.");
-            Serial.print("Value should be between 0 and 2, but we received \"");
-            Serial.print(receivedData[0]);
-            Serial.println("\" instead.\n");
-            break;
-    }
-
-}
-
-void EspCamSlave::_hardReset()
-{
-    pinMode(ESP_CAM_HARDWARE_RESET_PIN, OUTPUT);    // from 3-state to low-level output
-    digitalWrite(ESP_CAM_HARDWARE_RESET_PIN, LOW);  // just making sure...
-
-    delayMicroseconds(80);  // at least 50µS according to datasheet
-
-    pinMode(ESP_CAM_HARDWARE_RESET_PIN, INPUT);     // back to 3-state again
 }
 
 void EspCamSlave::_updateRectangleRequest()

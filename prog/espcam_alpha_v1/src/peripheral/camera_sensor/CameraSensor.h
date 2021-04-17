@@ -1,7 +1,6 @@
 // Author: John-William Lebel, 2021-04-16, creation
 
-#ifndef CAMERA_SENSOR_H
-#define CAMERA_SENSOR_H
+
 
 // useful links...
 
@@ -11,9 +10,15 @@
 
 // for basic camera sampling:
 // https://github.com/espressif/esp32-camera/blob/master/driver/include/esp_camera.h
+// https://github.com/espressif/esp32-camera/blob/master/driver/include/esp_camera.h#L120
 
 // for playing with the camera settings:
 // https://randomnerdtutorials.com/esp32-cam-ov2640-camera-settings/
+
+
+
+#ifndef CAMERA_SENSOR_H
+#define CAMERA_SENSOR_H
 
 #include "esp_camera.h"
 #include "fd_forward.h"
@@ -24,15 +29,20 @@
 
 #define CAMERA_MODEL_AI_THINKER
 
-#define ESP_CAM_IDLE_RECTANGLES_BAKING_STATUS 0
-#define ESP_CAM_PENDING_RECTANGLES_BAKING_STATUS 1
-#define ESP_CAM_BAKED_RECTANGLES_BAKING_STATUS 2
-#define ESP_CAM_INVALID_RECTANGLES_BAKING_STATUS 3
+namespace EspCamRectanglesBakingStatus
+{
+    enum Enum
+    {
+        IDLE,
+        PENDING,
+        BAKED
+    };
+}
 
 class CameraSensor
 {
     public:
-        static void init(void (*sendOverWiFiCallback)(camera_fb_t*));
+        static void init(void (*sendOverWiFiCallback)(std::vector<uint8_t>));
         static void update();
 
         static void enableSendingFramesOverWiFi(bool isSendingFramesOverWiFi);
@@ -46,7 +56,7 @@ class CameraSensor
 
         static bool _isSendingFramesOverWiFi;
         static unsigned char _rectanglesBakingStatus;
-        static void (*_sendOverWiFiCallback)(camera_fb_t*);
+        static void (*_sendOverWiFiCallback)(std::vector<uint8_t>);
 
         static mtmn_config_t _mtmnConfig;
 };

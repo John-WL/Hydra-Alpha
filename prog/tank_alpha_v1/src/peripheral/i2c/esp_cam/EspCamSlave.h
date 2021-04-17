@@ -17,7 +17,6 @@
 
 #define ESP_CAM_OK_WIFI_STATUS 0
 #define ESP_CAM_SEARCHING_WIFI_STATUS 1
-#define ESP_CAM_FAILURE_WIFI_STATUS 2
 
 class EspCamSlave
 {
@@ -31,7 +30,6 @@ class EspCamSlave
     private:
         static void _updateRectangleRequest();
         static void _updateWiFiCameraRequest();
-        static void _hardReset();
 
         static void _requestHandlingOfSendingImagesOverWiFi(bool isSendingData);
         static unsigned char _requestStatusOfRectangleGeneration();
