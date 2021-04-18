@@ -8,9 +8,9 @@ class RfCommunication
     public:
         static void init();
         static void update();
-
+        
     private:
-
+        
 };
 
 #endif

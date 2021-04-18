@@ -9,16 +9,16 @@
 #include "src/core/Esp32DualCore.h"
 
 #include "src/peripheral/camera_sensor/CameraSensor.h"
-#include "src/peripheral/wifi_hydra/WiFiHydra.h"
+#include "src/peripheral/wifi_client_hydra/WiFiClientHydra.h"
 
 void setup()
 {
     Serial.begin(115200);
-    Serial.setDebugOutput(true);
+    //Serial.setDebugOutput(true);
 
-    // put your WiFi sender implementation in
-    // the brackets
-    CameraSensor::init(WiFiHydra::sendDataToRemote);
+    // put your WiFi sender implementation in the brackets
+    WiFiClientHydra::init();
+    CameraSensor::init(WiFiClientHydra::sendDataToRemote);
 }
 
 void loop()

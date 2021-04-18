@@ -115,12 +115,13 @@ Rectangle2* EspCamSlave::_requestRectangleOfTankOmegaInFrame()
     _i2cDevice.transmit(data);                      // transmit that
 
     // gather data
-    std::vector<unsigned char> receivedData = _i2cDevice.receive(6); // receive 6 bytes
+    std::vector<unsigned char> receivedData = _i2cDevice.receive(7); // receive 7 bytes
 
     // check for weird errors
-    if(receivedData.size() != 6)
+    if(receivedData.size() != 7)
     {
-        Serial.println("Can't gather rectangle info.");
+        Serial.println("Can't gather rectangle info:");
+        Serial.println("EspCam device violated the protocol.");
         return nullptr;
     }
 
@@ -131,17 +132,17 @@ Rectangle2* EspCamSlave::_requestRectangleOfTankOmegaInFrame()
     }
 
     // parse the coordinates and return
-    unsigned int upperLeftX = ((receivedData[1] & 0x0F) << 8) | receivedData[0];
-    unsigned int upperLeftY = ((receivedData[2] << 4) | ((receivedData[1] & 0xF0) >> 4));
-    unsigned int lowerRightX = ((receivedData[4] & 0x0F) << 8) | receivedData[3];
-    unsigned int lowerRightY = ((receivedData[5] << 4) | ((receivedData[4] & 0xF0) >> 4));
+    unsigned int upperLeftX =   ((((unsigned int)receivedData[2]) & 0x0F) << 8) | (unsigned int)receivedData[1];
+    unsigned int upperLeftY =   (((unsigned int)receivedData[3]) << 4)          | ((((unsigned int)receivedData[2]) & 0xF0) >> 4);
+    unsigned int lowerRightX =  ((((unsigned int)receivedData[5]) & 0x0F) << 8) | (unsigned int)receivedData[4];
+    unsigned int lowerRightY =  (((unsigned int)receivedData[6]) << 4)          | ((((unsigned int)receivedData[5]) & 0xF0) >> 4);
     return new Rectangle2
     {
         Vector2
         {
             upperLeftX, 
             upperLeftY
-        }, 
+        },
         Vector2
         {
             lowerRightX, 

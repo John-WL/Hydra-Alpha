@@ -37,7 +37,12 @@ void Nrf24l01::sendData(std::vector<OutgoingCommunicationFormat> dataToSend)
     // try first to send data on the main line
     _network.begin(NRF24L01_ALPHA_NODE);
     RF24NetworkHeader emptyHeader{};
-    bool sentSuccessfully = _network.multicast(emptyHeader, &dataToSend, dataToSend.size()*sizeof(OutgoingCommunicationFormat), NRF24L01_REMOTE_LEVEL);
+    bool sentSuccessfully = _network.multicast(
+        emptyHeader,
+        &dataToSend,
+        dataToSend.size()*sizeof(OutgoingCommunicationFormat),
+        NRF24L01_REMOTE_LEVEL
+    );
     if(sentSuccessfully)
     {
         _receptionFailureTimeout.start();
@@ -45,7 +50,12 @@ void Nrf24l01::sendData(std::vector<OutgoingCommunicationFormat> dataToSend)
     }
     // if it didn't work, try to send data on the secondary line
     _network.begin(NRF24L01_ALPHA_ALTERNATIVE_NODE);
-    sentSuccessfully = _network.multicast(emptyHeader, &dataToSend, dataToSend.size()*sizeof(OutgoingCommunicationFormat), NRF24L01_REMOTE_LEVEL);
+    sentSuccessfully = _network.multicast(
+        emptyHeader,
+        &dataToSend,
+        dataToSend.size()*sizeof(OutgoingCommunicationFormat),
+        NRF24L01_REMOTE_LEVEL
+    );
     if(sentSuccessfully)
     {
         _receptionFailureTimeout.start();

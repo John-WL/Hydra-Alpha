@@ -50,12 +50,12 @@ class CameraSensor
         static void resetBakedFaceRectanglesStatus();
 
         static std::vector<Rectangle2> faceRectangles;
+        static unsigned char rectanglesBakingStatus;
 
     private:
         static void _generateRectanglesFromFaceDetection(camera_fb_t* cameraFramebuffer);
 
         static bool _isSendingFramesOverWiFi;
-        static unsigned char _rectanglesBakingStatus;
         static void (*_sendOverWiFiCallback)(std::vector<uint8_t>);
 
         static mtmn_config_t _mtmnConfig;

@@ -79,7 +79,7 @@ void CameraSensor::update()
 {
     // if we don't need to query the camera image, 
     // then don't query it for no reason
-    if(!_isSendingFramesOverWiFi && _rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING)
+    if(!_isSendingFramesOverWiFi && rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING)
     {
         return;
     }
@@ -102,7 +102,7 @@ void CameraSensor::update()
     }
 
     // Bake rectangles!
-    if(_rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
+    if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
     {
         // Hmm... Smells good.
         _generateRectanglesFromFaceDetection(cameraFramebuffer);
@@ -131,7 +131,7 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
             faceRectangles.push_back(faceLocation);
         }
 
-        _rectanglesBakingStatus = EspCamRectanglesBakingStatus::BAKED;
+        rectanglesBakingStatus = EspCamRectanglesBakingStatus::BAKED;
         
         // gives an error?
         /*
@@ -151,24 +151,24 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
 
 void CameraSensor::requestToBakeFaceRectangles()
 {
-    if(_rectanglesBakingStatus == EspCamRectanglesBakingStatus::IDLE)
+    if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::IDLE)
     {
-        _rectanglesBakingStatus = EspCamRectanglesBakingStatus::PENDING;
+        rectanglesBakingStatus = EspCamRectanglesBakingStatus::PENDING;
     }
 }
 
 void CameraSensor::resetBakedFaceRectanglesStatus()
 {
-    if(_rectanglesBakingStatus == EspCamRectanglesBakingStatus::BAKED)
+    if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::BAKED)
     {
-        _rectanglesBakingStatus = EspCamRectanglesBakingStatus::IDLE;
+        rectanglesBakingStatus = EspCamRectanglesBakingStatus::IDLE;
     }
 }
 
 std::vector<Rectangle2> CameraSensor::faceRectangles;
 
 bool CameraSensor::_isSendingFramesOverWiFi{false};
-unsigned char CameraSensor::_rectanglesBakingStatus{0};
+unsigned char CameraSensor::rectanglesBakingStatus{0};
 void (*CameraSensor::_sendOverWiFiCallback)(std::vector<uint8_t>) = [](std::vector<uint8_t> cameraFrameBuffer){};
 
 mtmn_config_t CameraSensor::_mtmnConfig{0};
