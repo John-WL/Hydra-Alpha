@@ -18,12 +18,12 @@ void TankAlpha::init()
 
 void TankAlpha::_receiveEvent(int dataLength)
 {
-    if(Wire.available() <= 0)
+    if(!Wire.available())
     {
         return;
     }
 
-    // make sure to remember what the last commandId was
+    // make sure to remember what the last command id was
     _lastReceivedCommandId = Wire.read();
     switch(_lastReceivedCommandId)
     {

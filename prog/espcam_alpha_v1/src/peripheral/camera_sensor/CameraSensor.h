@@ -41,24 +41,25 @@ namespace EspCamRectanglesBakingStatus
 
 class CameraSensor
 {
-    public:
-        static void init(void (*sendOverWiFiCallback)(std::vector<uint8_t>));
-        static void update();
+public:
+    static void init(void (*sendOverWiFiCallback)(std::vector<uint8_t>));
+    static void update();
 
-        static void enableSendingFramesOverWiFi(bool isSendingFramesOverWiFi);
-        static void requestToBakeFaceRectangles();
-        static void resetBakedFaceRectanglesStatus();
+    static void enableSendingFramesOverWiFi(bool isSendingFramesOverWiFi);
+    static void requestToBakeFaceRectangles();
+    static void resetBakedFaceRectanglesStatus();
 
-        static std::vector<Rectangle2> faceRectangles;
-        static unsigned char rectanglesBakingStatus;
+    static std::vector<Rectangle2> faceRectangles;
+    static unsigned char rectanglesBakingStatus;
 
-    private:
-        static void _generateRectanglesFromFaceDetection(camera_fb_t* cameraFramebuffer);
+private:
+    static void _generateRectanglesFromFaceDetection(camera_fb_t* cameraFramebuffer);
 
-        static bool _isSendingFramesOverWiFi;
-        static void (*_sendOverWiFiCallback)(std::vector<uint8_t>);
+    static bool _isSendingFramesOverWiFi;
+    static void (*_sendOverWiFiCallback)(std::vector<uint8_t>);
 
-        static mtmn_config_t _mtmnConfig;
+    static mtmn_config_t _mtmnConfig;
+    
 };
 
 #endif

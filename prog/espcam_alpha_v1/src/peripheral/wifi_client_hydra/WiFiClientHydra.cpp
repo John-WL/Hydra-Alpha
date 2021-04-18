@@ -52,9 +52,8 @@ void WiFiClientHydra::sendDataToRemote(std::vector<uint8_t> data)
             _reconnectionDelayTimer.start();
         }
     }
-
     
-        _signalStrength = 
+    //_signalStrength = 
 }
 
 void WiFiClientHydra::_connectToWiFiServer()

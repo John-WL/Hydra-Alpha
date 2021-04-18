@@ -33,22 +33,23 @@
 
 class WiFiClientHydra
 {
-    public:
-        static void init();
-        static void sendDataToRemote(std::vector<uint8_t> data);
-        static void getRemoteSignalStrength();
+public:
+    static void init();
+    static void sendDataToRemote(std::vector<uint8_t> data);
+    static void getRemoteSignalStrength();
 
-    private:
-        static void _handleDisconnection(void (*_sendData)(void));
-        static void _sendData();
-        static void _connectToWiFiServer();
-        static void _connectClient();
-        static void _resetReconnectionTimoutReached();
+private:
+    static void _handleDisconnection(void (*_sendData)(void));
+    static void _sendData();
+    static void _connectToWiFiServer();
+    static void _connectClient();
+    static void _resetReconnectionTimoutReached();
 
-        static bool _tryReconnectionTimeoutReached;
-        static TimerMicros _reconnectionDelayTimer;
-        static websockets::WebsocketsClient _client;
-        static bool _isClientConnected;
+    static bool _tryReconnectionTimeoutReached;
+    static TimerMicros _reconnectionDelayTimer;
+    static websockets::WebsocketsClient _client;
+    static bool _isClientConnected;
+    
 };
 
 #endif

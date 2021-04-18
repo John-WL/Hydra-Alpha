@@ -16,17 +16,17 @@ namespace TankAlphaCommands
 
 class TankAlpha
 {
-    public:
-        static void init();
+public:
+    static void init();
 
-        static bool enableSendingCameraFrameOverWiFi;
+    static bool enableSendingCameraFrameOverWiFi;
 
-    private:
-        static void _receiveEvent(int dataLength);
-        static void _requestEvent();
-        static void _wireFlush();
+private:
+    static void _receiveEvent(int dataLength);
+    static void _requestEvent();
+    static void _wireFlush();
 
-        static unsigned char _lastReceivedCommandId;
+    static unsigned char _lastReceivedCommandId;
 
 };
 

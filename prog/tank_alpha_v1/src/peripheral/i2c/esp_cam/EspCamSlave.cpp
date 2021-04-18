@@ -124,6 +124,11 @@ Rectangle2* EspCamSlave::_requestRectangleOfTankOmegaInFrame()
         Serial.println("EspCam device violated the protocol.");
         return nullptr;
     }
+    if(receivedData[0] & 0x80 == 0)
+    {
+        // no rectangles were found
+        return nullptr;
+    }
 
     // make sure to delete the last ref we had before doing a new
     if(rectangleOfTankOmegaInFrame != nullptr)

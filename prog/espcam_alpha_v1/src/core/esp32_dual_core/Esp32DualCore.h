@@ -11,12 +11,12 @@
 
 class Esp32DualCore
 {
-    public:
-        static void init();
-        static void main();
+public:
+    static void init();
+    static void main();
 
-    private:
-        static void _secondCoreRootTask(void* params);
+private:
+    static void _secondCoreRootTask(void* params);
 
 };
 
