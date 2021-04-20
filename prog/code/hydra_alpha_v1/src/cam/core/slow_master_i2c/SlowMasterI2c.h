@@ -8,7 +8,7 @@
 #ifdef ENABLE_SERIAL_DEBUGGING
 #define I2C_PIN_CHANGE_DELAY 2000
 #else
-#define I2C_PIN_CHANGE_DELAY 60
+#define I2C_PIN_CHANGE_DELAY 100
 #endif
 
 #include "Vector.h"

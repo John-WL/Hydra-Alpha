@@ -17,7 +17,7 @@
 #include "core/slow_master_i2c/SlowMasterI2c.h"
 //#include "Wire.h"
 
-#include "../troubleshoot_and_debug/i2c_scanner/I2cScanner.h"
+#include "core/clock_stretch_test/ClockStretchTest3.hpp"
 
 void SlowSlaveI2c::onReceive(QueueArray<uint8_t>& data)
 {
@@ -38,6 +38,14 @@ void SlowSlaveI2c::onRequest(QueueArray<uint8_t>& data)
     data.push(18);
     data.push(34);
     data.push(48);
+    data.push(165);
+    data.push(238);
+    data.push(165);
+    data.push(238);
+    data.push(165);
+    data.push(238);
+    data.push(165);
+    data.push(238);
     data.push(165);
     data.push(238);
 
@@ -65,62 +73,35 @@ void setup()
 
     Esp32DualCore::init();
 
-    Serial.println("Initializing soft master I2C...\n");
-    SlowMasterI2c::init(26, 25);
-    delay(1000);
-    Serial.println("Initialized.\n\n");
+    //Serial.println("Initializing soft master I2C...\n");
+    //SlowMasterI2c::init(26, 25);
+    //delay(1000);
+    //Serial.println("Initialized.\n\n");
 
-    Serial.println("Initializing soft slave I2C...\n");
-    SlowSlaveI2c::init(76, 33, 32);
-    delay(1000);
-    Serial.println("Initialized.\n\n");
+    //Serial.println("Initializing soft slave I2C...\n");
+    //SlowSlaveI2c::init(76, 33, 32);
+    //delay(1000);
+    //Serial.println("Initialized.\n\n");
 
-    //I2cScanner::init();
+    ClockStretchTest3::init(25, 32);
 }
 
 void loop()
 {
     //CameraSensor::update();
-    //I2cScanner::update();
-    SlowSlaveI2c::update();
+    //SlowSlaveI2c::update();
+    //ClockStretchTest3::updateSlave();
 }
 
 void Esp32DualCore::main()
 {
     while(true)
     {
-        /*
-        QueueArray<uint8_t> dataToSend{};
-        dataToSend.push(0);
-        dataToSend.push(55);
-        dataToSend.push(253);
-        dataToSend.push(34);
-        dataToSend.push(145);
-        dataToSend.push(145);
-        dataToSend.push(145);
-        dataToSend.push(145);
-        Serial.print("Sending ");
-        Serial.print(dataToSend.count());
-        Serial.println(" bytes...");
-
-        SlowMasterI2c::send(0x66, dataToSend);
-
-        delay(10);
-        */
-        
-        QueueArray<uint8_t> dataReceived = SlowMasterI2c::request(76, 6);
-
-        Serial.print("Master received ");
-        Serial.print(dataReceived.count());
-        Serial.println(" byte(s).");
-
-        for(int i = 0; dataReceived.count() > 0; i++)
-        {
-            Serial.println(dataReceived.pop());
-        }
-
-        delay(5000);
-        
+        //ClockStretchTest3::updateMaster();
+        pinMode(25, OUTPUT);
+        if(digitalRead(25))
+        {}
+        pinMode(25, INPUT);
     }
 }
 

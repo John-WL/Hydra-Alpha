@@ -37,16 +37,12 @@ void SlowSlaveI2c::update()
     // start/stop bit
     if(_sdaPreviousState != _sdaCurrentState)
     {
-        //serialDebug("sda");
-
         _onSdaChange();
     }
 
     // data fetch/sync
     if(_sclPreviousState != _sclCurrentState)
     {
-        //serialDebug("scl");
-
         _sclCurrentState ? 
             _onSclSync() :
             _onSclFetch();
