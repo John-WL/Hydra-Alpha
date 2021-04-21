@@ -3,7 +3,8 @@
 #ifndef TANK_ALPHA_H
 #define TANK_ALPHA_H
 
-#include "Wire.h"
+#define SLOW_SDA_PIN 3
+#define SLOW_SCL_PIN 1
 
 namespace TankAlphaCommands
 {
@@ -22,13 +23,11 @@ public:
     static void init();
 
     static bool enableSendingCameraFrameOverWiFi;
+    static unsigned char lastReceivedCommandId;
 
 private:
-    static void _receiveEvent(int dataLength);
+    static void _receiveEvent();
     static void _requestEvent();
-    static void _wireFlush();
-
-    static unsigned char _lastReceivedCommandId;
 
 };
 

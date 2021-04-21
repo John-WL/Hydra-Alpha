@@ -6,16 +6,18 @@
 
 #include "../shared/core/Esp32DualCore.h"
 
+#include "../shared/utils/timer/TimerMicros.h"
+#include "../shared/utils/math/vector/Vector3.h"
+
+#include "peripheral/i2c/I2cProtocol.h"
+
 #include "mode/FunctioningMode.h"
 
 #include "io/input/Inputs.h"
 #include "io/output/Outputs.h"
 
-#include "../shared/utils/timer/TimerMicros.h"
+#include "peripheral/slow_i2c/esp_cam/EspCam.h"
 
-#include "peripheral/i2c/I2cProtocol.h"
-
-#include "../shared/utils/math/vector/Vector3.h"
 
 TimerMicros programTimer
 {
@@ -49,6 +51,6 @@ void Esp32DualCore::main()
 {
     while(true)
     {
-        
+        EspCam::update();
     }
 }

@@ -3,8 +3,6 @@
 #ifndef SLOW_SLAVE_I2C_H
 #define SLOW_SLAVE_I2C_H
 
-#define I2C_SLAVE_DELAY_FOR_SDA_UPDATE 15
-
 #include "Vector.h"
 
 #include "Arduino.h"
@@ -15,41 +13,46 @@ class SlowSlaveI2c
 {
 public:
     SlowSlaveI2c() = delete;
-    static void init(uint8_t chipAddress, uint8_t sdaPin, uint8_t sclPin);
+    static void init(uint8_t sdaPin, uint8_t sclPin, uint8_t chipAddress);
     static void update();
     static void onReceive(QueueArray<uint8_t>& receivedData);
     static void onRequest(QueueArray<uint8_t>& dataToSend);
 
 private:
-    // called when scl line falls
+    // called when sda line changes
+    static void _onSdaChange();
+
+    // called when scl line rises
     static void (*_onSclSync)(void);
+    // called when scl line falls
+    static void (*_onSclFetch)(void);
 
-    // start/stop handling
-    static void _handleStartBit();
-    static void _handleStopBit();
+    // returns true if sda and scl edges
+    // correspond to a start bit
+    static bool _gotStartBit();
 
-    // ack/noack handling
+    // returns true if sda and scl edges
+    // correspond to a stop bit
+    static bool _gotStopBit();
+
     static void _startAcknowledge();
     static void _stopAcknowledge();
 
     // states
     static void _idleState();
+
+    static void _fetchAddressState();
     static void _readAddressState();
+
+    static void _fetchReadDataState();
     static void _readDataState();
+
+    static void _fetchWriteDataState();
     static void _writeDataState();
-    
-    // software interrupts...
-    static bool _gotStartBit();
-    static bool _gotStopBit();
-    static bool _sclFalling();
-    static bool _sdaChanged();
-    
 
     // hardware access
     static void _sdaHigh();
     static void _sdaLow();
-    static void _lockLowSclLine();  // for clock-strech handling
-    static void _releaseSclLine();  //
     static bool _sdaRead();
     static bool _sclRead();
 

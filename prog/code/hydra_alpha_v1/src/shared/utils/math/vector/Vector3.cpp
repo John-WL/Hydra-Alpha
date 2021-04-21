@@ -93,8 +93,34 @@ Vector3 Vector3::rotate(Vector3 rotator)
     return Vector3{result.i, result.j, result.k};
 }
 
-// unimplemented lol
 Vector3 Vector3::findRotator(Vector3 rotated)
 {
-    return Vector3{};
+    float differenceMagnitudeSquared = ((*this) - rotated).magnitudeSquared();
+    if(differenceMagnitudeSquared < 0.0001)
+    {
+        return Vector3{};
+    }
+    return crossProduct(rotated)
+        .scaledToMagnitude(angle(rotated));
+}
+
+Vector3 Vector3::crossProduct(Vector3 other)
+{
+    float tx = y*other.z - z*other.y;
+    float ty = z*other.x - x*other.z;
+    float tz = x*other.y - y*other.x;
+    return Vector3{tx, ty, tz};
+}
+
+float Vector3::dotProduct(Vector3 other)
+{
+    return x*other.x + y*other.y + z*other.z;
+}
+
+float Vector3::angle(Vector3 other)
+{
+    float mag2 = (*this).magnitudeSquared();
+    float otherMag2 = other.magnitudeSquared();
+    float dot = (*this).dotProduct(other);
+    return acos(dot / sqrt(mag2 * otherMag2));
 }

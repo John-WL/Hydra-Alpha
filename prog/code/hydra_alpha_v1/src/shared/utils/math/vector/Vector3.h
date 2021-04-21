@@ -30,6 +30,10 @@ class Vector3
         
         Vector3 rotate(Vector3 rotator);
         Vector3 findRotator(Vector3 rotated);
+        
+        Vector3 crossProduct(Vector3 other);
+        float dotProduct(Vector3 other);
+        float angle(Vector3 other);
 
     private:
 

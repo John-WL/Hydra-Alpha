@@ -14,14 +14,14 @@
 
 #include "../../peripheral/i2c/bno055/Bno055.h"
 
-#include "../../peripheral/i2c/esp_cam/EspCamSlave.h"
+#include "../../peripheral/slow_i2c/esp_cam/EspCam.h"
 
 void Inputs::init()
 {
     BatteryVoltageSensor::init();
     Sonar::init([](long distance){});
     Bno055::init();
-    EspCamSlave::init();
+    EspCam::init(); // updated in the second thread, see tank_alpha_v1.hpp
 }
 
 void Inputs::update()
@@ -38,7 +38,6 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     []()
     {
         Bno055::update();
-        EspCamSlave::update();
     }
 };
 
