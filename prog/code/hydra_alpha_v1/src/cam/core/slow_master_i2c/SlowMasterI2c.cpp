@@ -24,7 +24,7 @@ void SlowMasterI2c::init(uint8_t sdaPin, uint8_t sclPin)
 void SlowMasterI2c::send(uint8_t slaveAddress, QueueArray<uint8_t>& sendData)
 {
     _startBit();
-    //Serial.println("send address");
+    Serial.println("send address");
     _sendByte(slaveAddress & (~0x01));
     for(int i = 0; sendData.count() > 0; i++)
     {
@@ -81,17 +81,17 @@ void SlowMasterI2c::_sendBit(bool bitValue)
     delayMicroseconds(I2C_PIN_CHANGE_DELAY);
     _sclSyncClockStrech();
     _sclFetchClockStrech();
-    //delayMicroseconds(I2C_PIN_CHANGE_DELAY);
+    delayMicroseconds(I2C_PIN_CHANGE_DELAY);
 }
 
 bool SlowMasterI2c::_getBit()
 {
     _sclSyncClockStrech();
-    //delayMicroseconds(I2C_PIN_CHANGE_DELAY);
+    delayMicroseconds(I2C_PIN_CHANGE_DELAY);
     bool bitValue = digitalRead(_sdaPin);
-    //delayMicroseconds(I2C_PIN_CHANGE_DELAY);
+    delayMicroseconds(I2C_PIN_CHANGE_DELAY);
     _sclFetchClockStrech();
-    //delayMicroseconds(I2C_PIN_CHANGE_DELAY);
+    delayMicroseconds(I2C_PIN_CHANGE_DELAY);
     return bitValue;
 }
 
@@ -103,24 +103,27 @@ bool SlowMasterI2c::_getAcknowledge()
 void SlowMasterI2c::_startBit()
 {
     pinMode(_sdaPin, OUTPUT);   // start
-    //delayMicroseconds(I2C_PIN_CHANGE_DELAY);
+    delayMicroseconds(I2C_PIN_CHANGE_DELAY);
     _sclFetchClockStrech();
 }
 
 void SlowMasterI2c::_stopBit()
 {
     pinMode(_sdaPin, OUTPUT);   // don't care
-    //delayMicroseconds(I2C_PIN_CHANGE_DELAY);
+    delayMicroseconds(I2C_PIN_CHANGE_DELAY);
     _sclSyncClockStrech();
     pinMode(_sdaPin, INPUT);    // stop
-    //delayMicroseconds(I2C_PIN_CHANGE_DELAY);
+    delayMicroseconds(I2C_PIN_CHANGE_DELAY);
 }
 
 void SlowMasterI2c::_sclSyncClockStrech()
 {
     pinMode(_sclPin, INPUT);        // sync
     //Serial.println("send bit ple ple ple");
-    while(!digitalRead(_sclPin));   // clock-stretch handling
+    while(!digitalRead(_sclPin))   // clock-stretch handling
+    {
+        //serialDebug("waiting for slave to release scl line.");
+    }
     //Serial.println("send bit 2");
     delayMicroseconds(I2C_PIN_CHANGE_DELAY);
 }
@@ -128,7 +131,7 @@ void SlowMasterI2c::_sclSyncClockStrech()
 void SlowMasterI2c::_sclFetchClockStrech()
 {
     pinMode(_sclPin, OUTPUT);                   // fetch
-    delayMicroseconds(I2C_PIN_CHANGE_DELAY);    // let some time for the slave to stretch the clock
+    //delayMicroseconds(I2C_PIN_CHANGE_DELAY);    // let some time for the slave to stretch the clock
 }
 
 uint8_t SlowMasterI2c::_sdaPin{0};

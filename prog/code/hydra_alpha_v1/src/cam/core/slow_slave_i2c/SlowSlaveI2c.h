@@ -3,6 +3,8 @@
 #ifndef SLOW_SLAVE_I2C_H
 #define SLOW_SLAVE_I2C_H
 
+#define I2C_SLAVE_DELAY_FOR_SDA_UPDATE 15
+
 #include "Vector.h"
 
 #include "Arduino.h"
@@ -19,46 +21,37 @@ public:
     static void onRequest(QueueArray<uint8_t>& dataToSend);
 
 private:
-    // called when sda line changes
-    static void _onSdaChange();
-
-    // called when scl line rises
-    static void (*_onSclSync)(void);
     // called when scl line falls
-    static void (*_onSclFetch)(void);
+    static void (*_onSclSync)(void);
 
-    // returns true if sda and scl edges
-    // correspond to a start bit
-    static bool _gotStartBit();
+    // start/stop handling
+    static void _handleStartBit();
+    static void _handleStopBit();
 
-    // returns true if sda and scl edges
-    // correspond to a stop bit
-    static bool _gotStopBit();
-
+    // ack/noack handling
     static void _startAcknowledge();
     static void _stopAcknowledge();
 
     // states
     static void _idleState();
-
-    static void _fetchAddressState();
     static void _readAddressState();
-
-    static void _fetchReadDataState();
     static void _readDataState();
-
-    static void _fetchWriteDataState();
     static void _writeDataState();
+    
+    // software interrupts...
+    static bool _gotStartBit();
+    static bool _gotStopBit();
+    static bool _sclFalling();
+    static bool _sdaChanged();
+    
 
     // hardware access
     static void _sdaHigh();
     static void _sdaLow();
+    static void _lockLowSclLine();  // for clock-strech handling
+    static void _releaseSclLine();  //
     static bool _sdaRead();
     static bool _sclRead();
-
-    // clock-strech handling
-    static void _lockLowSclLine();
-    static void _releaseSclLine();
 
 
     static uint8_t _chipAddress;
@@ -73,9 +66,6 @@ private:
     static bool _receivingData;
 
     static bool _sendsAcknowledges;
-
-    static bool _sclLocked;
-    static bool _sclReleaseRequest;
 
     static uint8_t _bitCount;
     static uint8_t _readByte;

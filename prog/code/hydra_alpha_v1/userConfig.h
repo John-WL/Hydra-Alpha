@@ -11,7 +11,7 @@
 // *********************************************** //
 
 // serial debugging
-//#define ENABLE_SERIAL_DEBUGGING
+#define ENABLE_SERIAL_DEBUGGING
 
 // serial communication speed
 #define SERIAL_COMMUNICATION_SPEED 115200

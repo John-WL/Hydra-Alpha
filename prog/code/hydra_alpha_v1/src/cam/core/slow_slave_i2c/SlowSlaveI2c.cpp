@@ -22,7 +22,6 @@ void SlowSlaveI2c::init(uint8_t sdaPin, uint8_t sclPin, uint8_t chipAddress)
     _sdaCurrentState = digitalRead(_sdaPin);
     _sclCurrentState = digitalRead(_sclPin);
 
-    _onSclFetch = _idleState;
     _onSclSync = _idleState;
 }
 
@@ -33,63 +32,41 @@ void SlowSlaveI2c::update()
     _sclPreviousState = _sclCurrentState;
     _sdaCurrentState = _sdaRead();
     _sclCurrentState = _sclRead();
-    
-    // clock-stretching
-    _lockLowSclLine();
 
-    // start/stop bit
-    if(_sdaPreviousState != _sdaCurrentState)
-    {
-        _onSdaChange();
-    }
-
-    // data fetch/sync
-    if(_sclPreviousState != _sclCurrentState)
-    {
-        if(_sclCurrentState)
-        {
-            _onSclSync();
-        }
-        else
-        {
-            _onSclFetch();
-            _sclReleaseRequest = true;  // clock-stretch release mechanism
-        }
-    }
-
-    // release the clock line in case we're done with the data
-    _releaseSclLine();
-}
-
-// start/stop bit handling
-void SlowSlaveI2c::_onSdaChange()
-{
     if(_gotStartBit())
     {
         serialDebug("start");
-        _onSclFetch = _fetchAddressState;
         _onSclSync = _readAddressState;
-        _readByte = 0;
         _bitCount = 0;
+        _readByte = 0;
         _receivingData = true;
     }
     else if(_gotStopBit())
     {
         serialDebug("stop");
-        _onSclFetch = _idleState;
         _onSclSync = _idleState;
         _readByte = 0;
         _bitCount = 0;
-        if(_receivingData && (_chipAddress == (_receivedAddressSelect & 0xFE)))
+        if(_receivingData
+            && (_chipAddress == (_receivedAddressSelect & 0xFE)))
         {
             onReceive(_readData);
         }
-        _receivedAddressSelect = ~_chipAddress;
         _receivingData = true;
+        _receivedAddressSelect = ~_chipAddress;
         while(_writeData.count())
         {
             _writeData.pop();
         }
+    }
+    
+    if(_sclFalling())
+    {
+        //serialDebug("scl fall");
+        _lockLowSclLine();
+        _stopAcknowledge();
+        _onSclSync();
+        _releaseSclLine();
     }
 }
 
@@ -99,164 +76,113 @@ void SlowSlaveI2c::_idleState()
     // We are waiting for a start bit.
 }
 
-void SlowSlaveI2c::_fetchAddressState()
-{
-    // if we got the whole byte
-    if(_bitCount == 8)
-    {
-        // that's our received address
-        _receivedAddressSelect = _readByte;
-        // if that's our chip address
-        if(_receivedAddressSelect ^ _chipAddress <= 0x01)
-        {
-            _startAcknowledge();
-        }
-    }
-    else if(_bitCount == 9)
-    {
-        _stopAcknowledge();
-
-        serialDebug("got address");
-        serialDebug(_receivedAddressSelect);
-
-        // reset the data byte and bit count
-        _readByte = 0;
-        _bitCount = 0;
-        // got a read bit?
-        if((_chipAddress ^ _receivedAddressSelect) == 0)
-        {
-            serialDebug("address match");
-            serialDebug("it's a read");
-            _onSclFetch = _fetchReadDataState;
-            _onSclSync = _readDataState;
-        }
-        // got a write bit?
-        else if((_chipAddress ^ _receivedAddressSelect) == 1)
-        {
-            serialDebug("address match");
-            serialDebug("it's a write");
-            // reversed on purpose!
-            _onSclFetch = _writeDataState;
-            _onSclSync = _fetchWriteDataState;
-            _receivingData = false;
-            onRequest(_writeData);
-            if(_writeData.count())
-            {
-                _writeByte = _writeData.pop();
-            }
-            // called because we are late in the "fetch-write" cycle,
-            // and because we are in the "write" cycle right now...
-            //_onSclSync();
-            _onSclFetch();
-        }
-        // not the right chip address?
-        else
-        {
-            serialDebug("address mismatch");
-            _onSclFetch = _idleState;
-            _onSclSync = _idleState;
-        }
-    }
-}
-
 void SlowSlaveI2c::_readAddressState()
 {
-    // update the "_readByte" variable
-    if(_sdaCurrentState)
+    delayMicroseconds(I2C_SLAVE_DELAY_FOR_SDA_UPDATE);
+
+    if(_bitCount < 8)
     {
-        _readByte |= 0x80 >> _bitCount;
+        _readByte |= digitalRead(_sdaPin) ? 
+            0x80 >> _bitCount :
+            0;
     }
-
-    serialDebug("address read");
-
-    // got a bit, so index++
-    _bitCount++;
-}
-
-void SlowSlaveI2c::_fetchReadDataState()
-{
-    if(_bitCount == 8)
+    else if((_readByte ^ _chipAddress) <= 1)
     {
-        _readData.push(_readByte);
-        _startAcknowledge();
-    }
-    else if(_bitCount == 9)
-    {
-        _stopAcknowledge();
-        _readByte = 0;
+        _receivedAddressSelect = _readByte;
+        _startAcknowledge();    // ack if we are the chosen one
+        if((_receivedAddressSelect ^ _chipAddress) == 0) // if we are in reading state
+        {
+            _onSclSync = _readDataState;
+        }
+        else if((_receivedAddressSelect ^ _chipAddress) == 1) // if we are in writing state
+        {
+            _onSclSync = _writeDataState;
+            _receivingData = false;
+            onRequest(_writeData);
+        }
         _bitCount = 0;
+        _readByte = 0;
     }
+
+    _bitCount++;
 }
 
 void SlowSlaveI2c::_readDataState()
 {
-    // update the "_readByte" variable
-    if(_sdaCurrentState)
+    delayMicroseconds(I2C_SLAVE_DELAY_FOR_SDA_UPDATE);
+
+    if(_bitCount < 8)
     {
-        _readByte |= 0x80 >> _bitCount;
+        _readByte |= digitalRead(_sdaPin) ? 
+            0x80 >> _bitCount :
+            0;
     }
-
-    serialDebug("read data");
-
-    // got a bit, so index++
-    _bitCount++;
-}
-
-void SlowSlaveI2c::_fetchWriteDataState()
-{
-    if(_bitCount == 9)
+    else
     {
-        if(!_writeData.count())
-        {
-            _onSclFetch = _idleState;
-            _onSclSync = _idleState;
-            _sdaHigh();
-            return;
-        }
+        _startAcknowledge();
+        _readData.push(_readByte);
         _bitCount = 0;
-        _writeByte = _writeData.pop();
+        _readByte = 0;
     }
+
+    _bitCount++;
 }
 
 void SlowSlaveI2c::_writeDataState()
 {
-    if(_bitCount > 7)
+    delayMicroseconds(I2C_SLAVE_DELAY_FOR_SDA_UPDATE);
+
+    if(_bitCount == 0)
     {
-        if(_bitCount == 8)
+        if(_writeData.count())
         {
-            _startAcknowledge();
+            _writeByte = _writeData.pop();
         }
-        else if(_bitCount == 9)
+        else
         {
-            _sdaHigh();
+            _onSclSync = _idleState;
+            return;
         }
-        // we have nothing to do here (all bits written), 
-        // but we still need to notify that we got an 
-        // additionnal "write state" execution
-        _bitCount++;
-        return;
     }
 
-    // INPUT if 1
-    // OUTPUT if 0
-    (_writeByte & (0x80 >> _bitCount)) ?
-        _sdaHigh() :
-        _sdaLow();
-
-    serialDebug("write data");
-
-    // we have written a bit, so index++
+    if(_bitCount < 8)
+    {
+        _writeByte & (0x80 >> _bitCount) ?
+            _sdaHigh() :
+            _sdaLow();
+    }
+    else
+    {
+        _startAcknowledge();
+        _bitCount = 0;
+    }
+    
     _bitCount++;
+}
+
+bool SlowSlaveI2c::_sdaChanged()
+{
+    return _sdaCurrentState != _sdaPreviousState;
+}
+
+bool SlowSlaveI2c::_sclFalling()
+{
+    return (_sclCurrentState != _sclPreviousState)
+        && !_sclCurrentState;
 }
 
 bool SlowSlaveI2c::_gotStartBit()
 {
-    return !_sdaCurrentState && _sclCurrentState;
+    return (!_sdaCurrentState)
+        && _sclCurrentState
+        && _sdaChanged();
 }
 
 bool SlowSlaveI2c::_gotStopBit()
 {
-    return _sdaCurrentState && _sclCurrentState;
+    return _sdaCurrentState 
+        && _sclCurrentState
+        && _sdaChanged();
 }
 
 void SlowSlaveI2c::_startAcknowledge()
@@ -285,6 +211,16 @@ void SlowSlaveI2c::_sdaLow()
     pinMode(_sdaPin, OUTPUT);
 }
 
+void SlowSlaveI2c::_lockLowSclLine()
+{
+    pinMode(_sclPin, OUTPUT);
+}
+
+void SlowSlaveI2c::_releaseSclLine()
+{
+    pinMode(_sclPin, INPUT);
+}
+
 bool SlowSlaveI2c::_sdaRead()
 {
     return digitalRead(_sdaPin);
@@ -295,29 +231,7 @@ bool SlowSlaveI2c::_sclRead()
     return digitalRead(_sclPin);
 }
 
-void SlowSlaveI2c::_lockLowSclLine()
-{
-    if((!_sclCurrentState) && (_sclCurrentState != _sclPreviousState) && (!_sclLocked))
-    {
-        pinMode(_sclPin, OUTPUT);
-        _sclLocked = true;
-        //Serial.println("clock locked");
-    }
-}
-
-void SlowSlaveI2c::_releaseSclLine()
-{
-    if(_sclReleaseRequest)
-    {
-        //Serial.println("clock release");
-        _sclReleaseRequest = false;
-        _sclLocked = false;
-        pinMode(_sclPin, INPUT);
-    }
-}
-
 void (*SlowSlaveI2c::_onSclSync)(void) = _idleState;
-void (*SlowSlaveI2c::_onSclFetch)(void) = _idleState;
 
 uint8_t SlowSlaveI2c::_chipAddress{0};
 uint8_t SlowSlaveI2c::_sdaPin{0};
@@ -331,9 +245,6 @@ uint8_t SlowSlaveI2c::_receivedAddressSelect{0};
 bool SlowSlaveI2c::_receivingData{true};
 
 bool SlowSlaveI2c::_sendsAcknowledges{false};
-
-bool SlowSlaveI2c::_sclLocked{false};
-bool SlowSlaveI2c::_sclReleaseRequest{false};
 
 uint8_t SlowSlaveI2c::_bitCount{0};
 uint8_t SlowSlaveI2c::_readByte{0};

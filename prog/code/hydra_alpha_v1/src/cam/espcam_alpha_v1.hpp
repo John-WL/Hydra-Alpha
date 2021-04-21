@@ -98,7 +98,7 @@ void Esp32DualCore::main()
 {
     while(true)
     {
-        /*
+        
         QueueArray<uint8_t> dataToSend{};
         dataToSend.push(33);
         dataToSend.push(55);
@@ -115,9 +115,10 @@ void Esp32DualCore::main()
 
         SlowMasterI2c::send(76, dataToSend);
 
-        delay(10);
-        */
+        delay(5000);
         
+        
+        /*
         QueueArray<uint8_t> dataReceived = SlowMasterI2c::request(76, 6);
 
         Serial.print("Master received ");
@@ -130,7 +131,7 @@ void Esp32DualCore::main()
         }
 
         delay(5000);
-        
+        */
     }
 }
 

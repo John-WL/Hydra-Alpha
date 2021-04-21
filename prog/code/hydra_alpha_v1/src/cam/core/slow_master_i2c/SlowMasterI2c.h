@@ -6,7 +6,7 @@
 #include "../../../../projectConfig.h"
 
 #ifdef ENABLE_SERIAL_DEBUGGING
-#define I2C_PIN_CHANGE_DELAY 2000
+#define I2C_PIN_CHANGE_DELAY 8
 #else
 #define I2C_PIN_CHANGE_DELAY 200
 #endif
