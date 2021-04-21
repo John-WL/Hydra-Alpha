@@ -8,7 +8,7 @@
 #ifdef ENABLE_SERIAL_DEBUGGING
 #define I2C_PIN_CHANGE_DELAY 2000
 #else
-#define I2C_PIN_CHANGE_DELAY 100
+#define I2C_PIN_CHANGE_DELAY 200
 #endif
 
 #include "Vector.h"
@@ -34,6 +34,9 @@ private:
 
     static void _sendByte(uint8_t byte);
     static uint8_t _getByte();
+
+    static void _sclSyncClockStrech();
+    static void _sclFetchClockStrech();
 
     static uint8_t _sdaPin;
     static uint8_t _sclPin;

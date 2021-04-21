@@ -8,7 +8,7 @@
 
 #include "../../../../projectConfig.h"  // for easy on/off debugging
 
-void SlowSlaveI2c::init(uint8_t chipAddress, uint8_t sdaPin, uint8_t sclPin)
+void SlowSlaveI2c::init(uint8_t sdaPin, uint8_t sclPin, uint8_t chipAddress)
 {
     serialDebug("slow I2C init");
     _chipAddress = chipAddress & 0xFE;
@@ -33,6 +33,9 @@ void SlowSlaveI2c::update()
     _sclPreviousState = _sclCurrentState;
     _sdaCurrentState = _sdaRead();
     _sclCurrentState = _sclRead();
+    
+    // clock-stretching
+    _lockLowSclLine();
 
     // start/stop bit
     if(_sdaPreviousState != _sdaCurrentState)
@@ -43,10 +46,19 @@ void SlowSlaveI2c::update()
     // data fetch/sync
     if(_sclPreviousState != _sclCurrentState)
     {
-        _sclCurrentState ? 
-            _onSclSync() :
+        if(_sclCurrentState)
+        {
+            _onSclSync();
+        }
+        else
+        {
             _onSclFetch();
+            _sclReleaseRequest = true;  // clock-stretch release mechanism
+        }
     }
+
+    // release the clock line in case we're done with the data
+    _releaseSclLine();
 }
 
 // start/stop bit handling
@@ -283,6 +295,27 @@ bool SlowSlaveI2c::_sclRead()
     return digitalRead(_sclPin);
 }
 
+void SlowSlaveI2c::_lockLowSclLine()
+{
+    if((!_sclCurrentState) && (_sclCurrentState != _sclPreviousState) && (!_sclLocked))
+    {
+        pinMode(_sclPin, OUTPUT);
+        _sclLocked = true;
+        //Serial.println("clock locked");
+    }
+}
+
+void SlowSlaveI2c::_releaseSclLine()
+{
+    if(_sclReleaseRequest)
+    {
+        //Serial.println("clock release");
+        _sclReleaseRequest = false;
+        _sclLocked = false;
+        pinMode(_sclPin, INPUT);
+    }
+}
+
 void (*SlowSlaveI2c::_onSclSync)(void) = _idleState;
 void (*SlowSlaveI2c::_onSclFetch)(void) = _idleState;
 
@@ -298,6 +331,9 @@ uint8_t SlowSlaveI2c::_receivedAddressSelect{0};
 bool SlowSlaveI2c::_receivingData{true};
 
 bool SlowSlaveI2c::_sendsAcknowledges{false};
+
+bool SlowSlaveI2c::_sclLocked{false};
+bool SlowSlaveI2c::_sclReleaseRequest{false};
 
 uint8_t SlowSlaveI2c::_bitCount{0};
 uint8_t SlowSlaveI2c::_readByte{0};

@@ -56,6 +56,10 @@ private:
     static bool _sdaRead();
     static bool _sclRead();
 
+    // clock-strech handling
+    static void _lockLowSclLine();
+    static void _releaseSclLine();
+
 
     static uint8_t _chipAddress;
     static uint8_t _sdaPin;
@@ -69,6 +73,9 @@ private:
     static bool _receivingData;
 
     static bool _sendsAcknowledges;
+
+    static bool _sclLocked;
+    static bool _sclReleaseRequest;
 
     static uint8_t _bitCount;
     static uint8_t _readByte;

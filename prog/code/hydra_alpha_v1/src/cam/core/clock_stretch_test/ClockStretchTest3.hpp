@@ -4,9 +4,27 @@
 // in a closed environement before implementing it in
 // the real word.
 
-// This test tries to show why simple methods using
+// Note: all experiments were performed on the Esp-WROOM-32
+// - Crystal frequency @40MHz
+
+// Hypothesis:
+// This test will show why simple methods using
 // arduino's digitalRead() function calls don't work
 // properly.
+
+// Reality:
+// The digitalRead() function call in the context of
+// Esp32 programmed with arduino can done in about 0.2µS (or 5 MHz).
+// In contrast, performing a pinMode() function call takes 2.6µS (or ~385 KHz).
+
+// Conclusion:
+// The experiment shows that we can use the digitalRead() function
+// to perform clock stretching in the custom I2C protocol. 
+
+// That being said, it might be more efficient to use digital interrupts
+// instead of the arduino functions to detect falling edges and handle them. 
+
+
 
 #ifndef CLOCK_STRETCH_TEST_3_H
 #define CLOCK_STRETCH_TEST_3_H
@@ -41,6 +59,8 @@ public:
 
     static void updateSlave()
     {
+        // the esp32 used with arduino can call digitalRead() (and optionnaly put the 
+        // result in a uint8_t variable) at 5MHz. 
         if(!digitalRead(_sclSlavePin))
         {
             Serial.println("slave STRETCH");

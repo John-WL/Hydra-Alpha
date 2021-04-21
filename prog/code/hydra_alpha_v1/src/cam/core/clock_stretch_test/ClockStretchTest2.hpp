@@ -24,7 +24,7 @@ public:
         digitalWrite(_sclMasterPin, LOW);
         digitalWrite(_sclSlavePin, LOW);
 
-        attachInterrupt(digitalPinToInterrupt(sclSlavePin), _sclSlaveClockStrech, FALLING);
+        attachInterrupt(digitalPinToInterrupt(_sclSlavePin), _sclSlaveClockStrech, FALLING);
     }
 
     static void updateMaster()
@@ -42,7 +42,7 @@ public:
 
     static void updateSlave()
     {
-        if(!digitalRead(_sclSlavePin))
+        if(!_sclSlaveState)
         {
             Serial.println("slave STRETCH");
 
@@ -54,21 +54,26 @@ public:
             Serial.println("\nslave RELEASE");
             // release the clock line
             pinMode(_sclSlavePin, INPUT);
+            _sclSlaveState = 1;
         }
     }
 
 private:
-    static void IRAM_ATTR _sclSlaveClockStrech()
+    static void _sclSlaveClockStrech()
     {
-        pinMode(_sclSlavePin, OUTPUT);
+        pinMode(_sclSlavePin, INPUT);
+        _sclSlaveState = 0;
     }
 
     static uint8_t _sclMasterPin;
     static uint8_t _sclSlavePin;
+    static uint8_t _sclSlaveState;
     
 };
 
 uint8_t ClockStretchTest2::_sclMasterPin = 0;
 uint8_t ClockStretchTest2::_sclSlavePin = 0;
+uint8_t ClockStretchTest2::_sclSlaveState = 0;
+
 
 #endif
