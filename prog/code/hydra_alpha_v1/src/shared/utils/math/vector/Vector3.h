@@ -21,19 +21,20 @@ class Vector3
         float x;
         float y;
         float z;
-
-        float magnitudeSquared();
-        float magnitude();
-
-        Vector3 normalize();
-        Vector3 scaledToMagnitude(float magnitude);
         
         Vector3 rotate(Vector3 rotator);
         Vector3 findRotator(Vector3 rotated);
+        float angle(Vector3 other);
+
+        Vector3 normalize();
+
+        Vector3 scaledToMagnitude(float magnitude);
         
         Vector3 crossProduct(Vector3 other);
         float dotProduct(Vector3 other);
-        float angle(Vector3 other);
+
+        float magnitude();
+        float magnitudeSquared();
 
     private:
 

@@ -2,13 +2,9 @@
 
 #include "Arduino.h"
 
-#include "QueueArray.h"
-
 #include "esp_camera.h"
 
 #include "../shared/core/Esp32DualCore.h"
-
-#include "../shared/peripheral/slow_slave_i2c/SlowSlaveI2c.h"
 
 #include "peripheral/tank_alpha/TankAlpha.h"
 #include "peripheral/camera_sensor/CameraSensor.h"
@@ -37,7 +33,7 @@ void Esp32DualCore::main()
 {
     while(true)
     {
-        SlowSlaveI2c::update();
+        TankAlpha::update();
     }
 }
 

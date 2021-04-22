@@ -8,7 +8,7 @@
 
 #include "Vector.h"
 
-#include "../../../../shared/peripheral/slow_master_i2c/SlowMasterI2c.h"
+#include "../../../../shared/peripheral/slow_i2c/slow_master_i2c/SlowMasterI2c.h"
 
 void EspCam::init()
 {

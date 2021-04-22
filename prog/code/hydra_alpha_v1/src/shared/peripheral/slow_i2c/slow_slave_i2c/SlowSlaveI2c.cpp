@@ -6,7 +6,7 @@
 
 #include "QueueArray.h"
 
-#include "../../../../projectConfig.h"  // for easy on/off debugging
+#include "../../../../../projectConfig.h"  // for easy on/off debugging
 
 void SlowSlaveI2c::init(uint8_t sdaPin, uint8_t sclPin, uint8_t chipAddress)
 {

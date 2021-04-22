@@ -6,17 +6,16 @@
 
 #include "../shared/core/Esp32DualCore.h"
 
-#include "../shared/utils/timer/TimerMicros.h"
-#include "../shared/utils/math/vector/Vector3.h"
+#include "peripheral/slow_i2c/esp_cam/EspCam.h"
 
-#include "peripheral/i2c/I2cProtocol.h"
+#include "../shared/utils/timer/TimerMicros.h"
 
 #include "mode/FunctioningMode.h"
 
 #include "io/input/Inputs.h"
 #include "io/output/Outputs.h"
 
-#include "peripheral/slow_i2c/esp_cam/EspCam.h"
+#include "io/input/sonar/Sonar.h"
 
 
 TimerMicros programTimer
@@ -24,33 +23,41 @@ TimerMicros programTimer
     10000,
     []()
     {
-        Inputs::update();
-        FunctioningMode::execute();
-        Outputs::update();
+        //Inputs::update();
+        //FunctioningMode::execute();
+        //Outputs::update();
+        Sonar::init([](long distance)
+        {
+            Serial.println(distance);
+        });
     }
 };
 
 void setup()
 {
-    Serial.begin(SERIAL_COMMUNICATION_SPEED);
-    Wire.begin();
-
-    Inputs::init();
-    Outputs::init();
     Esp32DualCore::init();
 
-    programTimer.start();
+    Serial.begin(SERIAL_COMMUNICATION_SPEED);
+    //Wire.begin();
+
+    //Inputs::init();
+    //Outputs::init();
+
+    //programTimer.start();
 }
 
 void loop()
 {
-    programTimer.update();
+    //programTimer.update();
+    Sonar::requestUpdate();
+
+    //delay(1000);
 }
 
 void Esp32DualCore::main()
 {
     while(true)
     {
-        EspCam::update();
+        //EspCam::update();
     }
 }

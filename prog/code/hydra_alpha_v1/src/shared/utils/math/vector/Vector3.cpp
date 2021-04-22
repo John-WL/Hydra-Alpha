@@ -55,32 +55,6 @@ Vector3 Vector3::operator-(Vector3 that)
     return Vector3{x-that.x, y-that.y, z-that.z};
 }
 
-float Vector3::magnitudeSquared()
-{
-    return x*x + y*y + z*z;
-}
-
-float Vector3::magnitude()
-{
-    return sqrt(magnitudeSquared());
-}
-
-Vector3 Vector3::normalize()
-{
-    float calculatedMagnitude = magnitude();
-    if(calculatedMagnitude == 0)
-    {
-        // returning an arbitrary default vector in the X direction
-        return Vector3{1, 0, 0};
-    }
-    return (*this) * (1/calculatedMagnitude);
-}
-
-Vector3 Vector3::scaledToMagnitude(float magnitude)
-{
-    return normalize()*magnitude;
-}
-
 Vector3 Vector3::rotate(Vector3 rotator)
 {
     float a = rotator.magnitude()*0.5;
@@ -104,6 +78,30 @@ Vector3 Vector3::findRotator(Vector3 rotated)
         .scaledToMagnitude(angle(rotated));
 }
 
+float Vector3::angle(Vector3 other)
+{
+    float mag2 = (*this).magnitudeSquared();
+    float otherMag2 = other.magnitudeSquared();
+    float dot = (*this).dotProduct(other);
+    return acos(dot / sqrt(mag2 * otherMag2));
+}
+
+Vector3 Vector3::normalize()
+{
+    float calculatedMagnitude = magnitude();
+    if(calculatedMagnitude == 0)
+    {
+        // returning an arbitrary default vector in the X direction
+        return Vector3{1, 0, 0};
+    }
+    return (*this) * (1/calculatedMagnitude);
+}
+
+Vector3 Vector3::scaledToMagnitude(float magnitude)
+{
+    return normalize()*magnitude;
+}
+
 Vector3 Vector3::crossProduct(Vector3 other)
 {
     float tx = y*other.z - z*other.y;
@@ -117,10 +115,12 @@ float Vector3::dotProduct(Vector3 other)
     return x*other.x + y*other.y + z*other.z;
 }
 
-float Vector3::angle(Vector3 other)
+float Vector3::magnitude()
 {
-    float mag2 = (*this).magnitudeSquared();
-    float otherMag2 = other.magnitudeSquared();
-    float dot = (*this).dotProduct(other);
-    return acos(dot / sqrt(mag2 * otherMag2));
+    return sqrt(magnitudeSquared());
+}
+
+float Vector3::magnitudeSquared()
+{
+    return x*x + y*y + z*z;
 }

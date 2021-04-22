@@ -3,7 +3,7 @@
 #ifndef SLOW_MASTER_I2C_H
 #define SLOW_MASTER_I2C_H
 
-#include "../../../../projectConfig.h"
+#include "../../../../../projectConfig.h"
 
 #define I2C_PIN_CHANGE_DELAY 200
 

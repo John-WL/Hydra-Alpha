@@ -3,19 +3,40 @@
 
 #include "TankAlpha.h"
 
+#include "QueueArray.h"
+
 #include "../camera_sensor/CameraSensor.h"
 
 #include "../../../shared/utils/math/shape/Rectangle2.h"
 #include "../../../shared/utils/math/vector/Vector2.h"
 
-#include "../../../shared/peripheral/slow_slave_i2c/SlowSlaveI2c.h"
+#include "../../../shared/peripheral/slow_i2c/slow_slave_i2c/SlowSlaveI2c.h"
 
 void TankAlpha::init()
 {
-    SlowSlaveI2c::init(3, 1, 0x24);
+    SlowSlaveI2c::init(
+        SLOW_SDA_PIN,
+        SLOW_SCL_PIN,
+        SLOW_I2C_SLAVE_ADDRESS
+    );
+}
+
+void TankAlpha::update()
+{
+    SlowSlaveI2c::update();
 }
 
 void SlowSlaveI2c::onReceive(QueueArray<uint8_t>& dataReceived)
+{
+    TankAlpha::onReceive(dataReceived);
+}
+
+void SlowSlaveI2c::onRequest(QueueArray<uint8_t>& dataRequested)
+{
+    TankAlpha::onRequest(dataRequested);
+}
+
+void TankAlpha::onReceive(QueueArray<uint8_t>& dataReceived)
 {
     if(!dataReceived.count())
     {
@@ -23,8 +44,8 @@ void SlowSlaveI2c::onReceive(QueueArray<uint8_t>& dataReceived)
     }
 
     // make sure to remember what the last command id was
-    TankAlpha::lastReceivedCommandId = dataReceived.pop();
-    switch(TankAlpha::lastReceivedCommandId)
+    _lastReceivedCommandId = dataReceived.pop();
+    switch(_lastReceivedCommandId)
     {
         case TankAlphaCommands::ENABLE_DISABLE_SENDING_CAMERA_FRAME_OVER_WI_FI:
             // check if the master forgot a byte...
@@ -33,7 +54,7 @@ void SlowSlaveI2c::onReceive(QueueArray<uint8_t>& dataReceived)
                 return;
             }
             // update the boolean to enable/disable WiFi camera transmission
-            TankAlpha::enableSendingCameraFrameOverWiFi = dataReceived.pop() & 0x80;
+            _enableSendingCameraFrameOverWiFi = dataReceived.pop() & 0x80;
             break;
         case TankAlphaCommands::SEND_BACK_RECTANGLES_BAKING_STATUS:
             // Nothing to do.
@@ -56,9 +77,9 @@ void SlowSlaveI2c::onReceive(QueueArray<uint8_t>& dataReceived)
     }
 }
 
-void SlowSlaveI2c::onRequest(QueueArray<uint8_t>& dataRequested)
+void TankAlpha::onRequest(QueueArray<uint8_t>& dataRequested)
 {
-    switch(TankAlpha::lastReceivedCommandId)
+    switch(_lastReceivedCommandId)
     {
         case TankAlphaCommands::ENABLE_DISABLE_SENDING_CAMERA_FRAME_OVER_WI_FI:
             // everything was handled in the _receiveEvent() function
@@ -99,6 +120,6 @@ void SlowSlaveI2c::onRequest(QueueArray<uint8_t>& dataRequested)
     }
 }
 
-bool TankAlpha::enableSendingCameraFrameOverWiFi{false};
+bool TankAlpha::_enableSendingCameraFrameOverWiFi{false};
 
-unsigned char TankAlpha::lastReceivedCommandId{0};
+unsigned char TankAlpha::_lastReceivedCommandId{0};

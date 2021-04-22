@@ -13,47 +13,58 @@ void WiFiClientHydra::init()
 {
     _connectToWiFiServer();
     _connectClient();
-    _reconnectionDelayTimer.start();
+    _reconnectionTimer.start();
 }
 
 void WiFiClientHydra::sendDataToRemote(std::vector<uint8_t> data)
 {
-    // WiFi connected?
-    if(WiFi.status() == WL_CONNECTED && _isClientConnected)
+    if(_wifiAndClientConnected())
     {
-        // send data
-        _client.sendBinary((const char*)&data, data.size());
-
+        _sendData(data);
     }
-    // WiFi disconnected.
     else
     {
-        // make sure the reconnection timer is updated
-        _reconnectionDelayTimer.update();
-        // if the reconnection timeout is reached
-        if(_tryReconnectionTimeoutReached)
+        _reconnectionTimer.update();
+        if(_timeoutOfReconnectionReached)
         {
-            // disconnect to reconnect later on
-            if(WiFi.status() != WL_CONNECTED)
-            {
-                // Try to connect the WiFi object to Remote.
-                // We are still not connected to the server.
-                WiFi.disconnect();
-                WiFi.begin(WI_FI_CLIENT_HYDRA_SSID_REMOTE, WI_FI_CLIENT_HYDRA_GENERAL_PASSWORD);
-            }
-            else
-            {
-                // Try to connect our client object to Remote.
-                // We are connected to the access point, but our client object isn't yet.
-                _isClientConnected = _client.connect(WI_FI_CLIENT_HYDRA_SERVER_IP, WI_FI_CLIENT_HYDRA_SERVER_PORT, "/");
-            }
-            // Restart reconnection timeout.
-            _tryReconnectionTimeoutReached == false;
-            _reconnectionDelayTimer.start();
+            _handleReconnection();
+            _restartReconnectionTimer();
         }
     }
     
-    //_signalStrength = 
+    _updateRemoteSignalStrength();
+}
+
+int8_t WiFiClientHydra::getRemoteSignalStrength()
+{
+    return _remoteRssiStrength;
+}
+
+bool WiFiClientHydra::_wifiAndClientConnected()
+{
+    return _wifiConnected() && _isClientConnected;
+}
+
+bool WiFiClientHydra::_wifiConnected()
+{
+    return (WiFi.status() == WL_CONNECTED);
+}
+
+void WiFiClientHydra::_sendData(std::vector<uint8_t> data)
+{
+    _client.sendBinary((const char*)&data, data.size());
+}
+
+void WiFiClientHydra::_handleReconnection()
+{
+    if(!_wifiConnected())
+    {
+        _connectToWiFiServer();
+    }
+    else
+    {
+        _connectClient();
+    }
 }
 
 void WiFiClientHydra::_connectToWiFiServer()
@@ -67,16 +78,50 @@ void WiFiClientHydra::_connectClient()
     _isClientConnected = _client.connect(WI_FI_CLIENT_HYDRA_SERVER_IP, WI_FI_CLIENT_HYDRA_SERVER_PORT, "/");
 }
 
-void WiFiClientHydra::_resetReconnectionTimoutReached()
+void WiFiClientHydra::_reconnectionTimeoutCallback()
 {
-    _tryReconnectionTimeoutReached = true;
+    _timeoutOfReconnectionReached = true;
 }
 
-bool WiFiClientHydra::_tryReconnectionTimeoutReached{false};
-TimerMicros WiFiClientHydra::_reconnectionDelayTimer
+void WiFiClientHydra::_restartReconnectionTimer()
+{
+    _timeoutOfReconnectionReached == false;
+    _reconnectionTimer.start();
+}
+
+int8_t WiFiClientHydra::_findRemoteSsidIndex()
+{
+    int8_t networkSize = WiFi.scanNetworks();
+    for(int8_t i = 0; i < networkSize; i++)
+    {
+        if(WiFi.SSID(i) == WI_FI_CLIENT_HYDRA_SSID_REMOTE)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+void WiFiClientHydra::_updateRemoteSignalStrength()
+{
+    int8_t remoteWiFiIndex = _findRemoteSsidIndex();
+    if(remoteWiFiIndex >= 0)
+    {
+        _remoteRssiStrength = WiFi.RSSI(remoteWiFiIndex);
+    }
+    else
+    {
+        _remoteRssiStrength = -128;
+    }
+}
+
+bool WiFiClientHydra::_timeoutOfReconnectionReached{false};
+int8_t WiFiClientHydra::_remoteRssiStrength{-128};
+TimerMicros WiFiClientHydra::_reconnectionTimer
 {
     WI_FI_CLIENT_HYDRA_WAIT_TIME_BEFORE_TRYING_TO_RECONNECT_AGAIN,
-    _resetReconnectionTimoutReached
+    _reconnectionTimeoutCallback
 };
 websockets::WebsocketsClient WiFiClientHydra::_client{};
 bool WiFiClientHydra::_isClientConnected{false};

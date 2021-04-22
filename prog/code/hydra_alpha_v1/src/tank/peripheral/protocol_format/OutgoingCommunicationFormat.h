@@ -6,12 +6,15 @@
 #define ALPHA_TO_REMOTE_LISTENING_TO_COMMAANDS_MODE 0
 #define ALPHA_TO_REMOTE_SWARM_MODE 1
 
+#include "Arduino.h"
+
 typedef struct
 {
-    unsigned char batteryLevel;
-    unsigned int distanceSonar;
-    unsigned char mode;
-    unsigned char checkSum;
+    uint8_t mode;
+    uint32_t distanceSonar;
+    uint8_t batteryLevel;
+    int8_t signalStrength;
+    uint8_t checkSum;
 } OutgoingCommunicationFormat;
 
 #endif
