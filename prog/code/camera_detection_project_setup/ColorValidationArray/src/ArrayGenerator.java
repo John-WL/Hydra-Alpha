@@ -54,7 +54,7 @@ public class ArrayGenerator {
         stringBuilder.append("// ---\n");
         stringBuilder.append("\n");
         stringBuilder.append("\n");
-        stringBuilder.append("bool validateColor565(unsigned int color)\n{\n\treturn byteColorValidationValues[color >> 3] | (1 << (color & 7));\n}\n");
+        stringBuilder.append("bool validateColor565(unsigned int color)\n{\n\treturn byteColorValidationValues[color >> 3] & (1 << (color & 7));\n}\n");
         stringBuilder.append("\n");
         stringBuilder.append("// ---\n");
 

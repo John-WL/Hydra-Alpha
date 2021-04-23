@@ -8214,7 +8214,7 @@ unsigned char byteColorValidationValues[8192] = {
 
 bool validateColor565(unsigned int color)
 {
-	return byteColorValidationValues[color >> 3] | (1 << (color & 7));
+	return byteColorValidationValues[color >> 3] & (1 << (color & 7));
 }
 
 // ---
