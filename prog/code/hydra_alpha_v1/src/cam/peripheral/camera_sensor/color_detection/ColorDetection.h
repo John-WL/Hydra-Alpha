@@ -18,7 +18,7 @@ namespace ColorDetection
         return validateColor565(color565);
     }
 
-    std::vector<Rectangle2> generateRectanglesFrom565Buffer(unsigned int* buffer, unsigned char width, unsigned char height)
+    std::vector<Rectangle2> generateRectanglesFrom565Buffer(unsigned int* buffer, unsigned int width, unsigned int height)
     {
         std::vector<Rectangle2> result{};
 
