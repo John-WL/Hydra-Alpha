@@ -10,6 +10,7 @@
 #include "../../../shared/utils/math/shape/Rectangle2.h"
 
 #include "../../../../config/camera_pins.h"
+#include "../../../../config/CustomTankDetectionColorValidation.h"
 
 void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
 {
@@ -79,7 +80,7 @@ void CameraSensor::update()
 {
     // if we don't need to query the camera image, 
     // then don't query it for no reason
-    if(!_isSendingFramesOverWiFi && rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING)
+    if(!_isSendingFramesOverWiFi && (rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING))
     {
         return;
     }
