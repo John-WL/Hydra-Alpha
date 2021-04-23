@@ -29,7 +29,7 @@ namespace ColorDetection
         {
             for(unsigned long x = 0; x < width; x++)
             {
-                if(testPixel(buffer[x * y]))
+                if(testPixel(buffer[x + (y * height)]))
                 {
                     averageX += x;
                     averageY += y;
@@ -63,13 +63,13 @@ namespace ColorDetection
         {
             upperLeft.y = 0;
         }
-        if(lowerRight.x > 320)
+        if(lowerRight.x > width)
         {
-            lowerRight.x = 320;
+            lowerRight.x = width;
         }
-        if(lowerRight.y > 240)
+        if(lowerRight.y > height)
         {
-            lowerRight.y = 240;
+            lowerRight.y = height;
         }
         result.push_back(Rectangle2{upperLeft, lowerRight});
 

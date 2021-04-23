@@ -20,6 +20,8 @@
 #ifndef CAMERA_SENSOR_H
 #define CAMERA_SENSOR_H
 
+#define DESIRED_JPEG_QUALITY 10
+
 #include "esp_camera.h"
 #include "fd_forward.h"
 
@@ -54,6 +56,7 @@ public:
 
 private:
     static void _generateRectanglesFromFaceDetection(camera_fb_t* cameraFramebuffer);
+    static void _generateRectanglesFromColorDetection(camera_fb_t* cameraFrameBuffer);
 
     static bool _isSendingFramesOverWiFi;
     static void (*_sendOverWiFiCallback)(std::vector<uint8_t>);

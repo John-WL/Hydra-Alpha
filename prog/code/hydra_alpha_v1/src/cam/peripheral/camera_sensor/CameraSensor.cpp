@@ -2,15 +2,17 @@
 
 #include "CameraSensor.h"
 
+#include "Arduino.h"
+
 #include "esp_camera.h"
-#include "fd_forward.h"
+//#include "fd_forward.h"
 
 #include "Vector.h"
 
 #include "../../../shared/utils/math/shape/Rectangle2.h"
 
 #include "../../../../config/camera_pins.h"
-#include "../../../../config/CustomTankDetectionColorValidation.h"
+#include "color_detection/ColorDetection.h"
 
 void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
 {
@@ -38,13 +40,13 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
     config.pin_pwdn = PWDN_GPIO_NUM;
     config.pin_reset = RESET_GPIO_NUM;
     config.xclk_freq_hz = 10000000;
-    config.pixel_format = PIXFORMAT_JPEG;
+    config.pixel_format = PIXFORMAT_RGB565;
 
     // frame size is 320x240 frame size,
     // what we need for the lcd, and
     // optimal for face detection!
     config.frame_size = FRAMESIZE_QVGA;
-    config.jpeg_quality = 10;
+    config.jpeg_quality = DESIRED_JPEG_QUALITY;
     config.fb_count = 2;
 
     // checking for errors when initializing
@@ -86,42 +88,63 @@ void CameraSensor::update()
     }
 
     // camera frame buffer
-    camera_fb_t* cameraFramebuffer = esp_camera_fb_get();
-
-    // send over WiFi the way you want, I don't care anymore
-    if(_isSendingFramesOverWiFi)
-    {
-        // convert the data array to a vector<uint8_t>
-        std::vector<uint8_t> cameraFramebufferVector{};
-        cameraFramebufferVector.insert(
-            cameraFramebufferVector.end(),
-            &(cameraFramebuffer->buf[0]),
-            &(cameraFramebuffer->buf[cameraFramebuffer->len])
-        );
-
-        _sendOverWiFiCallback(cameraFramebufferVector);
-    }
+    camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
 
     // Bake rectangles!
     if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
     {
+        faceRectangles.clear();
+
         // Hmm... Smells good.
-        _generateRectanglesFromFaceDetection(cameraFramebuffer);
+        _generateRectanglesFromFaceDetection(cameraFrameBuffer);
+        _generateRectanglesFromColorDetection(cameraFrameBuffer);
     }
+
+    // send over WiFi the way you want, I don't care anymore
+    if(_isSendingFramesOverWiFi)
+    {
+        // convert 565 to JPEG
+        uint8_t** jpegBuffer;
+        size_t* jpegLength;
+        fmt2jpg(
+            cameraFrameBuffer->buf,
+            cameraFrameBuffer->len,
+            cameraFrameBuffer->width,
+            cameraFrameBuffer->height,
+            cameraFrameBuffer->format,
+            DESIRED_JPEG_QUALITY,
+            jpegBuffer,
+            jpegLength
+        );
+
+        // convert the data array to a vector<uint8_t>
+        std::vector<uint8_t> cameraFramebufferVector{};
+        cameraFramebufferVector.insert(
+            cameraFramebufferVector.end(),
+            *jpegBuffer,
+            &((*jpegBuffer)[*jpegLength])
+        );
+
+        _sendOverWiFiCallback(cameraFramebufferVector);
+
+        // we need to free the pointers after use
+        free(jpegBuffer);
+        free(jpegLength);
+    }
+
+    // return the frame buffer to be reused
+    esp_camera_fb_return(cameraFrameBuffer);
 }
 
-void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFramebuffer)
+void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrameBuffer)
 {
-    dl_matrix3du_t* image_matrix = dl_matrix3du_alloc(1, cameraFramebuffer->width, cameraFramebuffer->height, 3);
-    fmt2rgb888(cameraFramebuffer->buf, cameraFramebuffer->len, cameraFramebuffer->format, image_matrix->item);
-    
-    esp_camera_fb_return(cameraFramebuffer);
+    dl_matrix3du_t* image_matrix = dl_matrix3du_alloc(1, cameraFrameBuffer->width, cameraFrameBuffer->height, 3);
+    fmt2rgb888(cameraFrameBuffer->buf, cameraFrameBuffer->len, cameraFrameBuffer->format, image_matrix->item);
     
     box_array_t* boxes = face_detect(image_matrix, &_mtmnConfig);
 
     if(boxes != NULL)
     {
-        faceRectangles.clear();
 
         for(int i = 0; i < boxes->len; i++)
         {
@@ -148,6 +171,22 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
     }
     
     dl_matrix3du_free(image_matrix);
+}
+
+void CameraSensor::_generateRectanglesFromColorDetection(camera_fb_t* cameraFrameBuffer)
+{
+    std::vector<Rectangle2> generatedRectangle = ColorDetection::generateRectanglesFrom565Buffer(
+        (unsigned int*)cameraFrameBuffer->buf,
+        cameraFrameBuffer->width,
+        cameraFrameBuffer->height
+    );
+
+    if(generatedRectangle.size() == 0)
+    {
+        return;
+    }
+
+    faceRectangles.push_back(generatedRectangle[0]);
 }
 
 void CameraSensor::requestToBakeFaceRectangles()
