@@ -89,6 +89,8 @@ void Sonar::handlePotentialTimeout()
     }
 }
 
+int32_t Sonar::measuredDistance{};
+
 void (*Sonar::_callback)(long) = {};
 
 bool Sonar::_waitingForReception = false;

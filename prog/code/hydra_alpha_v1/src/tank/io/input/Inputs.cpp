@@ -19,7 +19,7 @@
 void Inputs::init()
 {
     BatteryVoltageSensor::init();
-    Sonar::init([](long distance){});
+    Sonar::init([](long distance){Sonar::measuredDistance = distance;});
     Bno055::init();
     EspCam::init(); // updated in the second thread, see tank_alpha_v1.hpp
 }

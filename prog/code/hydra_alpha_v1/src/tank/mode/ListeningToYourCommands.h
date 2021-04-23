@@ -4,15 +4,17 @@
 // and forward the corresponding values to all the motors (BDC and sevos)
 
 #ifndef LISTENING_TO_YOUR_COMMANDS_H
-    #define LISTENING_TO_YOUR_COMMANDS_H
+#define LISTENING_TO_YOUR_COMMANDS_H
 
-    class ListeningToYourCommands
-    {
-        public:
-            static void execute();
-            
-        private:
+#include "../peripheral/protocol_format/IncommingCommunicationFormat.h"
 
-    };
+class ListeningToYourCommands
+{
+    public:
+        static void execute(IncommingCommunicationFormat input);
+        
+    private:
+
+};
 
 #endif

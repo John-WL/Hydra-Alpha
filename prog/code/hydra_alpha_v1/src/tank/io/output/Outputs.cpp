@@ -49,10 +49,6 @@ std::vector<void (*)(void)> Outputs::_updateFunctions = {
         servoMotorSonarZ.update();
         servoMotorCameraZ.update();
         servoMotorCameraY.update();
-    },
-    []()
-    {
-
     }
 };
 

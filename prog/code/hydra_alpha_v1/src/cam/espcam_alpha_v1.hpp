@@ -36,4 +36,3 @@ void Esp32DualCore::main()
         TankAlpha::update();
     }
 }
-

@@ -80,16 +80,24 @@
 #ifndef SWARM_IS_SWARMY_H
 #define SWARM_IS_SWARMY_H
 
+// distance in mm
+#define DESIRED_DITANCE_FROM_TARGET 500
+#define APPROXIMATE_AVERAGE_LENGTH_OF_OTHER_TANK 200
+
+#include "../peripheral/protocol_format/IncommingCommunicationFormat.h"
+
 class SwarmIsSwarmy
 {
     public:
-        static void execute();
+        static void execute(IncommingCommunicationFormat remoteInput);
         
     private:
-        static void followState();
-        static void searchState();
+        static IncommingCommunicationFormat _followState(IncommingCommunicationFormat remoteInput);
+        static IncommingCommunicationFormat _searchState(IncommingCommunicationFormat remoteInput);
 
-        static bool rectangleInCameraFrameExists();
+        static bool _rectangleInCameraFrameExists();
+
+        static IncommingCommunicationFormat _adjustOutputWithSensorData(IncommingCommunicationFormat output);
 };
 
 #endif

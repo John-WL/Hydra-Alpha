@@ -23,13 +23,9 @@ TimerMicros programTimer
     10000,
     []()
     {
-        //Inputs::update();
-        //FunctioningMode::execute();
-        //Outputs::update();
-        Sonar::init([](long distance)
-        {
-            Serial.println(distance);
-        });
+        Inputs::update();
+        FunctioningMode::execute();
+        Outputs::update();
     }
 };
 
@@ -38,26 +34,23 @@ void setup()
     Esp32DualCore::init();
 
     Serial.begin(SERIAL_COMMUNICATION_SPEED);
-    //Wire.begin();
+    Wire.begin();
 
-    //Inputs::init();
-    //Outputs::init();
+    Inputs::init();
+    Outputs::init();
 
-    //programTimer.start();
+    programTimer.start();
 }
 
 void loop()
 {
-    //programTimer.update();
-    Sonar::requestUpdate();
-
-    //delay(1000);
+    programTimer.update();
 }
 
 void Esp32DualCore::main()
 {
     while(true)
     {
-        //EspCam::update();
+        EspCam::update();
     }
 }

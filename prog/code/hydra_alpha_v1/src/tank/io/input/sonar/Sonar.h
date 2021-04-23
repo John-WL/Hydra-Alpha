@@ -36,6 +36,7 @@ class Sonar
     public:
         static void init(void (*callback)(long));
         static void requestUpdate();
+        static int32_t measuredDistance;
 
     private:
         static void IRAM_ATTR onEchoReceive();

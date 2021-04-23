@@ -9,14 +9,19 @@
     
 void FunctioningMode::execute()
 {
+    // !!!!!
+    // make it so the data is not empty and comes from the RF communication
+    IncommingCommunicationFormat input;
+    // !!!!!
+
     // call the function that corresponds to the current functioning mode
     switch(FunctioningMode::_functioningMode)
     {
         case LISTENING_TO_YOUR_COMMANDS_FUNCTIONING_MODE:
-            ListeningToYourCommands::execute();
+            ListeningToYourCommands::execute(input);
             break;
         case SWARM_IS_SWARMY_FUNCTIONING_MODE:
-            SwarmIsSwarmy::execute();
+            SwarmIsSwarmy::execute(input);
             break;
         default:
             // how the hell did we get here??

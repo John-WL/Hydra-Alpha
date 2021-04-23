@@ -10,8 +10,10 @@ typedef struct
     uint8_t mode;
     int8_t throttle;
     int8_t steer;
+    float sonarAngleZ;
     float cameraAngleZ;
     float cameraAngleY;
+    bool wiFiCameraEnabled;
 
 } IncommingCommunicationFormat;
 
