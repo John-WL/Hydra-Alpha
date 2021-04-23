@@ -20,6 +20,8 @@ namespace ColorDetection
 
     std::vector<Rectangle2> generateRectanglesFrom565Buffer(unsigned int* buffer, unsigned char width, unsigned char height)
     {
+        std::vector<Rectangle2> result{};
+
         unsigned long averageX = 0;
         unsigned long averageY = 0;
         unsigned long validPixelCount = 0;
@@ -38,7 +40,7 @@ namespace ColorDetection
 
         if(validPixelCount == 0)
         {
-            return std::vector<Rectangle2>{};
+            return result;
         }
 
         Vector2 rectangleCenter = Vector2
@@ -69,8 +71,9 @@ namespace ColorDetection
         {
             lowerRight.y = 240;
         }
+        result.push_back(Rectangle2{upperLeft, lowerRight});
 
-        return Rectangle2{upperLeft, lowerRight};
+        return result;
     }
 }
 
