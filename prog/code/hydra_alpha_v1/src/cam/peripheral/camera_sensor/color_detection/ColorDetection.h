@@ -7,9 +7,9 @@
 
 #include "Vector.h"
 
-#include "../../../shared/utils/math/shape/Rectangle2.h"
+#include "../../../../shared/utils/math/shape/Rectangle2.h"
 
-#include "../../../../config/CustomTankDetectionColorValidation.h"
+#include "../../../../../config/CustomTankDetectionColorValidation.h"
 
 namespace ColorDetection
 {
