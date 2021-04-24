@@ -36,12 +36,12 @@ float ServoMotor::getMotorAngle()
 void ServoMotor::setMotorAngle(float desiredMotorAngle)
 {
     _motorAngle = desiredMotorAngle;
-    if(desiredMotorAngle > PI)
+    if(desiredMotorAngle > PI/2)
     {
-        _motorAngle = PI;
+        _motorAngle = PI/2;
     }
-    else if(desiredMotorAngle < -PI)
+    else if(desiredMotorAngle < -PI/2)
     {
-        _motorAngle = -PI;
+        _motorAngle = -PI/2;
     }
 }

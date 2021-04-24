@@ -30,6 +30,9 @@ void FunctioningMode::execute()
             // how the hell did we get here??
             // some debug info...
             Serial.println("the selected mode is undefined!");
+            Serial.print("The selected mode was #");
+            Serial.print(FunctioningMode::_functioningMode);
+            Serial.println(", but only mode #0 or #1 are valid!");
             delay(1000);
             break;
     }
