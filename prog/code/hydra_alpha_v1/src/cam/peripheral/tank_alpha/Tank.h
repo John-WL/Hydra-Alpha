@@ -9,7 +9,7 @@
 
 #include "QueueArray.h"
 
-namespace TankAlphaCommands
+namespace TankCommands
 {
     enum Enum
     {
@@ -20,7 +20,7 @@ namespace TankAlphaCommands
     };
 }
 
-class TankAlpha
+class Tank
 {
 public:
     static void init();
@@ -31,6 +31,7 @@ public:
 private:
     static bool _enableSendingCameraFrameOverWiFi;
     static unsigned char _lastReceivedCommandId;
+    static QueueArray<uint8_t> dataReceivedArray;
 
 };
 

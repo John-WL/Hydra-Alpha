@@ -14,7 +14,7 @@
 
 #include "../../peripheral/i2c/bno055/Bno055.h"
 
-#include "../../peripheral/slow_i2c/esp_cam/EspCam.h"
+#include "../../peripheral/serial/esp_cam/EspCam.h"
 
 void Inputs::init()
 {
@@ -38,6 +38,7 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     []()
     {
         Bno055::update();
+        EspCam::update();
     }
 };
 

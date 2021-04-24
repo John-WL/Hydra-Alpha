@@ -14,7 +14,7 @@
 
 #include "../peripheral/protocol_format/IncommingCommunicationFormat.h"
 
-#include "../peripheral/slow_i2c/esp_cam/EspCam.h"
+#include "../peripheral/serial/esp_cam/EspCam.h"
 
 void SwarmIsSwarmy::execute(IncommingCommunicationFormat remoteInput)
 {

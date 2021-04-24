@@ -11,7 +11,7 @@
 typedef struct
 {
     uint8_t mode;
-    uint32_t distanceSonar;
+    uint16_t distanceSonar;
     uint8_t batteryLevel;
     int8_t signalStrength;
     uint8_t checkSum;

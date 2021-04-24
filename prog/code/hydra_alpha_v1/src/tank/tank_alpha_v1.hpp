@@ -6,7 +6,9 @@
 
 #include "../shared/core/Esp32DualCore.h"
 
-#include "peripheral/slow_i2c/esp_cam/EspCam.h"
+#include "peripheral/serial/esp_cam/EspCam.h"
+
+#include "peripheral/spi/HydraRF/HydraRF.h"
 
 #include "../shared/utils/timer/TimerMicros.h"
 
@@ -35,6 +37,7 @@ void setup()
 
     Serial.begin(SERIAL_COMMUNICATION_SPEED);
     Wire.begin();
+    init_RF();
 
     Inputs::init();
     Outputs::init();
@@ -51,6 +54,6 @@ void Esp32DualCore::main()
 {
     while(true)
     {
-        EspCam::update();
+        update_RF();
     }
 }

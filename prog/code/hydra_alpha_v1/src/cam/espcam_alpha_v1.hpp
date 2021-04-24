@@ -6,7 +6,7 @@
 
 #include "../shared/core/Esp32DualCore.h"
 
-#include "peripheral/tank_alpha/TankAlpha.h"
+#include "peripheral/tank_alpha/Tank.h"
 #include "peripheral/camera_sensor/CameraSensor.h"
 #include "peripheral/wifi_client_hydra/WiFiClientHydra.h"
 
@@ -21,7 +21,7 @@ void setup()
     // put your WiFi sender implementation in the brackets
     WiFiClientHydra::init();
     CameraSensor::init(WiFiClientHydra::sendDataToRemote);
-    TankAlpha::init();
+    Tank::init();
 }
 
 void loop()
@@ -33,6 +33,6 @@ void Esp32DualCore::main()
 {
     while(true)
     {
-        TankAlpha::update();
+        Tank::update();
     }
 }

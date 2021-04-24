@@ -14,7 +14,6 @@ typedef struct
     float cameraAngleZ;
     float cameraAngleY;
     bool wiFiCameraEnabled;
-
 } IncommingCommunicationFormat;
 
 #endif

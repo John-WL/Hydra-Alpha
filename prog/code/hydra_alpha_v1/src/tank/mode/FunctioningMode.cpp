@@ -6,12 +6,15 @@
 
 #include "ListeningToYourCommands.h"
 #include "SwarmIsSwarmy.h"
+
+#include "../peripheral/protocol_format/DataConverter.h"
+#include "../peripheral/spi/HydraRF/HydraRF.h"
     
 void FunctioningMode::execute()
 {
     // !!!!!
     // make it so the data is not empty and comes from the RF communication
-    IncommingCommunicationFormat input;
+    IncommingCommunicationFormat input = DataConverter::translate(&ComRemote);
     // !!!!!
 
     // call the function that corresponds to the current functioning mode
