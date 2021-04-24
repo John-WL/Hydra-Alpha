@@ -7,6 +7,8 @@
 
 #include "Arduino.h" // PI constant defined in here
 
+#include "../../../utils/controllers/exponential_controller/ExponentialController.h"
+
 // adding 0.5 to round values instead of flooring them
 #define SERVO_MOTOR_MIN_VALUE_FOR_PCA9685 (4096 * 0.05 + 0.5)
 #define SERVO_MOTOR_MAX_VALUE_FOR_PCA9685 (4096 * 0.2 + 0.5)
@@ -26,6 +28,7 @@ class ServoMotor
         float _motorAngle;              // radians
         float _previousMotorAngle;
         unsigned char _channelNumber;   // 0 to 15
+        ExponentialController _smoothController;
 };
 
 #endif

@@ -8,20 +8,23 @@
 
 BdcMotor::BdcMotor(unsigned char channelNumber) : 
     _channelNumber{channelNumber},
-    _motorTorque{0}
+    _motorTorque{0},
+    _pulseController{}
 {}
 
 void BdcMotor::update()
 {
-    unsigned char unsignedMotorTorque = abs(_motorTorque);
-    unsigned int bitShiftAmount = _channelNumber * BDC_MOTOR_BITS_PER_CHANNEL;
+    int8_t effectiveMotorTorque = _pulseController.sample(_motorTorque);
 
-    Xra1201::value &= ~0x3F << bitShiftAmount;
+    uint16_t unsignedMotorTorque = abs(effectiveMotorTorque);
+    uint8_t bitShiftAmount = _channelNumber * BDC_MOTOR_BITS_PER_CHANNEL;
+
+    Xra1201::value &= ((uint16_t)~0x3F) << bitShiftAmount;
     Xra1201::value |= unsignedMotorTorque << bitShiftAmount;
-    Xra1201::value |= _motorTorque < 0 ? 0x20 << bitShiftAmount : 0;
+    Xra1201::value |= effectiveMotorTorque < 0 ? ((uint16_t)0x20) << bitShiftAmount : 0;
 }
 
-void BdcMotor::setMotorTorque(signed char desiredMotorTorque)
+void BdcMotor::setMotorTorque(float desiredMotorTorque)
 {
     _motorTorque = desiredMotorTorque;
     if(desiredMotorTorque > MAX_BDC_MOTOR_TORQUE)

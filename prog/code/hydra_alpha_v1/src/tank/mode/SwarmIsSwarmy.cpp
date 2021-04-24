@@ -66,33 +66,27 @@ IncommingCommunicationFormat SwarmIsSwarmy::_followState(IncommingCommunicationF
 
 
 
+    
 
     // calculate the input variable (and optionnaly add pid controllers and what not!)
-    uint8_t mode = remoteInput.mode;
-    float throttle = approximateDistanceFromOtherTank - DESIRED_DITANCE_FROM_TARGET;
-    float steer = offsetedOtherTankPosition.findRotator(Vector3{1, 0, 0}).z;
-    float sonarAngleZ = 0;
-    float cameraAngleZ = Outputs::servoMotorCameraZ.getMotorAngle() + rotationAmounts.x;
-    float cameraAngleY = Outputs::servoMotorCameraY.getMotorAngle() + rotationAmounts.y;
-    bool wiFiCameraEnabled = remoteInput.wiFiCameraEnabled;
-    return IncommingCommunicationFormat
-    {
-        mode,
-        throttle,
-        steer,
-        sonarAngleZ,
-        cameraAngleZ,
-        cameraAngleY,
-        wiFiCameraEnabled
-    };
+    IncommingCommunicationFormat generatedInput{};
+    generatedInput.mode = remoteInput.mode;
+    generatedInput.throttle = approximateDistanceFromOtherTank - DESIRED_DITANCE_FROM_TARGET;
+    generatedInput.steer = offsetedOtherTankPosition.findRotator(Vector3{1, 0, 0}).z;
+    generatedInput.sonarAngleZ = 0;
+    generatedInput.cameraAngleZ = Outputs::servoMotorCameraZ.getMotorAngle() + rotationAmounts.x;
+    generatedInput.cameraAngleY = Outputs::servoMotorCameraY.getMotorAngle() + rotationAmounts.y;
+    generatedInput.wiFiCameraEnabled = remoteInput.wiFiCameraEnabled;
+
+    return generatedInput;
 }
 
 IncommingCommunicationFormat SwarmIsSwarmy::_searchState(IncommingCommunicationFormat remoteInput)
 {
     // The input state object.
     // This peculiar configuration of the input struct makes the tank rotate on 
-    // itself on the Z axis until it finds the other tank, after which it changes
-    // of state, and starts to follow the other tank instead.
+    // itself on the Z axis until it finds the other tank. After the other tank,
+    // it changes of state, and starts to follow the other tank instead.
     // It's basically a rudimentary search mode.
     return IncommingCommunicationFormat
     {

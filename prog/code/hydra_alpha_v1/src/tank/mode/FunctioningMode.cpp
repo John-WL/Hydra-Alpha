@@ -12,10 +12,8 @@
     
 void FunctioningMode::execute()
 {
-    // !!!!!
-    // make it so the data is not empty and comes from the RF communication
+    // ComRemote is defined in "HydraRF.h"
     IncommingCommunicationFormat input = DataConverter::translate(&ComRemote);
-    // !!!!!
 
     // call the function that corresponds to the current functioning mode
     switch(FunctioningMode::_functioningMode)
