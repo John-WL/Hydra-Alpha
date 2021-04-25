@@ -9,11 +9,6 @@
 //
 // ---
 
-inline bool validateColor565(unsigned int color);
-
-
-// ---
-
 unsigned char byteColorValidationValues[8192] = {
 	254,
 	255,
@@ -8212,9 +8207,6 @@ unsigned char byteColorValidationValues[8192] = {
 // ---
 
 
-inline bool validateColor565(unsigned int color)
-{
-	return byteColorValidationValues[color >> 3] & (1 << (color & 7));
-}
+#define validateColor565(color) (byteColorValidationValues[color >> 3] & (1 << (color & 7)))
 
 // ---

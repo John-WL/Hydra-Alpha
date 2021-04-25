@@ -13,11 +13,6 @@
 
 namespace ColorDetection
 {
-    inline bool testPixel(unsigned int color565)
-    {
-        return validateColor565(color565);
-    }
-
     std::vector<Rectangle2> generateRectanglesFrom565Buffer(unsigned int* buffer, unsigned int width, unsigned int height)
     {
         std::vector<Rectangle2> result{};
@@ -29,7 +24,7 @@ namespace ColorDetection
         {
             for(unsigned long x = 0; x < width; x++)
             {
-                if(testPixel(buffer[x + (y * height)]))
+                if(validateColor565(buffer[x + (y * height)]))
                 {
                     averageX += x;
                     averageY += y;
