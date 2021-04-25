@@ -24,7 +24,7 @@ namespace ColorDetection
         {
             for(unsigned long x = 0; x < width; x++)
             {
-                if(validateColor565(buffer[x + (y * height)]))
+                if(validateColor565(buffer[x + (y * width)]))
                 {
                     averageX += x;
                     averageY += y;
