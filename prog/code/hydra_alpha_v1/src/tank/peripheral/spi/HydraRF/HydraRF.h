@@ -26,9 +26,6 @@
   #define HYDRARFH
   
   #include "Structure.h"
-
-  // John-W added:
-  #define ALPHA
   
   // Debuggage (à déclarer AVANT d'inclure HydraRF.h).
   // Peuvent être appelés individuellement ou en catégorie.
@@ -107,9 +104,9 @@
   #define ADRS_OMEGA_LVL2         011               // omega level 2, node 1 de node 1.
 
   // Longueur des trames (excluant les préfixes et le check_sum).
-  #define COM_REMOTE_LEN          8
-  #define COM_ALPHA_LEN           5
-  #define COM_OMEGA_LEN           7
+  #define COM_REMOTE_LEN          6
+  #define COM_ALPHA_LEN           6
+  #define COM_OMEGA_LEN           8
   
   // Temporisation de la communication
   #ifndef DEBUG_RF_SLOW

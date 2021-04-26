@@ -26,11 +26,11 @@ IncommingCommunicationFormat DataConverter::translate(struct sCom* rawRfData)
     // /128, now it's from -1.0 to 0.9921875.
     // *PI/2, now it's in radians.
     float factorToConvertFromByteToRadians = 0.00390625 * PI; // PI / (2 * 128)
-    input.sonarAngleZ = (((int)rawRfData->alpha.distance) - 128) * factorToConvertFromByteToRadians;
-    input.cameraAngleZ = (((int)rawRfData->alpha.camera.split.rotation) - 128) * factorToConvertFromByteToRadians;
-    input.cameraAngleY = (((int)rawRfData->alpha.camera.split.tilt) - 128) * factorToConvertFromByteToRadians;
+    input.sonarAngleZ = (((int)rawRfData->alpha.servo.split.distance) - 128) * factorToConvertFromByteToRadians;
+    input.cameraAngleZ = (((int)rawRfData->alpha.servo.split.rotation) - 128) * factorToConvertFromByteToRadians;
+    input.cameraAngleY = (((int)rawRfData->alpha.servo.split.tilt) - 128) * factorToConvertFromByteToRadians;
 
-    input.wiFiCameraEnabled = true;
+    input.wiFiCameraEnabled = rawRfData->alpha.mode;
 
     return input;
 }
@@ -41,7 +41,7 @@ void DataConverter::translate(OutgoingCommunicationFormat* output, AlphaToRemote
     convertedOutput->distanceSonar.split.lsb = output->distanceSonar;
     convertedOutput->distanceSonar.split.msb = output->distanceSonar >> 8;
     convertedOutput->batteryLevel = output->batteryLevel;
-    //convertedOutput->signalStrength = output->signalStrength;
+    convertedOutput->sigWifi = *((uint8_t*)&output->signalStrength);
 
     uint8_t checkSum ;
 }

@@ -1,14 +1,14 @@
 #ifndef STRUCTUREH
 	#define STRUCTUREH
 
-  // John-W added:
 #include "Arduino.h"
+#define ALPHA
 
 // Définitions des structures d'entrée et sortie de la communication RF.
 //
 // Lors de l'envoie d'une trame de communication, le data des structures sera précédé de GO et suivit d'un checksum sur 1 byte.
 //
-// Unités: distance/distanceSonar = cm    -    sigStrength = %    -    batteryLevel/spareBat/mainBat = %
+// Unités: distance/distanceSonar = cm    -    sigStrength/sigWifi = %    -    batteryLevel/spareBat/mainBat = %
 //
 // Adresse mémoire haute et MSB sur la gauche, adresse mémoire basse et LSB sur la droite.
 //
@@ -68,67 +68,63 @@ union uMoteur
   unsigned char full;
 };
 
-// Structures bitwise : camera - 1 byte
+// Structures bitwise : servo - 1 byte
 //   |                                |
 //               1 byte
 //                full
 //
 //                split
-//   |              |        |        |
-//       4 bits       2 bits   2 bits
-//        null         tilt   rotation
+//   |       |       |        |        |
+//    2 bits   2bits   2 bits   2 bits
+//      null  distance  tilt   rotation
 //
-// Ex. écriture: ComRemote.alpha.camera.split.tilt = SERVO_UP;
-//               ComRemote.alpha.camera.split.rotation = SERVO_RIGHT;
-//               ComRemote.omega.camera.split.tilt = SERVO_DOWN;
-//               ComRemote.omega.camera.split.rotation = SERVO_LEFT;
+// Ex. écriture: ComRemote.alpha.servo.split.tilt = SERVO_UP;
+//               ComRemote.alpha.servo.split.rotation = SERVO_RIGHT;
+//               ComRemote.omega.servo.split.tilt = SERVO_DOWN;
+//               ComRemote.omega.servo.split.rotation = SERVO_LEFT;
 //
-// Ex. lecture: if(ComRemote.alpha.camera.split.tilt == SERVO_UP)
-//              if(ComRemote.alpha.camera.split.rotation == SERVO_RIGHT)
-//              if(ComRemote.omega.camera.split.tilt == SERVO_DOWN)
-//              if(ComRemote.omega.camera.split.rotation == SERVO_LEFT)
+// Ex. lecture: if(ComRemote.alpha.servo.split.tilt == SERVO_UP)
+//              if(ComRemote.alpha.servo.split.rotation == SERVO_RIGHT)
+//              if(ComRemote.omega.servo.split.tilt == SERVO_DOWN)
+//              if(ComRemote.omega.servo.split.rotation == SERVO_LEFT)
 
-struct sCam
+struct sServo
 {
   unsigned char rotation: 2;
-  unsigned char tilt:   2;
-  unsigned char null:   4;
+  unsigned char tilt:     2;
+  unsigned char distance: 2;
+  unsigned char null:     2;
 };
 
-union uCam
+union uServo
 {
-  struct sCam split;
+  struct sServo split;
   unsigned char full;
 };
 
-// Structures secondaires : alpha et omega - 4 bytes
+// Structures secondaires : alpha et omega - 3 bytes
 //
-//  |           |           |            |           |
-//     1 byte      1 byte      1 byte       1 byte
-//     distance    camera      moteur        mode
+//    |           |            |           |
+//        1 byte      1 byte       1 byte
+//         servo      moteur        mode
 //
 // Ex. lecture: unsigned char var = ComRemote.alpha.mode;
-//              unsigned char var = ComRemote.alpha.distance;
 //              unsigned char var = ComRemote.omega.mode;
-//              unsigned char var = ComRemote.omega.distance;
 //
 // Ex. écriture: ComRemote.alpha.mode = ALPHA_TO_REMOTE_SWARM_MODE;
-//         ComRemote.alpha.distance = SERVO_RIGHT;
 //         ComRemote.omega.mode = AUTO;
-//         ComRemote.omega.distance = SERVO_LEFT;
 
 struct sTank
 {
   unsigned char mode;
   union uMoteur moteur;
-  union uCam    camera;
-  unsigned char distance;
+  union uServo servo;
 };
 
-// Structure principale : ComRemote - 8 bytes
+// Structure principale : ComRemote - 6 bytes
 //
 //  |                           |                                 |
-//           4 bytes                       4 bytes
+//           3 bytes                       3 bytes
 //            omega                         alpha
 
 struct sCom
@@ -157,8 +153,8 @@ struct sCom
 
 struct sDistance
 {
-  uint16_t lsb: 8;
-  uint16_t msb: 8;
+  unsigned char lsb;
+  unsigned char msb;
 };
 
 union uDistance
@@ -170,7 +166,7 @@ union uDistance
 
 // Inforamtion en provenance d'Alpha:
 //
-// Structure principale: TrameAlpha - 5 bytes
+// Structure principale: TrameAlpha - 6 bytes
 //
 //  |       |       |             |        |
 //   1 byte  1 byte     2 bytes     1 byte
@@ -190,15 +186,16 @@ typedef struct
     union uDistance distanceSonar;
     unsigned char mode;
 	  unsigned char error;
+    unsigned char sigWifi;
 } AlphaToRemoteCommunicationFormat;
 
 // Inforamtion en provenance d'Omega:
 //
-// Structure principale: ComOmega - 7 bytes
+// Structure principale: ComOmega - 8 bytes
 //
-//  |       |       |             |        |        |        | 
-//   1 byte  1 byte     2 bytes     1 byte   1 byte   1 byte
-//    error sigStrength  distance    mode    spareBat mainBat
+//  |       |          |         |           |         |        |        | 
+//   1 byte   1 byte     1 byte     2 bytes     1 byte   1 byte   1 byte
+//    error   sigWifi  sigStrength  distance    mode    spareBat  mainBat
 //
 // Ex. lecture: unsigned char var = ComOmega.error;
 //              unsigned char var = ComOmega.sigStrength;
@@ -209,8 +206,8 @@ typedef struct
 // Ex. écriture: ComOmega.error = 0x56;
 //               ComOmega.sigStrength = 99;
 //               ComOmega.mode = AUTO;
-//				 ComOmega.spareBat = 70;
-//				 ComOmega.mainBat = 90;
+//				       ComOmega.spareBat = 70;
+//				       ComOmega.mainBat = 90;
 
 struct sComOmega
 {
@@ -219,6 +216,7 @@ struct sComOmega
 	unsigned char mode;
 	union uDistance distance;
 	unsigned char sigStrength;
+  unsigned char sigWifi;
 	unsigned char error;
 };
 

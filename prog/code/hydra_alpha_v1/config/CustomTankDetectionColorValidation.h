@@ -9,7 +9,8 @@
 //
 // ---
 
-unsigned char byteColorValidationValues[8192] = {
+unsigned char byteColorValidationValues[8192] = 
+{
 	254,
 	255,
 	255,
@@ -8207,6 +8208,6 @@ unsigned char byteColorValidationValues[8192] = {
 // ---
 
 
-#define validateColor565(color) (byteColorValidationValues[color >> 3] & (1 << (color & 7)))
+#define validateColor565(color) (byteColorValidationValues[color >> 3] & (1 << (color & 0b111)))
 
 // ---
