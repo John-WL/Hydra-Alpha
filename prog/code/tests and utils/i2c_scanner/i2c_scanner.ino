@@ -27,20 +27,10 @@
 // Devices with higher bit address might not be seen properly.
 //
 
-#include <SoftWire.h>
-
-
-SoftWire Wire(2, 3);
-
-char swTxBuffer[16];
-char swRxBuffer[16];
+#include <Wire.h>
  
 void setup()
 {
-  Wire.setTxBuffer(swTxBuffer, sizeof(swTxBuffer));
-  Wire.setRxBuffer(swRxBuffer, sizeof(swRxBuffer));
-  Wire.setClock(1);
-  //Wire.setDelay_us(5);
   Wire.begin();
  
   Serial.begin(115200);
@@ -88,5 +78,10 @@ void loop()
   else
     Serial.println("done\n");
  
-  delay(5000);           // wait 5 seconds for next scan
+  delay(4000);           // wait 5 seconds for next scan
+  pinMode(33, OUTPUT);
+  digitalWrite(33, LOW);
+  delay(1000);
+  digitalWrite(33, HIGH);
+  digitalWrite(33, HIGH);
 }

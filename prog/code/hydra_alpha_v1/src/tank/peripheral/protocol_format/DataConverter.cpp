@@ -30,7 +30,7 @@ IncommingCommunicationFormat DataConverter::translate(struct sCom* rawRfData)
     input.cameraAngleZ = (((int)rawRfData->alpha.servo.split.rotation) - 128) * factorToConvertFromByteToRadians;
     input.cameraAngleY = (((int)rawRfData->alpha.servo.split.tilt) - 128) * factorToConvertFromByteToRadians;
 
-    input.wiFiCameraEnabled = rawRfData->alpha.mode;
+    input.wiFiCameraEnabled = rawRfData->alpha.mode & 0b10;
 
     return input;
 }
@@ -42,6 +42,4 @@ void DataConverter::translate(OutgoingCommunicationFormat* output, AlphaToRemote
     convertedOutput->distanceSonar.split.msb = output->distanceSonar >> 8;
     convertedOutput->batteryLevel = output->batteryLevel;
     convertedOutput->sigWifi = *((uint8_t*)&output->signalStrength);
-
-    uint8_t checkSum ;
 }

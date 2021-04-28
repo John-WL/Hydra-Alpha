@@ -3,7 +3,7 @@
 #ifndef COLOR_DETECTION_H
 #define COLOR_DETECTION_H
 
-#include "arduino.h"
+#include "Arduino.h"
 
 #include "Vector.h"
 
@@ -13,16 +13,20 @@
 
 namespace ColorDetection
 {
-    std::vector<Rectangle2> generateRectanglesFrom565Buffer(unsigned int* buffer, unsigned int width, unsigned int height)
+    void generateRectanglesFrom565Buffer(
+        uint16_t* buffer,
+        unsigned int width,
+        unsigned int height,
+        std::vector<Rectangle2>* detectedRectangle)
     {
-        std::vector<Rectangle2> result{};
-
         unsigned long averageX = 0;
         unsigned long averageY = 0;
         unsigned long validPixelCount = 0;
-        for(unsigned long y = 0; y < height; y++)
+        unsigned int x, y;
+
+        for(y = 0; y < height; y++)
         {
-            for(unsigned long x = 0; x < width; x++)
+            for(x = 0; x < width; x++)
             {
                 if(validateColor565(buffer[x + (y * width)]))
                 {
@@ -35,7 +39,7 @@ namespace ColorDetection
 
         if(validPixelCount == 0)
         {
-            return result;
+            return;
         }
 
         Vector2 rectangleCenter = Vector2
@@ -66,9 +70,8 @@ namespace ColorDetection
         {
             lowerRight.y = height;
         }
-        result.push_back(Rectangle2{upperLeft, lowerRight});
-
-        return result;
+        
+        detectedRectangle->push_back(Rectangle2{upperLeft, lowerRight});
     }
 }
 

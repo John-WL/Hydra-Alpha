@@ -4,7 +4,7 @@
 
 void Esp32DualCore::init()
 {
-    // Disable whatchdogs on core 0. 
+    // Disable whatchdogs on core 0 (and 1). 
     // This prevents the kernel from rebooting
     // for some faults related to whatchdogs. 
     disableCore0WDT();

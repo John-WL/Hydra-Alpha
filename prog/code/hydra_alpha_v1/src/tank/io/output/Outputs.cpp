@@ -19,6 +19,7 @@ void Outputs::init()
 {
     Xra1201::init();
     DebugLeds::init();
+    ServoMotor::initI2cCommunication();
 }
 
 void Outputs::update()
@@ -32,23 +33,30 @@ BdcMotor Outputs::bdcMotorRight{1};
 
 // servo definitions
 ServoMotor Outputs::servoMotorSonarZ{0};
-ServoMotor Outputs::servoMotorCameraZ{1};
-ServoMotor Outputs::servoMotorCameraY{2};
+//ServoMotor Outputs::servoMotorCameraZ{1};
+//ServoMotor Outputs::servoMotorCameraY{2};
 
 // function sequence to update
 std::vector<void (*)(void)> Outputs::_updateFunctions = {
     []()
     {
-        bdcMotorLeft.update();
-        bdcMotorRight.update();
+        //bdcMotorLeft.update();
+        //bdcMotorRight.update();
+        DebugLeds::displayValue = 0b1110;
         DebugLeds::update();
         Xra1201::update();
+        servoMotorSonarZ.setMotorAngle(-PI);
+        servoMotorSonarZ.update();
     },
     []()
     {
+        DebugLeds::displayValue = 0b0011;
+        DebugLeds::update();
+        Xra1201::update();
+        servoMotorSonarZ.setMotorAngle(-0.3);
         servoMotorSonarZ.update();
-        servoMotorCameraZ.update();
-        servoMotorCameraY.update();
+        //servoMotorCameraZ.update();
+        //servoMotorCameraY.update();
     }
 };
 

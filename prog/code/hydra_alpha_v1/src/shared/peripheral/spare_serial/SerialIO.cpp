@@ -26,6 +26,8 @@ std::vector<uint8_t> SerialIO::receive(HardwareSerial serial, unsigned char data
         }
         receptionTimeout.update();
     }
+
+    return dataReceived;
 }
 
 uint8_t SerialIO::_receiveByte(HardwareSerial serial)

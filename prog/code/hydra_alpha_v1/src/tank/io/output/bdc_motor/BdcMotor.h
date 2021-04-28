@@ -8,6 +8,7 @@
 #include "../../../utils/controllers/pulse_controller/Int8_tPulseController.h"
 
 #define MAX_BDC_MOTOR_TORQUE 32
+#define MIN_BDC_MOTOR_TORQUE -32
 
 #define BDC_MOTOR_BITS_PER_CHANNEL 6
 

@@ -22,11 +22,11 @@
 
 TimerMicros programTimer
 {
-    10000,
+    500000,
     []()
     {
-        Inputs::update();
-        FunctioningMode::execute();
+        //Inputs::update();
+        //FunctioningMode::execute();
         Outputs::update();
     }
 };
@@ -37,9 +37,9 @@ void setup()
 
     Serial.begin(SERIAL_COMMUNICATION_SPEED);
     Wire.begin();
-    init_RF();
+    //init_RF();
 
-    Inputs::init();
+    //Inputs::init();
     Outputs::init();
 
     programTimer.start();
@@ -54,6 +54,6 @@ void Esp32DualCore::main()
 {
     while(true)
     {
-        update_RF();
+        //update_RF();
     }
 }

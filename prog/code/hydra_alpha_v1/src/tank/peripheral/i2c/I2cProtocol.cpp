@@ -10,8 +10,8 @@
 
 void I2cProtocol::transmit(unsigned char deviceAddress, std::vector<unsigned char> data)
 {
-    Wire.beginTransmission(deviceAddress & ~0x01);
-    for(std::vector<unsigned char>::iterator dataIterator = ++data.begin(); dataIterator < data.end(); dataIterator++)
+    Wire.beginTransmission((deviceAddress >> 1) & ~0x01);
+    for(std::vector<unsigned char>::iterator dataIterator = data.begin(); dataIterator < data.end(); dataIterator++)
     {
         Wire.write(*dataIterator);
     }

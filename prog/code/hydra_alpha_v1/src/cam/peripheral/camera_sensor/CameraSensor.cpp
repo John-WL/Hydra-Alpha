@@ -82,10 +82,10 @@ void CameraSensor::update()
 {
     // if we don't need to query the camera image, 
     // then don't query it for no reason
-    if(!_isSendingFramesOverWiFi && (rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING))
+    /*if(!_isSendingFramesOverWiFi && (rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING))
     {
         return;
-    }
+    }*/
 
     // camera frame buffer
     camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
@@ -96,7 +96,7 @@ void CameraSensor::update()
         faceRectangles.clear();
 
         // Hmm... Smells good.
-        _generateRectanglesFromFaceDetection(cameraFrameBuffer);
+        //_generateRectanglesFromFaceDetection(cameraFrameBuffer);
         _generateRectanglesFromColorDetection(cameraFrameBuffer);
     }
 
@@ -118,13 +118,12 @@ void CameraSensor::update()
         );
 
         // convert the data array to a vector<uint8_t>
-        std::vector<uint8_t> cameraFramebufferVector{};
-        cameraFramebufferVector.insert(
-            cameraFramebufferVector.end(),
+        std::vector<uint8_t> cameraFramebufferVector
+        {
             *jpegBuffer,
-            &((*jpegBuffer)[*jpegLength])
-        );
-
+            *jpegBuffer+cameraFrameBuffer->len
+        };
+        
         _sendOverWiFiCallback(cameraFramebufferVector);
 
         // we need to free the pointers after use
@@ -175,18 +174,12 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
 
 void CameraSensor::_generateRectanglesFromColorDetection(camera_fb_t* cameraFrameBuffer)
 {
-    std::vector<Rectangle2> generatedRectangle = ColorDetection::generateRectanglesFrom565Buffer(
-        (unsigned int*)cameraFrameBuffer->buf,
+    ColorDetection::generateRectanglesFrom565Buffer(
+        (uint16_t*)cameraFrameBuffer->buf,
         cameraFrameBuffer->width,
-        cameraFrameBuffer->height
+        cameraFrameBuffer->height,
+        &faceRectangles
     );
-
-    if(generatedRectangle.size() == 0)
-    {
-        return;
-    }
-
-    faceRectangles.push_back(generatedRectangle[0]);
 }
 
 void CameraSensor::requestToBakeFaceRectangles()

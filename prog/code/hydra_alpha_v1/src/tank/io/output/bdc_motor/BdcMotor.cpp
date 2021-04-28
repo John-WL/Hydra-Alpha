@@ -31,8 +31,8 @@ void BdcMotor::setMotorTorque(float desiredMotorTorque)
     {
         _motorTorque = MAX_BDC_MOTOR_TORQUE;
     }
-    else if(desiredMotorTorque < -MAX_BDC_MOTOR_TORQUE)
+    else if(desiredMotorTorque < MIN_BDC_MOTOR_TORQUE)
     {
-        _motorTorque = -MAX_BDC_MOTOR_TORQUE;
+        _motorTorque = MIN_BDC_MOTOR_TORQUE;
     }
 }
