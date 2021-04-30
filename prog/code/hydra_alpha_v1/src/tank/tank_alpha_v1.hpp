@@ -26,7 +26,7 @@ TimerMicros programTimer
     []()
     {
         Inputs::update();
-        //FunctioningMode::execute();
+        FunctioningMode::execute();
         Outputs::update();
     }
 };

@@ -39,7 +39,7 @@ BdcMotor Outputs::bdcMotorRight{1, 27};
 // servo definitions
 ServoMotor Outputs::servoMotorSonarZ{0, 4096 * 0.028, 4096 * 0.132};
 ServoMotor Outputs::servoMotorCameraZ{1, 4096 * 0.026, 4096 * 0.122};
-ServoMotor Outputs::servoMotorCameraY{2, 4096 * 0.035, 4096 * 0.1};
+ServoMotor Outputs::servoMotorCameraY{2, 4096 * 0.035, 4096 * 0.09};
 
 // function sequence to update
 std::vector<void (*)(void)> Outputs::_updateFunctions =
@@ -52,7 +52,7 @@ std::vector<void (*)(void)> Outputs::_updateFunctions =
 
         servoMotorSonarZ.setMotorAngle(0);
         servoMotorCameraZ.setMotorAngle(0);
-        servoMotorCameraY.setMotorAngle(PI);
+        servoMotorCameraY.setMotorAngle(0);
 
         servoMotorSonarZ.update();
         servoMotorCameraZ.update();

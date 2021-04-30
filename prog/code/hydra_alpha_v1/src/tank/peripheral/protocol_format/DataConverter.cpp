@@ -25,7 +25,7 @@ IncommingCommunicationFormat DataConverter::translate(struct sCom* rawRfData)
     // -128, now it's from -128 to 127.
     // /128, now it's from -1.0 to 0.9921875.
     // *PI/2, now it's in radians.
-    float factorToConvertFromByteToRadians = 0.00390625 * PI; // PI / (2 * 128)
+    static const float factorToConvertFromByteToRadians = 0.00390625 * PI; // PI / (2 * 128)
     input.sonarAngleZ = (((int)rawRfData->alpha.servo.split.distance) - 128) * factorToConvertFromByteToRadians;
     input.cameraAngleZ = (((int)rawRfData->alpha.servo.split.rotation) - 128) * factorToConvertFromByteToRadians;
     input.cameraAngleY = (((int)rawRfData->alpha.servo.split.tilt) - 128) * factorToConvertFromByteToRadians;

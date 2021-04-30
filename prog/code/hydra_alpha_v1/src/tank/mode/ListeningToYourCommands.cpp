@@ -22,8 +22,8 @@
 void ListeningToYourCommands::execute(IncommingCommunicationFormat input)
 {
     // update bdc motors
-    Outputs::bdcMotorLeft.setMotorTorque(32*(input.throttle - input.steer));
-    Outputs::bdcMotorRight.setMotorTorque(32*(input.throttle + input.steer));
+    Outputs::bdcMotorLeft.setMotorTorque(input.throttle - input.steer);
+    Outputs::bdcMotorRight.setMotorTorque(input.throttle + input.steer);
 
     // udate the servo motors
     Outputs::servoMotorCameraZ.setMotorAngle(input.cameraAngleZ);
