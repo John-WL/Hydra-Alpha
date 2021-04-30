@@ -7,17 +7,19 @@
 
 #include "../general_device/I2cDevice.h"
 
+#include "Arduino.h"
+
 class Xra1201
 {
     public:
         static void init();
         static void update();
 
-        static unsigned int value;
+        static uint16_t value;
 
     private:
         static I2cDevice _i2cDevice;
-        static unsigned int _previousValue;
+        static uint16_t _previousValue;
 };
 
 #endif

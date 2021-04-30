@@ -39,7 +39,7 @@ Vector3 Bno055::angularVelocity()
 }
 
 sensors_event_t Bno055::_data{};
-Adafruit_BNO055 Bno055::_bno055{55, 0x29};
+Adafruit_BNO055 Bno055::_bno055{55, 0x28};
 Vector3 Bno055::_acceleration{};
 Orientation3 Bno055::_orientation{};
 Vector3 Bno055::_angularVelocity{};

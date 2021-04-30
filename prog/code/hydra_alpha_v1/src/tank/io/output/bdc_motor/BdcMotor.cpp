@@ -6,33 +6,54 @@
 
 #include "../../../peripheral/i2c/xra1201/Xra1201.h"
 
-BdcMotor::BdcMotor(unsigned char channelNumber) : 
+BdcMotor::BdcMotor(uint8_t channelNumber, uint8_t pwmPinNumber) : 
     _channelNumber{channelNumber},
+    _pwmPinNumber{pwmPinNumber},
     _motorTorque{0},
     _pulseController{}
-{}
+{
+    pinMode(pwmPinNumber, OUTPUT);
+    digitalWrite(pwmPinNumber, LOW);
+}
 
 void BdcMotor::update()
 {
-    int8_t effectiveMotorTorque = _pulseController.sample(_motorTorque);
+    // that part definitely yeilds the expected results
+    int8_t motorEnabled = _pulseController.sample(_motorTorque);
 
-    uint16_t unsignedMotorTorque = abs(effectiveMotorTorque);
-    uint8_t bitShiftAmount = _channelNumber * BDC_MOTOR_BITS_PER_CHANNEL;
+    // that part too
+    if(motorEnabled != 0)
+    {
+        digitalWrite(_pwmPinNumber, HIGH);
+    }
+    else
+    {
+        digitalWrite(_pwmPinNumber, LOW);
+    }
 
-    Xra1201::value &= ((uint16_t)~0x3F) << bitShiftAmount;
-    Xra1201::value |= unsignedMotorTorque << bitShiftAmount;
-    Xra1201::value |= effectiveMotorTorque < 0 ? ((uint16_t)0x20) << bitShiftAmount : 0;
+    if(motorEnabled != 0)
+    {
+        uint8_t bitShiftAmount = _channelNumber * BDC_MOTOR_BITS_PER_CHANNEL;
+        if(_motorTorque > 0)
+        {
+            Xra1201::value |= 0x0020 << bitShiftAmount;
+        }
+        else
+        {
+            Xra1201::value &= ~(0x0020 << bitShiftAmount);
+        }
+    }
 }
 
 void BdcMotor::setMotorTorque(float desiredMotorTorque)
 {
     _motorTorque = desiredMotorTorque;
-    if(desiredMotorTorque > MAX_BDC_MOTOR_TORQUE)
+    if(desiredMotorTorque > 1)
     {
-        _motorTorque = MAX_BDC_MOTOR_TORQUE;
+        _motorTorque = 1;
     }
-    else if(desiredMotorTorque < MIN_BDC_MOTOR_TORQUE)
+    else if(desiredMotorTorque < -1)
     {
-        _motorTorque = MIN_BDC_MOTOR_TORQUE;
+        _motorTorque = -1;
     }
 }

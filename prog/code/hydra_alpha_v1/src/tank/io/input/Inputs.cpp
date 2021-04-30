@@ -19,9 +19,9 @@
 void Inputs::init()
 {
     BatteryVoltageSensor::init();
-    Sonar::init([](long distance){Sonar::measuredDistance = distance;});
+    //Sonar::init([](long distance){Sonar::measuredDistance = distance;});
     Bno055::init();
-    EspCam::init(); // updated in the second thread, see tank_alpha_v1.hpp
+    //EspCam::init(); // updated in the second thread, see tank_alpha_v1.hpp
 }
 
 void Inputs::update()
@@ -33,12 +33,13 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     []()
     {
         BatteryVoltageSensor::sample();
-        Sonar::requestUpdate();
+        Serial.println(BatteryVoltageSensor::getValue());
+        //Sonar::requestUpdate();
     },
     []()
     {
         Bno055::update();
-        EspCam::update();
+        //EspCam::update();
     }
 };
 

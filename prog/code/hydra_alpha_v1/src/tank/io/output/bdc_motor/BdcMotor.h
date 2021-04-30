@@ -7,20 +7,21 @@
 
 #include "../../../utils/controllers/pulse_controller/Int8_tPulseController.h"
 
-#define MAX_BDC_MOTOR_TORQUE 32
-#define MIN_BDC_MOTOR_TORQUE -32
+#define MAX_BDC_MOTOR_TORQUE 31
+#define MIN_BDC_MOTOR_TORQUE -31
 
 #define BDC_MOTOR_BITS_PER_CHANNEL 6
 
 class BdcMotor
 {
     public:
-        BdcMotor(unsigned char channelNumber);
+        BdcMotor(uint8_t channelNumber, uint8_t pwmPinNumber);
         void update();
         void setMotorTorque(float desiredTorque);
 
     private:
-        unsigned char _channelNumber;
+        uint8_t _channelNumber;
+        uint8_t _pwmPinNumber;
         float _motorTorque;
         Int8_tPulseController _pulseController;
 };

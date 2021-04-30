@@ -25,15 +25,21 @@ class ServoMotor
         static void initI2cCommunication();
 
         ServoMotor(unsigned char channelNumber);
+        ServoMotor(unsigned char channelNumber,
+            unsigned int minServoValueForPca9685,
+            unsigned int maxServoValueForPca9685);
         void update();
         float getMotorAngle();
         void setMotorAngle(float motorAngle);
 
     private:
         static Adafruit_PWMServoDriver _servoDriver;
-        float _motorAngle;              // radians
-        float _previousMotorAngle;
+
         unsigned char _channelNumber;   // 0 to 15
+        unsigned int _minServoValueForPca9685;
+        unsigned int _servoValueRangeForPca9685;
+        float _motorAngle;              // radians
+        unsigned int _previousRegisterValues;
         ExponentialController _smoothController;
 };
 

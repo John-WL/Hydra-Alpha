@@ -35,10 +35,6 @@ public class ArrayGenerator {
                 > MAX_COLOR_DISTANCE_TO_BE_CONSIDERED_VALID;
     }
 
-    public static double square(double x) {
-        return x*x;
-    }
-
     public static String buildArrayAsString(int[] values) {
         StringBuilder stringBuilder = new StringBuilder();
 

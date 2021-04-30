@@ -11,8 +11,10 @@ void DebugLeds::init()
 
 void DebugLeds::update()
 {
-    Xra1201::value &= ~0x0F << DEBUG_LED_LEFT_SHIFT_AMOUNT;
+    Serial.println(Xra1201::value);
+    Xra1201::value &= ~(0x000F << DEBUG_LED_LEFT_SHIFT_AMOUNT);
     Xra1201::value |= displayValue << DEBUG_LED_LEFT_SHIFT_AMOUNT;
+    Serial.println(Xra1201::value);
 }
 
 unsigned char DebugLeds::displayValue{0};

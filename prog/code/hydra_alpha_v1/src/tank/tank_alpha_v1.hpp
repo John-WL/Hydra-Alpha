@@ -22,10 +22,10 @@
 
 TimerMicros programTimer
 {
-    500000,
+    5000,
     []()
     {
-        //Inputs::update();
+        Inputs::update();
         //FunctioningMode::execute();
         Outputs::update();
     }
@@ -39,7 +39,7 @@ void setup()
     Wire.begin();
     //init_RF();
 
-    //Inputs::init();
+    Inputs::init();
     Outputs::init();
 
     programTimer.start();

@@ -24,39 +24,39 @@ void Outputs::init()
 
 void Outputs::update()
 {
+    // updated every frame
+    bdcMotorLeft.update();
+    bdcMotorRight.update();
+
+    // I2C and everything that needs to be handled turn by turn
     _outputSequencer.update();
 }
 
 // bdc definitions
-BdcMotor Outputs::bdcMotorLeft{0};
-BdcMotor Outputs::bdcMotorRight{1};
+BdcMotor Outputs::bdcMotorLeft{0, 14};
+BdcMotor Outputs::bdcMotorRight{1, 27};
 
 // servo definitions
-ServoMotor Outputs::servoMotorSonarZ{0};
-//ServoMotor Outputs::servoMotorCameraZ{1};
-//ServoMotor Outputs::servoMotorCameraY{2};
+ServoMotor Outputs::servoMotorSonarZ{0, 4096 * 0.028, 4096 * 0.132};
+ServoMotor Outputs::servoMotorCameraZ{1, 4096 * 0.026, 4096 * 0.122};
+ServoMotor Outputs::servoMotorCameraY{2, 4096 * 0.035, 4096 * 0.1};
 
 // function sequence to update
-std::vector<void (*)(void)> Outputs::_updateFunctions = {
+std::vector<void (*)(void)> Outputs::_updateFunctions =
+{
     []()
     {
-        //bdcMotorLeft.update();
-        //bdcMotorRight.update();
-        DebugLeds::displayValue = 0b1110;
-        DebugLeds::update();
+        //DebugLeds::displayValue = 0b1110;
+        //DebugLeds::update();
         Xra1201::update();
-        servoMotorSonarZ.setMotorAngle(-PI);
+
+        servoMotorSonarZ.setMotorAngle(0);
+        servoMotorCameraZ.setMotorAngle(0);
+        servoMotorCameraY.setMotorAngle(PI);
+
         servoMotorSonarZ.update();
-    },
-    []()
-    {
-        DebugLeds::displayValue = 0b0011;
-        DebugLeds::update();
-        Xra1201::update();
-        servoMotorSonarZ.setMotorAngle(-0.3);
-        servoMotorSonarZ.update();
-        //servoMotorCameraZ.update();
-        //servoMotorCameraY.update();
+        servoMotorCameraZ.update();
+        servoMotorCameraY.update();
     }
 };
 
