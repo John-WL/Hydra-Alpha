@@ -12,6 +12,7 @@
 #include "bdc_motor/BdcMotor.h"
 #include "servo_motor/ServoMotor.h"
 #include "debug_leds/DebugLeds.h"
+#include "debug_leds/LedSequence.h"
 
 #include "../../peripheral/i2c/xra1201/Xra1201.h"
 
@@ -19,6 +20,12 @@ void Outputs::init()
 {
     Xra1201::init();
     DebugLeds::init();
+    LedSequence::addDisplayItem(0b1111);
+    LedSequence::addDisplayItem(0b0000);
+    LedSequence::addDisplayItem(0b0001);
+    LedSequence::addDisplayItem(0b0010);
+    LedSequence::addDisplayItem(0b0100);
+    LedSequence::addDisplayItem(0b1000);
     ServoMotor::initI2cCommunication();
 }
 
@@ -46,8 +53,7 @@ std::vector<void (*)(void)> Outputs::_updateFunctions =
 {
     []()
     {
-        //DebugLeds::displayValue = 0b1110;
-        //DebugLeds::update();
+        LedSequence::update();
         Xra1201::update();
 
         servoMotorSonarZ.setMotorAngle(0);

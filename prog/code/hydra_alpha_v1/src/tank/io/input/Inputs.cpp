@@ -33,7 +33,6 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     []()
     {
         BatteryVoltageSensor::sample();
-        Serial.println(BatteryVoltageSensor::getValue());
         //Sonar::requestUpdate();
     },
     []()
