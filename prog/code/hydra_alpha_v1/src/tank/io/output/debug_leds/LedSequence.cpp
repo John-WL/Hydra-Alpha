@@ -8,6 +8,7 @@
 
 void LedSequence::init()
 {
+    DebugLeds::init();
     _updateTimer.start();
 }
 

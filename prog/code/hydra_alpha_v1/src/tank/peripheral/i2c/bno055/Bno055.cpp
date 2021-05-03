@@ -19,7 +19,7 @@ void Bno055::update()
 {
     _bno055.getEvent(&_data);
     _orientation = Orientation3::eulerXyzToOrientation(Vector3{_data});
-    _angularVelocity = Vector3{_bno055.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE)};
+    _angularVelocity = Vector3{_bno055.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE)}*(PI/180);
     _acceleration = Vector3{_bno055.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER)};
 }
 

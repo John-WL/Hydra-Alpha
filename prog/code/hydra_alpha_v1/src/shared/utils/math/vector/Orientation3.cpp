@@ -28,9 +28,9 @@ Orientation3 Orientation3::eulerXyzToOrientation(Vector3 eulerXyz)
 {
     Orientation3 orientation{};
 
-    Vector3 rotatorX = Vector3(eulerXyz.x, 0, 0);
-    Vector3 rotatorY = Vector3(0, eulerXyz.y, 0).rotate(rotatorX);
-    Vector3 rotatorZ = Vector3(0, 0, eulerXyz.z).rotate(rotatorX).rotate(rotatorY);
+    Vector3 rotatorZ = Vector3(0, 0, eulerXyz.z);
+    Vector3 rotatorY = Vector3(0, eulerXyz.y, 0).rotate(rotatorZ);
+    Vector3 rotatorX = (Vector3(eulerXyz.x, 0, 0).rotate(rotatorZ)).rotate(rotatorY);
 
-    return Orientation3{}.rotate(rotatorX).rotate(rotatorY).rotate(rotatorZ);
+    return ((Orientation3{}.rotate(rotatorX)).rotate(rotatorY)).rotate(rotatorZ);
 }

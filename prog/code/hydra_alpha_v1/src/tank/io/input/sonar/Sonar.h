@@ -30,22 +30,23 @@
 #define SONAR_RECEPTION_TIMEOUT_MICROSECONDS 23529  // equivalent to 4 meters, so about max range for this sensor
 #define SPEED_OF_SOUND_IN_AIR 343
 #define SONAR_MICROSECONDS_TO_MM_FACTOR (SPEED_OF_SOUND_IN_AIR * 0.0005)
+#define SONAR_DISTANCE_OFFSET 59
 
 class Sonar
 {
     public:
-        static void init(void (*callback)(long));
+        static void init(void (*callback)(uint32_t));
         static void requestUpdate();
         static int32_t measuredDistance;
 
     private:
         static void IRAM_ATTR onEchoReceive();
         static void handlePotentialTimeout();
-        static void (*_callback)(long); // called when we have a valid sonar response
+        static void (*_callback)(uint32_t); // called when we have a valid sonar response
 
         static bool _waitingForReception;
-        static long _timeOfRequest;
-        static long _duration;
+        static uint32_t _timeOfRequest;
+        static uint32_t _duration;
 };
 
 #endif

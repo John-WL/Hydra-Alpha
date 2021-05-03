@@ -22,7 +22,7 @@ ServoMotor::ServoMotor(unsigned char channelNumber,
         _servoValueRangeForPca9685{maxServoValueForPca9685 - minServoValueForPca9685},
         _motorAngle{0},
         _previousRegisterValues{0},
-        _smoothController{1} // should have a value between 0 and 1 for the context of this class...
+        _smoothController{0.2} // should have a value between 0 and 1 for the context of this class...
 {}
 
 ServoMotor::ServoMotor(unsigned char channelNumber) :

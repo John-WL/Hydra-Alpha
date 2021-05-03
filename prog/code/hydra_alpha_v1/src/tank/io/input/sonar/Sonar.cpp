@@ -4,7 +4,7 @@
 
 #include "Arduino.h"
 
-void Sonar::init(void (*callback)(long))
+void Sonar::init(void (*callback)(SonarDataPoint))
 {
     // this is called when we have a response of our sonar
     _callback = callback;
@@ -17,7 +17,7 @@ void Sonar::init(void (*callback)(long))
     digitalWrite(SONAR_TRIG_PIN, LOW);
 
     // interrupt to handle sonar responses
-    attachInterrupt(digitalPinToInterrupt(SONAR_ECHO_PIN), onEchoReceive, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(SONAR_ECHO_PIN), onEchoReceive, FALLING);
 }
 
 // a better implementation would be to use timers to
@@ -71,11 +71,16 @@ void IRAM_ATTR Sonar::onEchoReceive()
     }
 
     // get the amount of time the sound wave traveled in air
-    long timeOfReception = micros();
-    _duration = micros() - _timeOfRequest;
+    uint32_t timeOfReception = micros();
+    _duration = timeOfReception - _timeOfRequest;
+
+    SonarDataPoint data{};
+    data.timestamp = timeOfReception;
+    data.distance = _duration * SONAR_MICROSECONDS_TO_MM_FACTOR - SONAR_DISTANCE_OFFSET;
+    data.sonarAngle = Outputs::servoMotorSonarZ.getMotorAngle();
 
     // the callback is called when new data is received
-    _callback(_duration * SONAR_MICROSECONDS_TO_MM_FACTOR);
+    _callback(data);
 
     // set the request state to false
     _waitingForReception = false;
@@ -91,8 +96,8 @@ void Sonar::handlePotentialTimeout()
 
 int32_t Sonar::measuredDistance{};
 
-void (*Sonar::_callback)(long) = {};
+void (*Sonar::_callback)(uint32_t) = {};
 
 bool Sonar::_waitingForReception = false;
-long Sonar::_timeOfRequest = 0;
-long Sonar::_duration = 0;
+uint32_t Sonar::_timeOfRequest = 0;
+uint32_t Sonar::_duration = 0;

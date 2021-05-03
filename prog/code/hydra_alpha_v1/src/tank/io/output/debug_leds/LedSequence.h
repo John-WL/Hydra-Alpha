@@ -8,7 +8,7 @@
 
 #include "../../../../shared/utils/timer/TimerMicros.h"
 
-#define TIMER_TIME_DELAY 500000
+#define TIMER_TIME_DELAY 100000
 
 class LedSequence
 {

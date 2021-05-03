@@ -22,11 +22,11 @@
 
 TimerMicros programTimer
 {
-    5000,
+    3000,
     []()
     {
         Inputs::update();
-        FunctioningMode::execute();
+        //FunctioningMode::execute();
         Outputs::update();
     }
 };
@@ -48,6 +48,10 @@ void setup()
 void loop()
 {
     programTimer.update();
+
+    // updated every frame
+    Outputs::bdcMotorLeft.update();
+    Outputs::bdcMotorRight.update();
 }
 
 void Esp32DualCore::main()

@@ -21,7 +21,7 @@ void Xra1201::init()
 
     // Set the bdc starting speed to MAX,
     // and light up all test leds.
-    value = 0xFFFF;
+    value = 0xF041;
     _previousValue = ~value;
     update();
 }

@@ -28,9 +28,9 @@ Vector3::Vector3(imu::Vector<3> adafruitVector) :
 {}
 
 Vector3::Vector3(sensors_event_t adafruitSensor) : 
-    x{adafruitSensor.orientation.x},
-    y{adafruitSensor.orientation.y},
-    z{adafruitSensor.orientation.z}
+    x{(360 - adafruitSensor.orientation.z)*PI/180},
+    y{(adafruitSensor.orientation.y)*PI/180},
+    z{(adafruitSensor.orientation.x)*PI/180}
 {}
 
 Vector3 Vector3::operator=(Vector3 that)
