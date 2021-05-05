@@ -7,7 +7,8 @@
 
 void WiFiServerHydra::init()
 {
-    WiFi.softAP(WI_FI_SERVER_SSID, WI_FI_SERVER_PASSWORD);
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(WI_FI_SERVER_SSID, WI_FI_SERVER_PASSWORD, 1, 0, 4);
     _server.listen(WI_FI_SERVER_PORT);
 }
 
@@ -15,16 +16,12 @@ void WiFiServerHydra::update()
 {
     if(_server.poll())
     {
-        _clients.push_back(_server.accept());
+        _client = _server.accept();
     }
 
-    for
-    (uint8_t i = 0; i < _clients.size(); i++)
+    if(_client.available())
     {
-        if(_clients[i].available())
-        {
-            _receiveDataFrom(_clients[i]);
-        }
+        _receiveDataFrom(_client);
     }
 }
 
@@ -43,4 +40,4 @@ websockets::WebsocketsMessage WiFiServerHydra::_receiveDataFrom(websockets::Webs
 }
 
 websockets::WebsocketsServer WiFiServerHydra::_server{};
-std::vector<websockets::WebsocketsClient> WiFiServerHydra::_clients{10};
+websockets::WebsocketsClient WiFiServerHydra::_client{};

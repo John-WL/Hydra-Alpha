@@ -22,7 +22,7 @@ private:
     static websockets::WebsocketsMessage _receiveDataFrom(websockets::WebsocketsClient client);
 
     static websockets::WebsocketsServer _server;
-    static std::vector<websockets::WebsocketsClient> _clients;
+    static websockets::WebsocketsClient _clients;
 
 };
 
