@@ -9,6 +9,7 @@
 
 #include "../../../shared/utils/sequence/Sequence.h"
 #include "../../../shared/utils/math/vector/Vector3.h"
+#include "../../../shared/utils/data_structure/CircularBuffer.h"
 #include "../../utils/controllers/pid_controller/PidController.h"
 
 #include "bdc_motor/BdcMotor.h"
@@ -68,16 +69,21 @@ ServoMotor Outputs::servoMotorSonarZ{0, 4096 * 0.028, 4096 * 0.132};
 ServoMotor Outputs::servoMotorCameraZ{1, 4096 * 0.026, 4096 * 0.122};
 ServoMotor Outputs::servoMotorCameraY{2, 4096 * 0.035, 4096 * 0.09};
 
+CircularBuffer<uint8_t> Outputs::_circularBuffer{10};
+uint8_t Outputs::indexCircularBuffer{0};
+
 // function sequence to update
 std::vector<void (*)(void)> Outputs::_updateFunctions =
 {
     []()
     {
-        //bdcMotorLeft.setMotorTorque(-Vector3{1, 0, 0}.findRotator(Bno055::orientation().front).z*3.2 + Bno055::angularVelocity().z*0.3);
-        //bdcMotorRight.setMotorTorque(-Vector3{1, 0, 0}.findRotator(Bno055::orientation().front).z*3.2 + Bno055::angularVelocity().z*0.3);
+        Vector3 desiredFrontOrientation = Vector3{1, 0, 0};
+        bdcMotorLeft.setMotorTorque(-desiredFrontOrientation.findRotator(Bno055::orientation().front).z*3.2 + Bno055::angularVelocity().z*0.3);
+        bdcMotorRight.setMotorTorque(-desiredFrontOrientation.findRotator(Bno055::orientation().front).z*3.2 + Bno055::angularVelocity().z*0.3);
 
         servoMotorSonarZ.setMotorAngle(Vector3{1, 0, 0}.findRotator(Bno055::orientation().front).z);
         servoMotorCameraZ.setMotorAngle(Vector3{1, 0, 0}.findRotator(Bno055::orientation().front).z);
+        //servoMotorCameraY.setMotorAngle(Vector3{1, 0, 0}.findRotator(Bno055::orientation().front).y);
         servoMotorCameraY.setMotorAngle(0);
 
         LedSequence::update();

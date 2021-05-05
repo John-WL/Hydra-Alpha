@@ -48,10 +48,6 @@ void setup()
 void loop()
 {
     programTimer.update();
-
-    // updated every frame
-    Outputs::bdcMotorLeft.update();
-    Outputs::bdcMotorRight.update();
 }
 
 void Esp32DualCore::main()
@@ -59,5 +55,9 @@ void Esp32DualCore::main()
     while(true)
     {
         //update_RF();
+
+        // updated every frame
+        Outputs::bdcMotorLeft.update();
+        Outputs::bdcMotorRight.update();
     }
 }

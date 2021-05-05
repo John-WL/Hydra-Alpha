@@ -4,7 +4,9 @@
 
 #include "Arduino.h"
 
-void Sonar::init(void (*callback)(SonarDataPoint))
+#include "../../output/Outputs.h"
+
+void Sonar::init(void (*callback)(SonarSample))
 {
     // this is called when we have a response of our sonar
     _callback = callback;
@@ -74,7 +76,7 @@ void IRAM_ATTR Sonar::onEchoReceive()
     uint32_t timeOfReception = micros();
     _duration = timeOfReception - _timeOfRequest;
 
-    SonarDataPoint data{};
+    SonarSample data{};
     data.timestamp = timeOfReception;
     data.distance = _duration * SONAR_MICROSECONDS_TO_MM_FACTOR - SONAR_DISTANCE_OFFSET;
     data.sonarAngle = Outputs::servoMotorSonarZ.getMotorAngle();
@@ -96,7 +98,7 @@ void Sonar::handlePotentialTimeout()
 
 int32_t Sonar::measuredDistance{};
 
-void (*Sonar::_callback)(uint32_t) = {};
+void (*Sonar::_callback)(SonarSample) = {};
 
 bool Sonar::_waitingForReception = false;
 uint32_t Sonar::_timeOfRequest = 0;

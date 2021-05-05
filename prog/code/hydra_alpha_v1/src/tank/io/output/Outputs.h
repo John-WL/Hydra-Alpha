@@ -8,6 +8,7 @@
 #include "Vector.h"
 
 #include "../../../shared/utils/sequence/Sequence.h"
+#include "../../../shared/utils/data_structure/CircularBuffer.h"
 
 #include "bdc_motor/BdcMotor.h"
 #include "servo_motor/ServoMotor.h"
@@ -30,6 +31,8 @@ class Outputs
         static std::vector<void (*)(void)> _updateFunctions;
 
         static Sequence _outputSequencer;
+        static CircularBuffer<uint8_t> _circularBuffer;
+        static uint8_t indexCircularBuffer;
 };
 
 #endif

@@ -42,7 +42,7 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
     config.xclk_freq_hz = 10000000;
     config.pixel_format = PIXFORMAT_RGB565;
 
-    // frame size is 320x240 frame size,
+    // frame size is 320x240,
     // what we need for the lcd, and
     // optimal for face detection!
     config.frame_size = FRAMESIZE_QVGA;
@@ -88,8 +88,8 @@ void CameraSensor::update()
     }*/
 
     // camera frame buffer
-    camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
-
+    //camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
+    camera_fb_t* cameraFrameBuffer;
     // Bake rectangles!
     if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
     {
@@ -98,7 +98,18 @@ void CameraSensor::update()
         // Hmm... Smells good.
         //_generateRectanglesFromFaceDetection(cameraFrameBuffer);
         _generateRectanglesFromColorDetection(cameraFrameBuffer);
+
+        rectanglesBakingStatus = EspCamRectanglesBakingStatus::BAKED;
     }
+
+    std::vector<uint8_t> data{};
+    data.push_back(0);
+    data.push_back(1);
+    data.push_back(2);
+    data.push_back(3);
+    data.push_back(4);
+    data.push_back(5);
+    _sendOverWiFiCallback(data);
 
     // send over WiFi the way you want, I don't care anymore
     if(_isSendingFramesOverWiFi)
@@ -121,7 +132,7 @@ void CameraSensor::update()
         std::vector<uint8_t> cameraFramebufferVector
         {
             *jpegBuffer,
-            *jpegBuffer+cameraFrameBuffer->len
+            *jpegBuffer + cameraFrameBuffer->len
         };
         
         _sendOverWiFiCallback(cameraFramebufferVector);
@@ -132,7 +143,7 @@ void CameraSensor::update()
     }
 
     // return the frame buffer to be reused
-    esp_camera_fb_return(cameraFrameBuffer);
+    //esp_camera_fb_return(cameraFrameBuffer);
 }
 
 void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrameBuffer)
@@ -145,7 +156,7 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
     if(boxes != NULL)
     {
 
-        for(int i = 0; i < boxes->len; i++)
+        for(uint16_t i = 0; i < boxes->len; i++)
         {
             box_t* faceBox = boxes[i].box;
             Vector2 upperLeft{faceBox->box_p[0], faceBox->box_p[1]};
@@ -153,8 +164,6 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
             Rectangle2 faceLocation{upperLeft, lowerRight};
             faceRectangles.push_back(faceLocation);
         }
-
-        rectanglesBakingStatus = EspCamRectanglesBakingStatus::BAKED;
         
         // gives an error?
         /*

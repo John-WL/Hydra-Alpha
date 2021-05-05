@@ -10,3 +10,7 @@
 #ifdef PROGRAMMING_ESP_CAM_BOARD
 #include "src/cam/espcam_alpha_v1.hpp"
 #endif
+
+#ifdef PROGRAMMING_REMOTE_BOARD
+#include "src/remote/remote_v1.hpp"
+#endif

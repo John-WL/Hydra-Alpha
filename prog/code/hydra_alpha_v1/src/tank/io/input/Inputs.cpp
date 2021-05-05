@@ -10,7 +10,7 @@
 #include "../../../shared/utils/sequence/Sequence.h"
 
 #include "battery/BatteryVoltageSensor.h"
-#include "sonar/Sonar.h"
+#include "sonar/SonarScanner.h"
 
 #include "../../peripheral/i2c/bno055/Bno055.h"
 
@@ -19,7 +19,7 @@
 void Inputs::init()
 {
     BatteryVoltageSensor::init();
-    Sonar::init([](uint32_t distance){Sonar::measuredDistance = distance;});
+    SonarScanner::init();
     Bno055::init();
     //EspCam::init(); // updated in the second thread, see tank_alpha_v1.hpp
 }
@@ -33,7 +33,12 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     []()
     {
         BatteryVoltageSensor::sample();
-        Sonar::requestUpdate();
+        SonarScanner::update();
+    },
+    []()
+    {
+        std::vector<SonarSample> sonarSamples = SonarScanner::findDrivableSamples();
+        Serial.println(sonarSamples.size());
     },
     []()
     {

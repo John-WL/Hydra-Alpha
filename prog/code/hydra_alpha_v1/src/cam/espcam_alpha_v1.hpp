@@ -6,7 +6,7 @@
 
 #include "../shared/core/Esp32DualCore.h"
 
-#include "peripheral/tank_alpha/Tank.h"
+#include "peripheral/serial_tank/Tank.h"
 #include "peripheral/camera_sensor/CameraSensor.h"
 #include "peripheral/wifi_client_hydra/WiFiClientHydra.h"
 

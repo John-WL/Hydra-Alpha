@@ -1,9 +1,9 @@
-#ifndef SONAR_DATA_POINT
-#define SONAR_DATA_POINT
+#ifndef SONAR_SAMPLE
+#define SONAR_SAMPLE
 
 #include "Arduino.h"
 
-class SonarDataPoint
+class SonarSample
 {
 public:
     uint32_t timestamp;

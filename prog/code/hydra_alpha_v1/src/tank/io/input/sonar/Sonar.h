@@ -24,6 +24,8 @@
 
 #include "Arduino.h"
 
+#include "SonarSample.h"
+
 #define SONAR_TRIG_PIN 25
 #define SONAR_ECHO_PIN 26
 
@@ -35,14 +37,14 @@
 class Sonar
 {
     public:
-        static void init(void (*callback)(uint32_t));
+        static void init(void (*callback)(SonarSample));
         static void requestUpdate();
         static int32_t measuredDistance;
 
     private:
         static void IRAM_ATTR onEchoReceive();
         static void handlePotentialTimeout();
-        static void (*_callback)(uint32_t); // called when we have a valid sonar response
+        static void (*_callback)(SonarSample); // called when we have a valid sonar response
 
         static bool _waitingForReception;
         static uint32_t _timeOfRequest;
