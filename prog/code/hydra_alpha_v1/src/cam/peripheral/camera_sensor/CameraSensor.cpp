@@ -19,6 +19,7 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
     // save the callback
     _sendOverWiFiCallback = sendOverWiFiCallback;
 
+    /*
     // camera settings
     camera_config_t config;
     config.ledc_channel = LEDC_CHANNEL_0;
@@ -47,35 +48,19 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
     // optimal for face detection!
     config.frame_size = FRAMESIZE_QVGA;
     config.jpeg_quality = DESIRED_JPEG_QUALITY;
-    config.fb_count = 2;
+    config.fb_count = 2;*/
 
     // checking for errors when initializing
-    esp_err_t errorId = esp_camera_init(&config);
+    /*esp_err_t errorId = esp_camera_init(&config);
     if(errorId != ESP_OK)
     {
         Serial.print("Camera init failed with error #");
         Serial.print(errorId);
         Serial.println(".");
         return;
-    }
+    }*/
 
-    // more camera settings
-    sensor_t* s = esp_camera_sensor_get();
-    
-    if (s->id.PID == OV3660_PID)
-    {
-        s->set_vflip(s, 1);         // flip it back (back?)
-        s->set_brightness(s, 1);    // up the brightness just a bit
-        s->set_saturation(s, -2);   // lower the saturation
-    }
-
-    // setting specific to the M5-Stack Wide model
-    #if defined(CAMERA_MODEL_M5STACK_WIDE)
-    s->set_vflip(s, 1);
-    s->set_hmirror(s, 1);
-    #endif
-
-    _mtmnConfig = mtmn_init_config();
+    //_mtmnConfig = mtmn_init_config();
 }
 
 void CameraSensor::update()
@@ -89,9 +74,9 @@ void CameraSensor::update()
 
     // camera frame buffer
     //camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
-    camera_fb_t* cameraFrameBuffer;
+    //camera_fb_t* cameraFrameBuffer;
     // Bake rectangles!
-    if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
+    /*if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
     {
         faceRectangles.clear();
 
@@ -100,7 +85,7 @@ void CameraSensor::update()
         _generateRectanglesFromColorDetection(cameraFrameBuffer);
 
         rectanglesBakingStatus = EspCamRectanglesBakingStatus::BAKED;
-    }
+    }*/
 
     std::vector<uint8_t> data{};
     data.push_back(0);
@@ -111,7 +96,7 @@ void CameraSensor::update()
     data.push_back(5);
     _sendOverWiFiCallback(data);
 
-    // send over WiFi the way you want, I don't care anymore
+    /*// send over WiFi the way you want, I don't care anymore
     if(_isSendingFramesOverWiFi)
     {
         // convert 565 to JPEG
@@ -144,6 +129,7 @@ void CameraSensor::update()
 
     // return the frame buffer to be reused
     //esp_camera_fb_return(cameraFrameBuffer);
+    */
 }
 
 void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrameBuffer)

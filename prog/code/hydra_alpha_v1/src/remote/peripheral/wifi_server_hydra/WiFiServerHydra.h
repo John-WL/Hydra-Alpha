@@ -16,13 +16,16 @@ class WiFiServerHydra
 {
 public:
     static void init();
-    static void update();
+    static void update(void (*messageHandler)(websockets::WebsocketsMessage*, uint8_t));
+
+    static bool isWiFiEnabled[2];
 
 private:
-    static websockets::WebsocketsMessage _receiveDataFrom(websockets::WebsocketsClient client);
+    static websockets::WebsocketsMessage _receiveDataFrom(websockets::WebsocketsClient* client);
 
+    static uint8_t _amountOfConnectedClients;
     static websockets::WebsocketsServer _server;
-    static websockets::WebsocketsClient _clients;
+    static websockets::WebsocketsClient _clients[2];
 
 };
 

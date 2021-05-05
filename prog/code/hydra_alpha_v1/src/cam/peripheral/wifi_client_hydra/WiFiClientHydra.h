@@ -22,8 +22,7 @@
 
 #include "../../../shared/utils/timer/TimerMicros.h"
 
-// 5'000'000µS = 5S
-#define WI_FI_CLIENT_HYDRA_WAIT_TIME_BEFORE_TRYING_TO_RECONNECT_AGAIN 5000000
+#define WI_FI_CLIENT_HYDRA_WAIT_TIME_BEFORE_TRYING_TO_RECONNECT_AGAIN 1000000
 
 class WiFiClientHydra
 {
@@ -35,26 +34,7 @@ public:
 private:
     static void _sendData(std::vector<uint8_t> data);
 
-    static bool _wifiConnected();
-    static bool _wifiAndClientConnected();
-
-    static void _handleReconnection();
-    
-    static void _connectToWiFiServer();
-    static void _connectClient();
-    
-    static void _reconnectionTimeoutCallback();
-    static void _restartReconnectionTimer();
-
-    static int8_t _findRemoteSsidIndex();
-    static void _updateRemoteSignalStrength();
-
-    static bool _timeoutOfReconnectionReached;
-    static int8_t _remoteRssiStrength;
-    static TimerMicros _reconnectionTimer;
     static websockets::WebsocketsClient _client;
-    static bool _isClientConnected;
-    
 };
 
 #endif

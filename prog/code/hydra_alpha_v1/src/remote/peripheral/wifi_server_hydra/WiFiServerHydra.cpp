@@ -12,32 +12,38 @@ void WiFiServerHydra::init()
     _server.listen(WI_FI_SERVER_PORT);
 }
 
-void WiFiServerHydra::update()
+void WiFiServerHydra::update(void (*messageHandler)(websockets::WebsocketsMessage*, uint8_t))
 {
+    std::vector<websockets::WebsocketsMessage> messages{};
+
     if(_server.poll())
     {
-        _client = _server.accept();
+        _clients[_amountOfConnectedClients] = _server.accept();
+        _amountOfConnectedClients++;
     }
 
-    if(_client.available())
+    for(uint8_t i = 0; i < _amountOfConnectedClients; i++)
     {
-        _receiveDataFrom(_client);
+        if(_clients[i].available() && isWiFiEnabled[i])
+        {
+            messages.push_back(_receiveDataFrom(&_clients[i]));
+        }
+    }
+
+    if(messages.size() > 0)
+    {
+        messageHandler((websockets::WebsocketsMessage*)&messages[0], messages.size());
     }
 }
 
-websockets::WebsocketsMessage WiFiServerHydra::_receiveDataFrom(websockets::WebsocketsClient client)
+websockets::WebsocketsMessage WiFiServerHydra::_receiveDataFrom(websockets::WebsocketsClient* client)
 {
-    client.poll();
-    Serial.println("Read blocking...");
-    websockets::WebsocketsMessage reception = client.readBlocking();
-
-    Serial.print("Received data with length: ");
-    Serial.println(reception.length());
-
-    Serial.println();
-
-    return reception;
+    client->poll();
+    return client->readBlocking();
 }
 
+bool WiFiServerHydra::isWiFiEnabled[2]{true, false};
+
+uint8_t WiFiServerHydra::_amountOfConnectedClients{0};
 websockets::WebsocketsServer WiFiServerHydra::_server{};
-websockets::WebsocketsClient WiFiServerHydra::_client{};
+websockets::WebsocketsClient WiFiServerHydra::_clients[2]{};

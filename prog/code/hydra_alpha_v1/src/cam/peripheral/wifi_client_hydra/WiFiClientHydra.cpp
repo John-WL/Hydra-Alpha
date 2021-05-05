@@ -4,55 +4,47 @@
 
 #include "Arduino.h"
 
+#include "Vector.h"
+
 #include "WiFi.h"
 #include "ArduinoWebsockets.h"
 
 #include "../../../remote/peripheral/wifi_server_hydra/WiFiServerHydra.h"
 
-#include "Vector.h"
-
 void WiFiClientHydra::init()
 {
-    _connectToWiFiServer();
-    _connectClient();
-    _reconnectionTimer.start();
+    WiFi.begin(WI_FI_SERVER_SSID, WI_FI_SERVER_PASSWORD);
+
+    Serial.println("Connect WiFi...");
+    while(WiFi.status() != WL_CONNECTED)
+    {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("\nWiFi connected");
+
+    Serial.println("\nConnect socket...");
+    while(!_client.connect(WI_FI_SERVER_IP, WI_FI_SERVER_PORT, "/"))
+    {
+        delay(500);
+        Serial.print(".");
+        if(WiFi.status() != WL_CONNECTED)
+        {
+            break;
+        }
+    }
+    Serial.println("\nSocket connected");
 }
 
 void WiFiClientHydra::sendDataToRemote(std::vector<uint8_t> data)
 {
-    if(_wifiAndClientConnected())
+    _sendData(data);
+
+    Serial.println(WiFi.status() == WL_CONNECTED);
+    if(WiFi.status() != WL_CONNECTED)
     {
-        Serial.println("Connected! Sending data...");
-        _sendData(data);
+        ESP.restart();
     }
-    else
-    {
-        _reconnectionTimer.update();
-        if(_timeoutOfReconnectionReached)
-        {
-            Serial.println("Trying to reconnect...");
-            _handleReconnection();
-            _restartReconnectionTimer();
-        }
-        Serial.println("Wondering in the void...");
-    }
-    
-    _updateRemoteSignalStrength();
-}
-
-int8_t WiFiClientHydra::getRemoteSignalStrength()
-{
-    return _remoteRssiStrength;
-}
-
-bool WiFiClientHydra::_wifiAndClientConnected()
-{
-    return _wifiConnected() && _isClientConnected;
-}
-
-bool WiFiClientHydra::_wifiConnected()
-{
-    return (WiFi.status() == WL_CONNECTED);
 }
 
 void WiFiClientHydra::_sendData(std::vector<uint8_t> data)
@@ -60,73 +52,4 @@ void WiFiClientHydra::_sendData(std::vector<uint8_t> data)
     _client.sendBinary((const char*)&data, data.size());
 }
 
-void WiFiClientHydra::_handleReconnection()
-{
-    if(!_wifiConnected())
-    {
-        _connectToWiFiServer();
-    }
-    else
-    {
-        _connectClient();
-    }
-}
-
-void WiFiClientHydra::_connectToWiFiServer()
-{
-    WiFi.disconnect();
-    WiFi.begin(WI_FI_SERVER_SSID, WI_FI_SERVER_PASSWORD);
-}
-
-void WiFiClientHydra::_connectClient()
-{
-    _isClientConnected = _client.connect(WI_FI_SERVER_IP, WI_FI_SERVER_PORT, "/");
-}
-
-void WiFiClientHydra::_reconnectionTimeoutCallback()
-{
-    _timeoutOfReconnectionReached = true;
-}
-
-void WiFiClientHydra::_restartReconnectionTimer()
-{
-    _timeoutOfReconnectionReached = false;
-    _reconnectionTimer.start();
-}
-
-int8_t WiFiClientHydra::_findRemoteSsidIndex()
-{
-    int8_t networkSize = WiFi.scanNetworks();
-    for(int8_t i = 0; i < networkSize; i++)
-    {
-        if(WiFi.SSID(i) == WI_FI_SERVER_SSID)
-        {
-            return i;
-        }
-    }
-
-    return -1;
-}
-
-void WiFiClientHydra::_updateRemoteSignalStrength()
-{
-    int8_t remoteWiFiIndex = _findRemoteSsidIndex();
-    if(remoteWiFiIndex >= 0)
-    {
-        _remoteRssiStrength = WiFi.RSSI(remoteWiFiIndex);
-    }
-    else
-    {
-        _remoteRssiStrength = -128;
-    }
-}
-
-bool WiFiClientHydra::_timeoutOfReconnectionReached{false};
-int8_t WiFiClientHydra::_remoteRssiStrength{-128};
-TimerMicros WiFiClientHydra::_reconnectionTimer
-{
-    WI_FI_CLIENT_HYDRA_WAIT_TIME_BEFORE_TRYING_TO_RECONNECT_AGAIN,
-    _reconnectionTimeoutCallback
-};
 websockets::WebsocketsClient WiFiClientHydra::_client{};
-bool WiFiClientHydra::_isClientConnected{false};
