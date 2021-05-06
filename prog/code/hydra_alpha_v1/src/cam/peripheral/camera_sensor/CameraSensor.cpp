@@ -19,7 +19,6 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
     // save the callback
     _sendOverWiFiCallback = sendOverWiFiCallback;
 
-    /*
     // camera settings
     camera_config_t config;
     config.ledc_channel = LEDC_CHANNEL_0;
@@ -41,6 +40,7 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
     config.pin_pwdn = PWDN_GPIO_NUM;
     config.pin_reset = RESET_GPIO_NUM;
     config.xclk_freq_hz = 10000000;
+    //config.pixel_format = PIXFORMAT_JPEG;
     config.pixel_format = PIXFORMAT_RGB565;
 
     // frame size is 320x240,
@@ -48,19 +48,19 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
     // optimal for face detection!
     config.frame_size = FRAMESIZE_QVGA;
     config.jpeg_quality = DESIRED_JPEG_QUALITY;
-    config.fb_count = 2;*/
+    config.fb_count = 2;
 
     // checking for errors when initializing
-    /*esp_err_t errorId = esp_camera_init(&config);
+    esp_err_t errorId = esp_camera_init(&config);
     if(errorId != ESP_OK)
     {
         Serial.print("Camera init failed with error #");
         Serial.print(errorId);
         Serial.println(".");
         return;
-    }*/
+    }
 
-    //_mtmnConfig = mtmn_init_config();
+    _mtmnConfig = mtmn_init_config();
 }
 
 void CameraSensor::update()
@@ -73,10 +73,10 @@ void CameraSensor::update()
     }*/
 
     // camera frame buffer
-    //camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
-    //camera_fb_t* cameraFrameBuffer;
+    camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
+
     // Bake rectangles!
-    /*if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
+    if(rectanglesBakingStatus == EspCamRectanglesBakingStatus::PENDING)
     {
         faceRectangles.clear();
 
@@ -85,23 +85,15 @@ void CameraSensor::update()
         _generateRectanglesFromColorDetection(cameraFrameBuffer);
 
         rectanglesBakingStatus = EspCamRectanglesBakingStatus::BAKED;
-    }*/
+    }
 
-    std::vector<uint8_t> data{};
-    data.push_back(0);
-    data.push_back(1);
-    data.push_back(2);
-    data.push_back(3);
-    data.push_back(4);
-    data.push_back(5);
-    _sendOverWiFiCallback(data);
-
-    /*// send over WiFi the way you want, I don't care anymore
-    if(_isSendingFramesOverWiFi)
+    // send over WiFi the way you want, I don't care anymore
+    //if(_isSendingFramesOverWiFi)
+    if(true)
     {
         // convert 565 to JPEG
-        uint8_t** jpegBuffer;
-        size_t* jpegLength;
+        static uint8_t* jpegBuffer;
+        static size_t jpegLength;
         fmt2jpg(
             cameraFrameBuffer->buf,
             cameraFrameBuffer->len,
@@ -109,27 +101,25 @@ void CameraSensor::update()
             cameraFrameBuffer->height,
             cameraFrameBuffer->format,
             DESIRED_JPEG_QUALITY,
-            jpegBuffer,
-            jpegLength
+            &jpegBuffer,
+            &jpegLength
         );
 
         // convert the data array to a vector<uint8_t>
         std::vector<uint8_t> cameraFramebufferVector
         {
-            *jpegBuffer,
-            *jpegBuffer + cameraFrameBuffer->len
+            jpegBuffer,
+            jpegBuffer + jpegLength
         };
-        
+
         _sendOverWiFiCallback(cameraFramebufferVector);
 
         // we need to free the pointers after use
         free(jpegBuffer);
-        free(jpegLength);
     }
 
     // return the frame buffer to be reused
-    //esp_camera_fb_return(cameraFrameBuffer);
-    */
+    esp_camera_fb_return(cameraFrameBuffer);
 }
 
 void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrameBuffer)
@@ -152,12 +142,11 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
         }
         
         // gives an error?
-        /*
-        dl_lib_free(boxes->score);
-        dl_lib_free(boxes->box);
-        dl_lib_free(boxes->landmark);
-        dl_lib_free(boxes);
-        */
+        //dl_lib_free(boxes->score);
+        //dl_lib_free(boxes->box);
+        //dl_lib_free(boxes->landmark);
+        //dl_lib_free(boxes);
+        
         free(boxes->score);
         free(boxes->box);
         free(boxes->landmark);

@@ -20,47 +20,25 @@
 #ifndef CAMERA_SENSOR_H
 #define CAMERA_SENSOR_H
 
-#define DESIRED_JPEG_QUALITY 80
+#define DESIRED_JPEG_QUALITY 8
 
 #include "esp_camera.h"
 #include "fd_forward.h"
 
 #include "Vector.h"
 
-#include "../../../shared/utils/math/shape/Rectangle2.h"
-
 #define CAMERA_MODEL_AI_THINKER
-
-namespace EspCamRectanglesBakingStatus
-{
-    enum Enum
-    {
-        IDLE,
-        PENDING,
-        BAKED
-    };
-}
 
 class CameraSensor
 {
 public:
-    static void init(void (*sendOverWiFiCallback)(std::vector<uint8_t>));
+    static void init(void (*wiFiCallback)(std::vector<uint8_t> data));
     static void update();
-
     static void enableSendingFramesOverWiFi(bool isSendingFramesOverWiFi);
-    static void requestToBakeFaceRectangles();
-    static void resetBakedFaceRectanglesStatus();
-
-    static std::vector<Rectangle2> faceRectangles;
-    static unsigned char rectanglesBakingStatus;
 
 private:
-    static void _generateRectanglesFromFaceDetection(camera_fb_t* cameraFramebuffer);
-    static void _generateRectanglesFromColorDetection(camera_fb_t* cameraFrameBuffer);
-
+    static void (*_wiFiCallback)(std::vector<uint8_t>);
     static bool _isSendingFramesOverWiFi;
-    static void (*_sendOverWiFiCallback)(std::vector<uint8_t>);
-
     static mtmn_config_t _mtmnConfig;
     
 };

@@ -12,17 +12,18 @@
 #define WI_FI_SERVER_IP "192.168.4.1"
 #define WI_FI_SERVER_PORT 8888
 
+//#define ENABLE_SIMULTANEOUS_RECEPTION
+
 class WiFiServerHydra
 {
 public:
     static void init();
     static void update(void (*messageHandler)(websockets::WebsocketsMessage*, uint8_t));
 
-    static bool isWiFiEnabled[2];
-
 private:
     static websockets::WebsocketsMessage _receiveDataFrom(websockets::WebsocketsClient* client);
 
+    static bool _isWiFiEnabled[2];
     static uint8_t _amountOfConnectedClients;
     static websockets::WebsocketsServer _server;
     static websockets::WebsocketsClient _clients[2];
