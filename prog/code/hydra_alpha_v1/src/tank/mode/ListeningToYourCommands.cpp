@@ -34,13 +34,12 @@ void ListeningToYourCommands::execute(IncommingCommunicationFormat input)
     EspCam::enableSendingImagesOverWifi(input.wiFiCameraEnabled);
 
     // update the functionning mode
-    FunctioningMode::set(input.mode);
+    FunctioningMode::set(input.mode & 0b1);
 
     OutgoingCommunicationFormat output{};
     output.mode = input.mode;
     output.distanceSonar = Sonar::measuredDistance;
     output.batteryLevel = BatteryVoltageSensor::getValue();
-    output.signalStrength = 0;
 
     // TrameAlpha is defined in "HydraRF.h"
     DataConverter::translate(&output, &TrameAlpha);

@@ -67,10 +67,10 @@ void CameraSensor::update()
 {
     // if we don't need to query the camera image, 
     // then don't query it for no reason
-    /*if(!_isSendingFramesOverWiFi && (rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING))
+    if(!_isSendingFramesOverWiFi && (rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING))
     {
         return;
-    }*/
+    }
 
     // camera frame buffer
     camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
@@ -88,8 +88,7 @@ void CameraSensor::update()
     }
 
     // send over WiFi the way you want, I don't care anymore
-    //if(_isSendingFramesOverWiFi)
-    if(true)
+    if(_isSendingFramesOverWiFi)
     {
         // convert 565 to JPEG
         static uint8_t* jpegBuffer;
@@ -164,6 +163,11 @@ void CameraSensor::_generateRectanglesFromColorDetection(camera_fb_t* cameraFram
         cameraFrameBuffer->height,
         &faceRectangles
     );
+}
+
+void CameraSensor::enableSendingFramesOverWiFi(bool isSendingFramesOverWiFi)
+{
+    _isSendingFramesOverWiFi = isSendingFramesOverWiFi;
 }
 
 void CameraSensor::requestToBakeFaceRectangles()

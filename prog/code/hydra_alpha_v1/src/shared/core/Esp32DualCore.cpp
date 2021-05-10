@@ -8,6 +8,7 @@ void Esp32DualCore::init()
     // This prevents the kernel from rebooting
     // for some faults related to whatchdogs. 
     disableCore0WDT();
+    disableCore1WDT();
 
     // Create a task handler
     static TaskHandle_t secondCoreTaskHandler;

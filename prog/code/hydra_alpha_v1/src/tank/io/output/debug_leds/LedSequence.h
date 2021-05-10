@@ -10,11 +10,20 @@
 
 #define TIMER_TIME_DELAY 100000
 
+namespace LedSequencePreset
+{
+    enum Enum
+    {
+        RETRO_LOADING
+    };
+}
+
 class LedSequence
 {
 public:
     static void init();
     static void addDisplayItem(uint8_t displayItem);
+    static void setDisplayItem(LedSequencePreset::Enum presetEnum);
     static void update();
 
 private:

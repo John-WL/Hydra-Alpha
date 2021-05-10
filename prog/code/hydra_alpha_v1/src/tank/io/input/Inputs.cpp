@@ -21,7 +21,7 @@ void Inputs::init()
     BatteryVoltageSensor::init();
     SonarScanner::init();
     Bno055::init();
-    //EspCam::init(); // updated in the second thread, see tank_alpha_v1.hpp
+    EspCam::init(); // updated in the second thread, see tank_alpha_v1.hpp
 }
 
 void Inputs::update()

@@ -13,7 +13,8 @@ void SerialIO::send(HardwareSerial serial, std::vector<uint8_t> data)
 
 std::vector<uint8_t> SerialIO::receive(HardwareSerial serial, unsigned char dataLength)
 {
-    std::vector<uint8_t> dataReceived;
+    static std::vector<uint8_t> dataReceived{2};
+    dataReceived.clear();
 
     isReceptionTimeoutReached = false;
     receptionTimeout.start();
@@ -25,6 +26,8 @@ std::vector<uint8_t> SerialIO::receive(HardwareSerial serial, unsigned char data
             dataReceived.push_back(_receiveByte(serial));
         }
         receptionTimeout.update();
+        
+        yield();
     }
 
     return dataReceived;

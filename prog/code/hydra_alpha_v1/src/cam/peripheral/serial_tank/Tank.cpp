@@ -1,6 +1,5 @@
 // Author: John-William Lebel, 2021-04-17, creation
 
-
 #include "Tank.h"
 
 #include "QueueArray.h"
@@ -40,6 +39,8 @@ void Tank::update()
             dataReceivedArray.push(valueToPushInArray);
         }
 
+        Serial.println(dataReceivedArray.count());
+
         // receive
         onReceive(dataReceivedArray);
     }
@@ -63,7 +64,7 @@ void Tank::onReceive(QueueArray<uint8_t>& dataReceived)
                 return;
             }
             // update the boolean to enable/disable WiFi camera transmission
-            _enableSendingCameraFrameOverWiFi = dataReceived.pop() & 0x80;
+            CameraSensor::enableSendingFramesOverWiFi(dataReceived.pop() & 0x80);
             break;
         case TankCommands::SEND_BACK_RECTANGLES_BAKING_STATUS:
             // Nothing to do.
@@ -96,7 +97,7 @@ void Tank::onRequest(QueueArray<uint8_t>& dataRequested)
     switch(_lastReceivedCommandId)
     {
         case TankCommands::ENABLE_DISABLE_SENDING_CAMERA_FRAME_OVER_WI_FI:
-            // everything was handled in the _receiveEvent() function
+            // everything was handled in the onReceive() function
             break;
         case TankCommands::SEND_BACK_RECTANGLES_BAKING_STATUS:
             // send rectangle baking status
@@ -104,18 +105,15 @@ void Tank::onRequest(QueueArray<uint8_t>& dataRequested)
             SerialSlave::send(dataRequestedVector);
             break;
         case TankCommands::REQUEST_BAKING_RECTANGLES:
-            // everything was handled in the _receiveEvent() function
+            // everything was handled in the onReceive() function
             break;
         case TankCommands::SEND_BACK_BACKED_RECTANGLES:
             // check if we found any rectangles
             if(CameraSensor::faceRectangles.size() == 0)
             {
                 // write back 1 zero
-                for(uint8_t i = 0; i < 7; i++)
-                {
-                    dataRequestedVector.push_back(0);
-                    SerialSlave::send(dataRequestedVector);
-                }
+                dataRequestedVector.push_back(0);
+                SerialSlave::send(dataRequestedVector);
                 break;
             }
             // send the 4 coordinates of the rectangle most likely to be the one we are looking for
@@ -143,6 +141,5 @@ void Tank::onRequest(QueueArray<uint8_t>& dataRequested)
     }
 }
 
-bool Tank::_enableSendingCameraFrameOverWiFi{false};
 unsigned char Tank::_lastReceivedCommandId{0};
 QueueArray<uint8_t> Tank::dataReceivedArray{};

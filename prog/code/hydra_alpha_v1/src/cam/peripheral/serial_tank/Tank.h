@@ -13,10 +13,10 @@ namespace TankCommands
 {
     enum Enum
     {
-        ENABLE_DISABLE_SENDING_CAMERA_FRAME_OVER_WI_FI  = 0x00,
-        SEND_BACK_RECTANGLES_BAKING_STATUS              = 0x01,
-        REQUEST_BAKING_RECTANGLES                       = 0x02,
-        SEND_BACK_BACKED_RECTANGLES                     = 0x03
+        ENABLE_DISABLE_SENDING_CAMERA_FRAME_OVER_WI_FI  = '0',
+        SEND_BACK_RECTANGLES_BAKING_STATUS              = '1',
+        REQUEST_BAKING_RECTANGLES                       = '2',
+        SEND_BACK_BACKED_RECTANGLES                     = '3'
     };
 }
 

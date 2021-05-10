@@ -13,27 +13,25 @@
 
 void setup()
 {
-    Serial.begin(115200);
-    //Serial.setDebugOutput(true);
-
-    // put your WiFi sender implementation in the brackets
-    WiFiClientHydra::init();
-    CameraSensor::init(WiFiClientHydra::sendDataToRemote);
-
+    Tank::init();
+    Serial.println("Working 1");
     Esp32DualCore::init();
 }
 
 void loop()
 {
-    CameraSensor::update();
+    Tank::update();
 }
 
 void Esp32DualCore::main()
 {
-    //Tank::init();
-    
+    // put your WiFi sender implementation in the brackets
+    WiFiClientHydra::init();
+    CameraSensor::init(WiFiClientHydra::sendDataToRemote);
+
     while(true)
     {
-        //Tank::update();
+        WiFiClientHydra::restartEspOnConnectionLost();
+        CameraSensor::update();
     }
 }

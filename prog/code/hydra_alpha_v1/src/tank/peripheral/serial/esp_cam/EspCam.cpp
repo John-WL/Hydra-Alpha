@@ -13,7 +13,7 @@
 void EspCam::init()
 {
     SerialMaster::begin(115200);
-    _requestHandlingOfSendingImagesOverWiFi(false);
+    _requestHandlingOfSendingImagesOverWiFi(true);
 }
 
 void EspCam::update()
@@ -43,7 +43,7 @@ void EspCam::_requestHandlingOfSendingImagesOverWiFi(bool isSendingData)
 {
     // send...
     std::vector<uint8_t> dataToSend{};
-    dataToSend.push_back(0x00);                                      // WiFi camera command id
+    dataToSend.push_back('0');                                      // WiFi camera command id
     dataToSend.push_back(isSendingData ? 0x80 : 0x00);               // set the state depending on what was passed as parameter
     SerialMaster::send(dataToSend); // transmit that
 }
@@ -83,7 +83,7 @@ unsigned char EspCam::_requestStatusOfRectangleGeneration()
 {
     // send...
     std::vector<uint8_t> dataToSend{};
-    dataToSend.push_back(0x01);                                      // Rectangle status request command id
+    dataToSend.push_back('1');                                      // Rectangle status request command id
     SerialMaster::send(dataToSend); // transmit that
 
     // request...
@@ -105,7 +105,7 @@ void EspCam::_requestGenerationOfRectangle()
 {
     // send...
     std::vector<uint8_t> dataToSend{};
-    dataToSend.push_back(0x02);                                      // Rectangle generation request command id
+    dataToSend.push_back('2');                                      // Rectangle generation request command id
     SerialMaster::send(dataToSend); // transmit that
 }
 
@@ -113,7 +113,7 @@ Rectangle2* EspCam::_requestRectangleOfTankOmegaInFrame()
 {
     // send...
     std::vector<uint8_t> dataToSend{};
-    dataToSend.push_back(0x03);                                      // Rectangle gathering request command id
+    dataToSend.push_back('3');                                      // Rectangle gathering request command id
     SerialMaster::send(dataToSend); // transmit that
 
     // request...

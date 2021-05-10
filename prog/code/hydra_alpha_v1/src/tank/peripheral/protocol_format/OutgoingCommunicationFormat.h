@@ -13,8 +13,6 @@ typedef struct
     uint8_t mode;
     uint16_t distanceSonar;
     uint8_t batteryLevel;
-    int8_t signalStrength;
-    uint8_t checkSum;
 } OutgoingCommunicationFormat;
 
 #endif

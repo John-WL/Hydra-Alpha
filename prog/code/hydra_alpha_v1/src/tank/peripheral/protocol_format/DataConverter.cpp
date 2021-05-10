@@ -8,17 +8,18 @@
 IncommingCommunicationFormat DataConverter::translate(struct sCom* rawRfData)
 {
     IncommingCommunicationFormat input;
-    input.mode = rawRfData->alpha.mode;
+    input.mode =              rawRfData->alpha.mode & 0b01;
+    input.wiFiCameraEnabled = rawRfData->alpha.mode & 0b10;
 
     float movementSpeed = rawRfData->alpha.moteur.bit.speed/16.0;
 
-    float forwardThrottle = rawRfData->alpha.moteur.bit.up ? movementSpeed : 0;
-    float backwardThrottle = rawRfData->alpha.moteur.bit.down ? movementSpeed : 0;
+    float forwardThrottle =     rawRfData->alpha.moteur.bit.up   ? movementSpeed : 0;
+    float backwardThrottle =    rawRfData->alpha.moteur.bit.down ? movementSpeed : 0;
     input.throttle = forwardThrottle - backwardThrottle;
 
-    float leftSteer = rawRfData->alpha.moteur.bit.left ? movementSpeed : 0;
+    float leftSteer =  rawRfData->alpha.moteur.bit.left  ? movementSpeed : 0;
     float rightSteer = rawRfData->alpha.moteur.bit.right ? movementSpeed : 0;
-    input.steer = (leftSteer - rightSteer);
+    input.steer = leftSteer - rightSteer;
     
     // Converting to radians... 
     // Data comming from remote is 8 bits, so from 0 to 255.
@@ -26,20 +27,17 @@ IncommingCommunicationFormat DataConverter::translate(struct sCom* rawRfData)
     // /128, now it's from -1.0 to 0.9921875.
     // *PI/2, now it's in radians.
     static const float factorToConvertFromByteToRadians = 0.00390625 * PI; // PI / (2 * 128)
-    input.sonarAngleZ = (((int)rawRfData->alpha.servo.split.distance) - 128) * factorToConvertFromByteToRadians;
-    input.cameraAngleZ = (((int)rawRfData->alpha.servo.split.rotation) - 128) * factorToConvertFromByteToRadians;
-    input.cameraAngleY = (((int)rawRfData->alpha.servo.split.tilt) - 128) * factorToConvertFromByteToRadians;
-
-    input.wiFiCameraEnabled = rawRfData->alpha.mode & 0b10;
+    input.sonarAngleZ =  ( ((int)rawRfData->alpha.servo.split.distance) - 128 ) * factorToConvertFromByteToRadians;
+    input.cameraAngleZ = ( ((int)rawRfData->alpha.servo.split.rotation) - 128 ) * factorToConvertFromByteToRadians;
+    input.cameraAngleY = ( ((int)rawRfData->alpha.servo.split.tilt)     - 128 ) * factorToConvertFromByteToRadians;
 
     return input;
 }
 
 void DataConverter::translate(OutgoingCommunicationFormat* output, AlphaToRemoteCommunicationFormat* convertedOutput)
 {
-    convertedOutput->mode = output->mode;
+    convertedOutput->mode =                    output->mode;
     convertedOutput->distanceSonar.split.lsb = output->distanceSonar;
     convertedOutput->distanceSonar.split.msb = output->distanceSonar >> 8;
-    convertedOutput->batteryLevel = output->batteryLevel;
-    convertedOutput->sigWifi = *((uint8_t*)&output->signalStrength);
+    convertedOutput->batteryLevel =            output->batteryLevel;
 }
