@@ -15,5 +15,6 @@ void setup()
 
 void loop()
 {
+    WiFiClientHydra::reconnectWiFiOnConnectionLost();
     CameraSensor::update();
 }

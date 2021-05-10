@@ -16,6 +16,8 @@ void WiFiClientHydra::init()
     uint32_t initialTimeOfBegin = micros();
     while(WiFi.status() != WL_CONNECTED)
     {
+        yield();
+
         if((micros() - initialTimeOfBegin) > CONNECTION_TIMEOUT)
         {
             // We're gonna reset the Esp32 if we're still not connected on the next update() call.
@@ -26,6 +28,8 @@ void WiFiClientHydra::init()
 
     while(!_client.connect(WI_FI_SERVER_IP, WI_FI_SERVER_PORT, "/"))
     {
+        yield();
+
         // That's useful when we reset the Esp32 server exactly at the wrong moment.
         // We can get stuck here if we're not careful at the exact moment we reset the server.
         // This breaking code serves as a measure to prevent that. 
@@ -39,13 +43,19 @@ void WiFiClientHydra::init()
 void WiFiClientHydra::sendDataToRemote(std::vector<uint8_t> data)
 {
     // try to send data first
-    _sendData(data);
+    if(WiFi.status() == WL_CONNECTED)
+    {
+        _sendData(data);
+    }
+}
 
-    // If we're disconnected, just reset the whole thing.
-    // It's hard to handle the WiFi connection without restarting. 
+void WiFiClientHydra::reconnectWiFiOnConnectionLost()
+{
+    // if we're disconnected, re-init the WiFi
     if(WiFi.status() != WL_CONNECTED)
     {
-        ESP.restart();
+        WiFi.disconnect();
+        init();
     }
 }
 

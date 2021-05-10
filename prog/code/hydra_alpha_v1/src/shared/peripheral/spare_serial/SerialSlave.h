@@ -9,17 +9,17 @@
 
 namespace SerialSlave
 {
-    void begin(unsigned long bps)
+    inline void begin(unsigned long bps)
     {
         Serial.begin(bps);
     }
 
-    void send(std::vector<uint8_t> data)
+    inline void send(std::vector<uint8_t> data)
     {
         return SerialIO::send(Serial, data);
     }
 
-    std::vector<uint8_t> receive(unsigned char dataLength)
+    inline std::vector<uint8_t> receive(unsigned char dataLength)
     {
         return SerialIO::receive(Serial, dataLength);
     }

@@ -14,8 +14,9 @@
 void setup()
 {
     Tank::init();
-    Serial.println("Working 1");
     Esp32DualCore::init();
+    
+    pinMode(33, OUTPUT);
 }
 
 void loop()
@@ -31,7 +32,7 @@ void Esp32DualCore::main()
 
     while(true)
     {
-        WiFiClientHydra::restartEspOnConnectionLost();
+        WiFiClientHydra::reconnectWiFiOnConnectionLost();
         CameraSensor::update();
     }
 }

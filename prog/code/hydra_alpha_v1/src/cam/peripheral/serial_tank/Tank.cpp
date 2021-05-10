@@ -39,7 +39,7 @@ void Tank::update()
             dataReceivedArray.push(valueToPushInArray);
         }
 
-        Serial.println(dataReceivedArray.count());
+        digitalWrite(33, HIGH);
 
         // receive
         onReceive(dataReceivedArray);

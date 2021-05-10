@@ -13,13 +13,14 @@
 void EspCam::init()
 {
     SerialMaster::begin(115200);
-    _requestHandlingOfSendingImagesOverWiFi(true);
+    delay(1000);
 }
 
 void EspCam::update()
 {
-    _updateRectangleRequest();
-    _updateWiFiCameraRequest();
+    _requestHandlingOfSendingImagesOverWiFi(true);
+    //_updateRectangleRequest();
+    //_updateWiFiCameraRequest();
 }
 
 void EspCam::enableSendingImagesOverWifi(bool isSendingImagesOverWiFi)
@@ -44,7 +45,7 @@ void EspCam::_requestHandlingOfSendingImagesOverWiFi(bool isSendingData)
     // send...
     std::vector<uint8_t> dataToSend{};
     dataToSend.push_back('0');                                      // WiFi camera command id
-    dataToSend.push_back(isSendingData ? 0x80 : 0x00);               // set the state depending on what was passed as parameter
+    dataToSend.push_back(isSendingData ? 0xFF : 0x00);               // set the state depending on what was passed as parameter
     SerialMaster::send(dataToSend); // transmit that
 }
 

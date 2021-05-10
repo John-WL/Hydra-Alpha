@@ -22,6 +22,6 @@
 // *************************************************** //
 
 // compilation and upload file selection
-//#define PROGRAMMING_TANK_ALPHA_BOARD
-#define PROGRAMMING_ESP_CAM_BOARD
+#define PROGRAMMING_TANK_ALPHA_BOARD
+//#define PROGRAMMING_ESP_CAM_BOARD
 //#define PROGRAMMING_REMOTE_BOARD

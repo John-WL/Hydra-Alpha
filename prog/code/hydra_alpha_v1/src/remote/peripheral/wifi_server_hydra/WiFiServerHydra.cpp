@@ -23,6 +23,7 @@ void WiFiServerHydra::update(void (*messageHandler)(websockets::WebsocketsMessag
         // save it
         _clients[_amountOfConnectedClients] = _server.accept();
         _amountOfConnectedClients++;
+        Serial.println("Client connected.");
     }
 
     // look for received messages

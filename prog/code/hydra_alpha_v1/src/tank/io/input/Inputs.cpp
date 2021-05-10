@@ -18,10 +18,10 @@
 
 void Inputs::init()
 {
+    EspCam::init();
     BatteryVoltageSensor::init();
     SonarScanner::init();
     Bno055::init();
-    EspCam::init(); // updated in the second thread, see tank_alpha_v1.hpp
 }
 
 void Inputs::update()
@@ -43,7 +43,7 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     []()
     {
         Bno055::update();
-        //EspCam::update();
+        EspCam::update();
     }
 };
 

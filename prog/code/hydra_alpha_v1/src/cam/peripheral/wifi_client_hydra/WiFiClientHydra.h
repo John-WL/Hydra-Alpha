@@ -51,7 +51,7 @@ class WiFiClientHydra
 public:
     static void init();
     static void sendDataToRemote(std::vector<uint8_t> data);
-    static void restartEspOnConnectionLost();
+    static void reconnectWiFiOnConnectionLost();
 
 private:
     static void _sendData(std::vector<uint8_t> data);

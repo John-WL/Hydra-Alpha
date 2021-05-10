@@ -12,17 +12,17 @@
 
 namespace SerialMaster
 {
-    void begin(unsigned long bps)
+    inline void begin(unsigned long bps)
     {
         Serial2.begin(bps, SERIAL_8N1, RX2_PIN, TX2_PIN);
     }
 
-    void send(std::vector<uint8_t> data)
+    inline void send(std::vector<uint8_t> data)
     {
         return SerialIO::send(Serial2, data);
     }
 
-    std::vector<uint8_t> receive(unsigned char dataLength)
+    inline std::vector<uint8_t> receive(unsigned char dataLength)
     {
         return SerialIO::receive(Serial2, dataLength);
     }
