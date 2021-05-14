@@ -62,7 +62,7 @@ UniversalTimer timerTimeout(DELAY_TIMEOUT,true);
 
 // Variables *****************************************************
 
-unsigned char dataRX[COM_OMEGA_LEN+3] = {0,0,0,0,0,0,0,0,0,0,0};
+unsigned char dataRX[COM_OMEGA_LEN+3] = {0,0,0,0,0,0,0,0,0,0};
 
 #ifndef REMOTE
   bool state_RF = OFFLINE;
@@ -78,11 +78,11 @@ unsigned char dataRX[COM_OMEGA_LEN+3] = {0,0,0,0,0,0,0,0,0,0,0};
 #endif
 
 #ifdef ALPHA
-  unsigned char dataTX[COM_ALPHA_LEN+3] = {0,0,0,0,0,0,0,0,0};
+  unsigned char dataTX[COM_ALPHA_LEN+3] = {0,0,0,0,0,0,0,0};
 #endif
 
 #ifdef OMEGA
-  unsigned char dataTX[COM_OMEGA_LEN+3] = {0,0,0,0,0,0,0,0,0,0,0};
+  unsigned char dataTX[COM_OMEGA_LEN+3] = {0,0,0,0,0,0,0,0,0,0};
 #endif
 
 // Structure *****************************************************
@@ -101,29 +101,27 @@ struct sCom ComRemote;
 
 void init_RF (void)
 {
-    ComRemote.alpha.mode            =   0x00;
+    ComRemote.alpha.mode.full       =   0x00;
     ComRemote.alpha.moteur.full     =   0x00;
-    ComRemote.alpha.servo.full     =   0x00;
+    ComRemote.alpha.servo.full      =   0x00;
 
-    ComRemote.omega.mode            =   0x00;
+    ComRemote.omega.mode.full       =   0x00;
     ComRemote.omega.moteur.full     =   0x00;
-    ComRemote.omega.servo.full     =   0x00;
+    ComRemote.omega.servo.full      =   0x00;
   
    #ifndef OMEGA
     TrameAlpha.batteryLevel         =   0x00;
     TrameAlpha.distanceSonar.full   =   0x00;
-    TrameAlpha.mode                 =   0x00;
-    TrameAlpha.sigWifi              =   0x00;
+    TrameAlpha.mode.full            =   0x00;
     TrameAlpha.error                =   0x00;
   #endif  
   
   #ifndef ALPHA
     ComOmega.mainBat                =   0x00;
     ComOmega.spareBat               =   0x00;
-    ComOmega.mode                   =   0x00;
+    ComOmega.mode.full              =   0x00;
     ComOmega.distance.full          =   0x00;
     ComOmega.sigStrength            =   0x00;
-    ComOmega.sigWifi                =   0x00;
     ComOmega.error                  =   0x00; 
   #endif
 
@@ -431,14 +429,13 @@ void check_timeout (void)
     dataTX[1] = 'O';
     dataTX[2] = ComOmega.mainBat;
     dataTX[3] = ComOmega.spareBat;
-    dataTX[4] = ComOmega.mode;
+    dataTX[4] = ComOmega.mode.full;
     dataTX[5] = ComOmega.distance.split.lsb;
     dataTX[6] = ComOmega.distance.split.msb;
     dataTX[7] = ComOmega.sigStrength;
-    dataTX[8] = ComOmega.sigWifi;
-    dataTX[9] = ComOmega.error;
+    dataTX[8] = ComOmega.error;
     for(int i = 0; i < COM_OMEGA_LEN+2; i++) check_sum += dataTX[i];
-    dataTX[10] = check_sum;
+    dataTX[9] = check_sum;
   }
 #endif
 
@@ -454,11 +451,10 @@ void check_timeout (void)
     dataTX[2] = TrameAlpha.batteryLevel;  
     dataTX[3] = TrameAlpha.distanceSonar.split.lsb; 
     dataTX[4] = TrameAlpha.distanceSonar.split.msb; 
-    dataTX[5] = TrameAlpha.mode; 
-    dataTX[6] = TrameAlpha.sigWifi; 
-    dataTX[7] = TrameAlpha.error;
+    dataTX[5] = TrameAlpha.mode.full; 
+    dataTX[6] = TrameAlpha.error;
     for(int i = 0; i < COM_ALPHA_LEN+2; i++) check_sum += dataTX[i];
-    dataTX[8] = check_sum;
+    dataTX[7] = check_sum;
   }
 #endif
 
@@ -468,13 +464,13 @@ void check_timeout (void)
   void unload_ComRemote (void)
   {
     #ifdef ALPHA
-      ComRemote.alpha.mode            =   dataRX[2];
+      ComRemote.alpha.mode.full       =   dataRX[2];
       ComRemote.alpha.moteur.full     =   dataRX[3];
       ComRemote.alpha.servo.full      =   dataRX[4];                                                   
     #endif
     
     #ifdef OMEGA
-      ComRemote.omega.mode            =   dataRX[5];
+      ComRemote.omega.mode.full       =   dataRX[5];
       ComRemote.omega.moteur.full     =   dataRX[6];
       ComRemote.omega.servo.full      =   dataRX[7];                                                              
     #endif
@@ -488,12 +484,11 @@ void check_timeout (void)
   {
     ComOmega.mainBat                    =   dataRX[2];
     ComOmega.spareBat                   =   dataRX[3];
-    ComOmega.mode                       =   dataRX[4];
+    ComOmega.mode.full                  =   dataRX[4];
     ComOmega.distance.split.lsb         =   dataRX[5];
     ComOmega.distance.split.msb         =   dataRX[6];
     ComOmega.sigStrength                =   dataRX[7];
-    ComOmega.sigWifi                    =   dataRX[8];
-    ComOmega.error                      =   dataRX[9];
+    ComOmega.error                      =   dataRX[8];
   }
   
   //************************************************************************//
@@ -503,9 +498,8 @@ void check_timeout (void)
     TrameAlpha.batteryLevel             =   dataRX[2];
     TrameAlpha.distanceSonar.split.lsb  =   dataRX[3];
     TrameAlpha.distanceSonar.split.msb  =   dataRX[4];
-    TrameAlpha.mode                     =   dataRX[5];
-    TrameAlpha.sigWifi                  =   dataRX[6];
-    TrameAlpha.error                    =   dataRX[7];
+    TrameAlpha.mode.full                =   dataRX[5];
+    TrameAlpha.error                    =   dataRX[6];
   }
 
   //************************************************************************//
@@ -516,10 +510,10 @@ void check_timeout (void)
     
     dataTX[0] = 'G';
     dataTX[1] = 'O';
-    dataTX[2] = ComRemote.alpha.mode;
+    dataTX[2] = ComRemote.alpha.mode.full;
     dataTX[3] = ComRemote.alpha.moteur.full;
     dataTX[4] = ComRemote.alpha.servo.full;
-    dataTX[5] = ComRemote.omega.mode;
+    dataTX[5] = ComRemote.omega.mode.full;
     dataTX[6] = ComRemote.omega.moteur.full;
     dataTX[7] = ComRemote.omega.servo.full;
     for(int i = 0; i < COM_REMOTE_LEN+2; i++) check_sum += dataTX[i];

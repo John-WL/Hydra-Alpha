@@ -11,14 +11,13 @@ class Vector2
         Vector2 operator*(float scalar);
         Vector2 operator+(Vector2 that);
         Vector2 operator-(Vector2 that);
-        float x;
-        float y;
-
         float magnitudeSquared();
         float magnitude();
-
         Vector2 normalize();
         Vector2 scaledToMagnitude(float magnitude);
+        
+        float x;
+        float y;
 
     private:
 

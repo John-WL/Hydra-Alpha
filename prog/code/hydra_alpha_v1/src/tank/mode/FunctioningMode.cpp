@@ -4,6 +4,7 @@
 
 #include "FunctioningMode.h"
 
+#include "RfLessControlTest.h"
 #include "ListeningToYourCommands.h"
 #include "SwarmIsSwarmy.h"
 
@@ -16,7 +17,7 @@ void FunctioningMode::execute()
     IncommingCommunicationFormat input = DataConverter::translate(&ComRemote);
 
     // call the function that corresponds to the current functioning mode
-    switch(FunctioningMode::_functioningMode)
+    switch(_functioningMode)
     {
         case LISTENING_TO_YOUR_COMMANDS_FUNCTIONING_MODE:
             ListeningToYourCommands::execute(input);
@@ -24,12 +25,15 @@ void FunctioningMode::execute()
         case SWARM_IS_SWARMY_FUNCTIONING_MODE:
             SwarmIsSwarmy::execute(input);
             break;
+        case RF_LESS_CONTROL_TEST:
+            RfLessControlTest::execute();
+            break;
         default:
             // how the hell did we get here??
             // some debug info...
-            Serial.println("the selected mode is undefined!");
+            Serial.println("The selected mode is undefined!");
             Serial.print("The selected mode was #");
-            Serial.print(FunctioningMode::_functioningMode);
+            Serial.print(_functioningMode);
             Serial.println(", but only mode #0 or #1 are valid!");
             delay(1000);
             break;
@@ -46,4 +50,4 @@ unsigned char FunctioningMode::get()
     return _functioningMode;
 }
 
-unsigned char FunctioningMode::_functioningMode = LISTENING_TO_YOUR_COMMANDS_FUNCTIONING_MODE;
+unsigned char FunctioningMode::_functioningMode = RF_LESS_CONTROL_TEST;

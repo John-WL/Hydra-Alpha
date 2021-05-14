@@ -5,6 +5,7 @@
 #include "Arduino.h"
 
 #include "../io/output/Outputs.h"
+#include "../io/input/sonar/SonarScanner.h"
 
 #include "../../shared/utils/math/vector/Vector3.h"
 #include "../../shared/utils/math/vector/Vector2.h"
@@ -18,6 +19,10 @@
 
 void SwarmIsSwarmy::execute(IncommingCommunicationFormat remoteInput)
 {
+    // update the functionning mode
+    FunctioningMode::set(remoteInput.mode);
+
+    // execute the thingy
     ListeningToYourCommands::execute(
         _rectangleInCameraFrameExists() ? 
             _followState(remoteInput) :
@@ -73,7 +78,7 @@ IncommingCommunicationFormat SwarmIsSwarmy::_followState(IncommingCommunicationF
     generatedInput.mode = remoteInput.mode;
     generatedInput.throttle = approximateDistanceFromOtherTank - DESIRED_DITANCE_FROM_TARGET;
     generatedInput.steer = offsetedOtherTankPosition.findRotator(Vector3{1, 0, 0}).z;
-    generatedInput.sonarAngleZ = 0;
+    generatedInput.sonarAngleZ = SonarScanner::getDesiredSonarAngle();
     generatedInput.cameraAngleZ = Outputs::servoMotorCameraZ.getMotorAngle() + rotationAmounts.x;
     generatedInput.cameraAngleY = Outputs::servoMotorCameraY.getMotorAngle() + rotationAmounts.y;
     generatedInput.wiFiCameraEnabled = remoteInput.wiFiCameraEnabled;

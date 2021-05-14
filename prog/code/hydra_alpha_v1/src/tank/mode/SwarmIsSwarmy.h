@@ -88,16 +88,16 @@
 
 class SwarmIsSwarmy
 {
-    public:
-        static void execute(IncommingCommunicationFormat remoteInput);
-        
-    private:
-        static IncommingCommunicationFormat _followState(IncommingCommunicationFormat remoteInput);
-        static IncommingCommunicationFormat _searchState(IncommingCommunicationFormat remoteInput);
+public:
+    static void execute(IncommingCommunicationFormat remoteInput);
+    
+private:
+    static IncommingCommunicationFormat _followState(IncommingCommunicationFormat remoteInput);
+    static IncommingCommunicationFormat _searchState(IncommingCommunicationFormat remoteInput);
 
-        static bool _rectangleInCameraFrameExists();
+    static bool _rectangleInCameraFrameExists();
 
-        static IncommingCommunicationFormat _adjustOutputWithSensorData(IncommingCommunicationFormat output);
+    static IncommingCommunicationFormat _adjustOutputWithSensorData(IncommingCommunicationFormat output);
 };
 
 #endif

@@ -10,10 +10,10 @@
 
 class ListeningToYourCommands
 {
-    public:
-        static void execute(IncommingCommunicationFormat input);
-        
-    private:
+public:
+    static void execute(IncommingCommunicationFormat input);
+    
+private:
 
 };
 

@@ -37,7 +37,7 @@ ServoMotor::ServoMotor(unsigned char channelNumber) :
 void ServoMotor::update()
 {
     // Linear function to fit the driver's required range of values.
-    // We are indeed using radians for servo motor angles. 
+    // We are indeed using radians for the servo motor angles. 
     float shiftedNormalizedAngle = 0.5 + (_motorAngle * ONE_OVER_PI);
     float smoothedAngleValue = _smoothController.sample(shiftedNormalizedAngle);
     uint16_t registerValuesForDriver = _minServoValueForPca9685

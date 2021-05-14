@@ -8,13 +8,13 @@
 IncommingCommunicationFormat DataConverter::translate(struct sCom* rawRfData)
 {
     IncommingCommunicationFormat input;
-    input.mode =              rawRfData->alpha.mode & 0b01;
-    input.wiFiCameraEnabled = rawRfData->alpha.mode & 0b10;
+    input.mode =              rawRfData->alpha.mode.bit.ctrl;
+    input.wiFiCameraEnabled = rawRfData->alpha.mode.bit.wifi;
 
     float movementSpeed = rawRfData->alpha.moteur.bit.speed/16.0;
 
-    float forwardThrottle =     rawRfData->alpha.moteur.bit.up   ? movementSpeed : 0;
-    float backwardThrottle =    rawRfData->alpha.moteur.bit.down ? movementSpeed : 0;
+    float forwardThrottle =  rawRfData->alpha.moteur.bit.up   ? movementSpeed : 0;
+    float backwardThrottle = rawRfData->alpha.moteur.bit.down ? movementSpeed : 0;
     input.throttle = forwardThrottle - backwardThrottle;
 
     float leftSteer =  rawRfData->alpha.moteur.bit.left  ? movementSpeed : 0;
@@ -36,7 +36,7 @@ IncommingCommunicationFormat DataConverter::translate(struct sCom* rawRfData)
 
 void DataConverter::translate(OutgoingCommunicationFormat* output, AlphaToRemoteCommunicationFormat* convertedOutput)
 {
-    convertedOutput->mode =                    output->mode;
+    convertedOutput->mode.bit.ctrl =                    output->mode;
     convertedOutput->distanceSonar.split.lsb = output->distanceSonar;
     convertedOutput->distanceSonar.split.msb = output->distanceSonar >> 8;
     convertedOutput->batteryLevel =            output->batteryLevel;

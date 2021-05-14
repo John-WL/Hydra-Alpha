@@ -1,9 +1,11 @@
 #ifndef STRUCTUREH
 	#define STRUCTUREH
 
-#include "Arduino.h"
-#define ALPHA
+// définis ici à cause de la structure du projet
+  #include "Arduino.h"
 
+  #define ALPHA
+	
 // Définitions des structures d'entrée et sortie de la communication RF.
 //
 // Lors de l'envoie d'une trame de communication, le data des structures sera précédé de GO et suivit d'un checksum sur 1 byte.
@@ -14,6 +16,64 @@
 //
 // Information en provenance de la remote:
 //
+// Structures bitwise : mode - 1 byte
+//
+//  |                                     |
+//                1 byte
+//                 full
+//
+//                 bit
+//  |    |    |    |    |    |    |    |    |
+//    1b   1b   1b   1b   1b   1b   1b   1b
+//   ctrl wifi lab chase 
+//
+// Ex. écriture: ComRemote.alpha.mode.bit.ctrl = TRUE;
+//               ComRemote.alpha.mode.bit.wifi = TRUE;
+//               ComRemote.alpha.mode.bit.chase = TRUE;
+//               ComRemote.omega.mode.bit.ctrl = TRUE;
+//               ComRemote.omega.mode.bit.wifi = TRUE;
+//               ComRemote.omega.mode.bit.lab = TRUE;
+//               ComRemote.omega.mode.bit.chase = TRUE;
+//               TrameAlpha.mode.bit.ctrl = TRUE;
+//               TrameAlpha.mode.bit.wifi = TRUE;
+//               TrameAlpha.mode.bit.chase = TRUE;
+//               ComOmega.mode.bit.ctrl = TRUE;
+//               ComOmega.mode.bit.wifi = TRUE;
+//               ComOmega.mode.bit.lab = TRUE;
+//               ComOmega.mode.bit.chase = TRUE;
+//
+// Ex. lecture: if(ComRemote.alpha.mode.bit.ctrl == TRUE)
+//              if(ComRemote.alpha.mode.bit.wifi == TRUE)
+//              if(ComRemote.alpha.mode.bit.chase == TRUE)
+//              if(ComRemote.omega.mode.bit.ctrl == TRUE)
+//              if(ComRemote.omega.mode.bit.wifi == TRUE)
+//              if(ComRemote.omega.mode.bit.lab == TRUE)
+//              if(ComRemote.omega.mode.bit.chase == TRUE)
+//              if(TrameAlpha.mode.bit.ctrl == TRUE)
+//              if(TrameAlpha.mode.bit.wifi == TRUE)
+//              if(TrameAlpha.mode.bit.chase == TRUE)
+//              if(ComOmega.mode.bit.ctrl == TRUE)
+//              if(ComOmega.mode.bit.wifi == TRUE)
+//              if(ComOmega.mode.bit.lab == TRUE)
+//              if(ComOmega.mode.bit.chase == TRUE)
+struct sMode
+{
+  unsigned char ctrl: 1;
+  unsigned char wifi: 1;
+  unsigned char lab: 1;
+  unsigned char chase: 1;
+  unsigned char nullbit1: 1;
+  unsigned char nullbit2: 1;
+  unsigned char nullbit3: 1;
+  unsigned char nullbit4: 1;
+};
+
+union uMode
+{
+  struct sMode bit;
+  unsigned char full;
+};
+
 // Structures bitwise : moteur - 1 byte
 //
 //  |                                     |
@@ -116,7 +176,7 @@ union uServo
 
 struct sTank
 {
-  unsigned char mode;
+  union uMode mode;
   union uMoteur moteur;
   union uServo servo;
 };
@@ -184,9 +244,8 @@ typedef struct
 {
     unsigned char batteryLevel;
     union uDistance distanceSonar;
-    unsigned char mode;
+    union uMode mode;
 	  unsigned char error;
-    unsigned char sigWifi;
 } AlphaToRemoteCommunicationFormat;
 
 // Inforamtion en provenance d'Omega:
@@ -213,10 +272,9 @@ struct sComOmega
 {
 	unsigned char mainBat;
 	unsigned char spareBat;
-	unsigned char mode;
+	union uMode mode;
 	union uDistance distance;
 	unsigned char sigStrength;
-  unsigned char sigWifi;
 	unsigned char error;
 };
 

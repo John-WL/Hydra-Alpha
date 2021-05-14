@@ -13,7 +13,7 @@ class SonarScanner
 public:
     static void init();
     static void update();
-    static void _updateSonarDesiredOrientation();
+    static float getDesiredSonarAngle();
     static void _addDataPoint(SonarSample sonarSample);
     static std::vector<SonarSample> findDrivableSamples();
 

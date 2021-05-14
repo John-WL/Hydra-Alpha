@@ -38,7 +38,6 @@ std::vector<void (*)(void)> Inputs::_updateFunctions = {
     []()
     {
         std::vector<SonarSample> sonarSamples = SonarScanner::findDrivableSamples();
-        Serial.println(sonarSamples.size());
     },
     []()
     {

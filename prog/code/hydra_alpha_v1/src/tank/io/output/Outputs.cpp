@@ -20,6 +20,8 @@
 #include "../../peripheral/i2c/xra1201/Xra1201.h"
 #include "../../peripheral/i2c/bno055/Bno055.h"
 
+#include "../input/sonar/SonarScanner.h"
+
 void Outputs::init()
 {
     Xra1201::init();
@@ -30,8 +32,6 @@ void Outputs::init()
 
 void Outputs::update()
 {
-
-    // I2C and everything that needs to be handled turn by turn
     _outputSequencer.update();
 }
 
@@ -52,21 +52,7 @@ std::vector<void (*)(void)> Outputs::_updateFunctions =
 {
     []()
     {
-        Vector3 desiredFrontOrientation = Vector3{1, 0, 0};
-        //bdcMotorLeft.setMotorTorque(-desiredFrontOrientation.findRotator(Bno055::orientation().front).z*3.2 + Bno055::angularVelocity().z*0.3);
-        //bdcMotorRight.setMotorTorque(-desiredFrontOrientation.findRotator(Bno055::orientation().front).z*3.2 + Bno055::angularVelocity().z*0.3);
-        bdcMotorLeft.setMotorTorque(0);
-        bdcMotorRight.setMotorTorque(0);
-
-        servoMotorSonarZ.setMotorAngle(Vector3{1, 0, 0}.findRotator(Bno055::orientation().front).z);
-        servoMotorCameraZ.setMotorAngle(Vector3{1, 0, 0}.findRotator(Bno055::orientation().front).z);
-        //servoMotorCameraY.setMotorAngle(Vector3{1, 0, 0}.findRotator(Bno055::orientation().front).y);
-        servoMotorCameraY.setMotorAngle(0);
-
         LedSequence::update();
-    },
-    []()
-    {
         Xra1201::update();
     },
     []()

@@ -23,7 +23,6 @@ void LedSequence::setDisplayItem(LedSequencePreset::Enum presetEnum)
     {
         case LedSequencePreset::RETRO_LOADING:
             _sequence.clear();
-            LedSequence::addDisplayItem(0b0000);
             LedSequence::addDisplayItem(0b1000);
             LedSequence::addDisplayItem(0b0100);
             LedSequence::addDisplayItem(0b0010);

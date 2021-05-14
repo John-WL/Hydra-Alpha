@@ -18,7 +18,6 @@ void SonarScanner::init()
 void SonarScanner::update()
 {
     Sonar::requestUpdate();
-    _updateSonarDesiredOrientation();
 }
 
 std::vector<SonarSample> SonarScanner::findDrivableSamples()
@@ -38,7 +37,7 @@ std::vector<SonarSample> SonarScanner::findDrivableSamples()
     return drivableSamples;
 }
 
-void SonarScanner::_updateSonarDesiredOrientation()
+float SonarScanner::getDesiredSonarAngle()
 {
     float x = micros() / 300000.0;
     float angleScalar = sin(x);

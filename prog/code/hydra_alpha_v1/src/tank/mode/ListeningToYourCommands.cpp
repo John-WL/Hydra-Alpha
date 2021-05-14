@@ -2,11 +2,11 @@
 
 #include "ListeningToYourCommands.h"
 
+#include "FunctioningMode.h"
+
 #include "Arduino.h"
 
 #include "../io/output/Outputs.h"
-
-#include "FunctioningMode.h"
 
 #include "../peripheral/protocol_format/IncommingCommunicationFormat.h"
 #include "../peripheral/protocol_format/OutgoingCommunicationFormat.h"
@@ -21,20 +21,20 @@
 
 void ListeningToYourCommands::execute(IncommingCommunicationFormat input)
 {
+    // update the functionning mode
+    FunctioningMode::set(input.mode);
+
     // update bdc motors
     Outputs::bdcMotorLeft.setMotorTorque(input.throttle - input.steer);
-    Outputs::bdcMotorRight.setMotorTorque(input.throttle + input.steer);
+    Outputs::bdcMotorRight.setMotorTorque(-(input.throttle + input.steer));
 
     // udate the servo motors
+    Outputs::servoMotorSonarZ.setMotorAngle(input.sonarAngleZ);
     Outputs::servoMotorCameraZ.setMotorAngle(input.cameraAngleZ);
     Outputs::servoMotorCameraY.setMotorAngle(input.cameraAngleY);
-    Outputs::servoMotorSonarZ.setMotorAngle(input.sonarAngleZ);
 
     // handle EspCam sending camera feed over WiFi
     EspCam::enableSendingImagesOverWifi(input.wiFiCameraEnabled);
-
-    // update the functionning mode
-    FunctioningMode::set(input.mode & 0b1);
 
     OutgoingCommunicationFormat output{};
     output.mode = input.mode;

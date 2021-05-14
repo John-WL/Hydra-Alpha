@@ -3,6 +3,8 @@
 #include "Vector3.h"
 #include "Quaternion.h"
 
+#include "Vector2.h"
+
 #include "Arduino.h"
 
 #include <Adafruit_Sensor.h>
@@ -123,4 +125,9 @@ float Vector3::magnitude()
 float Vector3::magnitudeSquared()
 {
     return x*x + y*y + z*z;
+}
+
+Vector2 Vector3::flatten()
+{
+    return Vector2{x, y};
 }

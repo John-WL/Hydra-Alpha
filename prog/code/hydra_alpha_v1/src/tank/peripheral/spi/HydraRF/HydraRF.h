@@ -24,7 +24,7 @@
 
 #ifndef HYDRARFH
   #define HYDRARFH
-  
+
   #include "Structure.h"
   
   // Debuggage (à déclarer AVANT d'inclure HydraRF.h).
@@ -105,8 +105,8 @@
 
   // Longueur des trames (excluant les préfixes et le check_sum).
   #define COM_REMOTE_LEN          6
-  #define COM_ALPHA_LEN           6
-  #define COM_OMEGA_LEN           8
+  #define COM_ALPHA_LEN           5
+  #define COM_OMEGA_LEN           7
   
   // Temporisation de la communication
   #ifndef DEBUG_RF_SLOW

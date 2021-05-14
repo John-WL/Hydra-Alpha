@@ -18,9 +18,8 @@ void EspCam::init()
 
 void EspCam::update()
 {
-    _requestHandlingOfSendingImagesOverWiFi(true);
     //_updateRectangleRequest();
-    //_updateWiFiCameraRequest();
+    _updateWiFiCameraRequest();
 }
 
 void EspCam::enableSendingImagesOverWifi(bool isSendingImagesOverWiFi)
@@ -30,14 +29,13 @@ void EspCam::enableSendingImagesOverWifi(bool isSendingImagesOverWiFi)
 
 void EspCam::_updateWiFiCameraRequest()
 {
-    // did the image over wifi state change?
-    if(_isSendingImagesOverWiFi != _wasSendingImagesOverWiFi)
-    {
-        // reset the "derivative"
-        _wasSendingImagesOverWiFi = _isSendingImagesOverWiFi;
-        // send to the slave the new "image over wifi" state
-        _requestHandlingOfSendingImagesOverWiFi(_isSendingImagesOverWiFi);
-    }
+    // Reset the "derivative".
+    //_wasSendingImagesOverWiFi = _isSendingImagesOverWiFi;
+    // This would be useful if we had a perfect camera module, but it crashes from time to time.
+    // Therefore, we're just sending the request all the time to make sure it's actually in the right state. 
+
+    // send to the slave the new "image over wifi" state
+    _requestHandlingOfSendingImagesOverWiFi(_isSendingImagesOverWiFi);
 }
 
 void EspCam::_requestHandlingOfSendingImagesOverWiFi(bool isSendingData)
@@ -51,32 +49,34 @@ void EspCam::_requestHandlingOfSendingImagesOverWiFi(bool isSendingData)
 
 void EspCam::_updateRectangleRequest()
 {
-    if(FunctioningMode::get() == SWARM_IS_SWARMY_FUNCTIONING_MODE)
+    if(FunctioningMode::get() != SWARM_IS_SWARMY_FUNCTIONING_MODE)
     {
-        unsigned char rectangleStatus = _requestStatusOfRectangleGeneration();
-        switch(rectangleStatus)
-        {
-            case ESP_CAM_RECTANGLE_IDLE_GENERATION_STATUS:
-                // if the EspCam is not baking our "cake" rectangle,
-                // then request a rectangle
-                _requestGenerationOfRectangle();
-                break;
-            case ESP_CAM_RECTANGLE_PENDING_GENERATION_STATUS:
-                // If the EspCam IS curently baking our cake,
-                // then get outa here. Nothing to see yet! 
-                break;
-            case ESP_CAM_RECTANGLE_BAKED_GENERATION_STATUS:
-                // If our cake is ready, then go get it!
-                rectangleOfTankOmegaInFrame = _requestRectangleOfTankOmegaInFrame();
-                break;
-            default:
-                // Got some weird transmission going on...
-                // Check your I2C drivers man.
-                Serial.println("Our rectangle is not cooking very well...");
-                Serial.print("We received a rectangle generation status of value \"");
-                Serial.print(rectangleStatus);
-                Serial.println("\"\n");
-        }
+        return;
+    }
+
+    unsigned char rectangleStatus = _requestStatusOfRectangleGeneration();
+    switch(rectangleStatus)
+    {
+        case ESP_CAM_RECTANGLE_IDLE_GENERATION_STATUS:
+            // if the EspCam is not baking our "cake" rectangle,
+            // then request a rectangle
+            _requestGenerationOfRectangle();
+            break;
+        case ESP_CAM_RECTANGLE_PENDING_GENERATION_STATUS:
+            // If the EspCam IS curently baking our cake,
+            // then get outa here. Nothing to see yet! 
+            break;
+        case ESP_CAM_RECTANGLE_BAKED_GENERATION_STATUS:
+            // If our cake is ready, then go get it!
+            rectangleOfTankOmegaInFrame = _requestRectangleOfTankOmegaInFrame();
+            break;
+        default:
+            // Got some weird transmission going on...
+            // Check your I2C drivers man.
+            Serial.println("Our rectangle is not cooking very well...");
+            Serial.print("We received a rectangle generation status of value \"");
+            Serial.print(rectangleStatus);
+            Serial.println("\"\n");
     }
 }
 
@@ -170,5 +170,5 @@ Rectangle2* EspCam::_requestRectangleOfTankOmegaInFrame()
 
 Rectangle2* EspCam::rectangleOfTankOmegaInFrame = nullptr;
 
-bool EspCam::_isSendingImagesOverWiFi = false;
+bool EspCam::_isSendingImagesOverWiFi = true;
 bool EspCam::_wasSendingImagesOverWiFi = false;
