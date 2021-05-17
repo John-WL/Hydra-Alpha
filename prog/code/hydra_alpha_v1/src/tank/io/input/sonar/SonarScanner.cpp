@@ -47,6 +47,7 @@ float SonarScanner::getDesiredSonarAngle()
 void SonarScanner::_addDataPoint(SonarSample sonarSample)
 {
     _sonarSampleBuffer.add(sonarSample);
+    Sonar::measuredDistance = sonarSample.distance;
 }
 
 CircularBuffer<SonarSample> SonarScanner::_sonarSampleBuffer{MAX_AMOUNT_OF_SONAR_SAMPLES};

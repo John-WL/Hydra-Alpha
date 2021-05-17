@@ -37,7 +37,6 @@ void setup()
 
     Serial.begin(SERIAL_COMMUNICATION_SPEED);
     Wire.begin();
-    //init_RF();
 
     Inputs::init();
     Outputs::init();
@@ -52,11 +51,12 @@ void loop()
 
 void Esp32DualCore::main()
 {
+    init_RF();
     while(true)
     {
-        //update_RF();
+        update_RF();
 
-        // updated every frame
+        // the bdc motors are updated here because they need the greatest refresh rate possible
         Outputs::bdcMotorLeft.update();
         Outputs::bdcMotorRight.update();
     }

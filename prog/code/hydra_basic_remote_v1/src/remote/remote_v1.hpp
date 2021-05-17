@@ -2,25 +2,31 @@
 
 #include "Arduino.h"
 
-#include "../shared/core/Esp32DualCore.h"
-
 #include "peripheral/wifi_server_hydra/WiFiServerHydra.h"
+#include "peripheral/HydraRF/HydraRF.h"
+
+#include "core/Esp32DualCore.h"
 
 
 void setup()
 {
     Serial.begin(115200);
 
+    init_RF();
+
     Esp32DualCore::init();
 }
 
 void loop()
-{}
+{
+    update_RF();
+    Serial.println(TrameAlpha.batteryLevel);
+}
 
 void Esp32DualCore::main()
 {
     WiFiServerHydra::init();
-    
+
     while(true)
     {
         WiFiServerHydra::update([](websockets::WebsocketsMessage* messages, uint8_t amountOfMessages)

@@ -6,6 +6,8 @@
 
 #include "../../../peripheral/i2c/xra1201/Xra1201.h"
 
+const float torqueArray[] =  {-1, -0.9, -0.82, -0.78, 0, 0.78, 0.82, 0.9, 1};
+
 BdcMotor::BdcMotor(uint8_t channelNumber, uint8_t pwmPinNumber) : 
     _channelNumber{channelNumber},
     _pwmPinNumber{pwmPinNumber},
@@ -47,13 +49,10 @@ void BdcMotor::update()
 
 void BdcMotor::setMotorTorque(float desiredMotorTorque)
 {
-    _motorTorque = desiredMotorTorque;
-    if(desiredMotorTorque > 1)
+    uint8_t torqueIndex = (desiredMotorTorque + 1) * 4;
+    if(torqueIndex > 8)
     {
-        _motorTorque = 1;
+        torqueIndex = 0;
     }
-    else if(desiredMotorTorque < -1)
-    {
-        _motorTorque = -1;
-    }
+    _motorTorque = torqueArray[torqueIndex];
 }

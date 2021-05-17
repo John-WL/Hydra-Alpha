@@ -23,7 +23,6 @@ public:
 private:
     static websockets::WebsocketsMessage _receiveDataFrom(websockets::WebsocketsClient* client);
 
-    static bool _isWiFiEnabled[2];
     static uint8_t _amountOfConnectedClients;
     static websockets::WebsocketsServer _server;
     static websockets::WebsocketsClient _clients[2];

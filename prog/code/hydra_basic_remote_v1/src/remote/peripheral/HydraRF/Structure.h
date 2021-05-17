@@ -4,9 +4,7 @@
 // définis ici à cause de la structure du projet
   #include "Arduino.h"
 
-  #define ALPHA
-
-  //#define DEBUG_RF_RX
+  #define REMOTE
 	
 // Définitions des structures d'entrée et sortie de la communication RF.
 //

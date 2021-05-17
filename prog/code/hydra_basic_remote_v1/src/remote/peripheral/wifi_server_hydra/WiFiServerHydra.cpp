@@ -5,6 +5,12 @@
 
 #include "Vector.h"
 
+#ifdef ENABLE_SIMULTANEOUS_RECEPTION
+#define MAX_AMOUNT_OF_SIMULTANEOUS_MESSAGES 2
+#else
+#define MAX_AMOUNT_OF_SIMULTANEOUS_MESSAGES 1
+#endif
+
 void WiFiServerHydra::init()
 {
     WiFi.mode(WIFI_AP);
@@ -14,6 +20,7 @@ void WiFiServerHydra::init()
 
 void WiFiServerHydra::update(void (*messageHandler)(websockets::WebsocketsMessage*, uint8_t))
 {
+    Serial.println("update call");
     // We're using a vector because arrays seem unusable with the websockets::WebsocketsMessage class.
     std::vector<websockets::WebsocketsMessage> messages{};
 
@@ -29,9 +36,16 @@ void WiFiServerHydra::update(void (*messageHandler)(websockets::WebsocketsMessag
     // look for received messages
     for(uint8_t i = 0; i < _amountOfConnectedClients; i++)
     {
-        if(_clients[i].available() && _isWiFiEnabled[i])
+        if(messages.size() >= MAX_AMOUNT_OF_SIMULTANEOUS_MESSAGES)
         {
+            break;
+        }
+
+        if(_clients[i].available() && messages.size() < MAX_AMOUNT_OF_SIMULTANEOUS_MESSAGES)
+        {
+            Serial.println("before receive block");
             messages.push_back(_receiveDataFrom(&_clients[i]));
+            Serial.println("after receive block");
         }
     }
 
@@ -48,11 +62,6 @@ websockets::WebsocketsMessage WiFiServerHydra::_receiveDataFrom(websockets::Webs
     return client->readBlocking();
 }
 
-#ifdef ENABLE_SIMULTANEOUS_RECEPTION
-bool WiFiServerHydra::_isWiFiEnabled[2]{true, true};
-#else
-bool WiFiServerHydra::_isWiFiEnabled[2]{true, false};
-#endif
 uint8_t WiFiServerHydra::_amountOfConnectedClients{0};
 websockets::WebsocketsServer WiFiServerHydra::_server{};
 websockets::WebsocketsClient WiFiServerHydra::_clients[2]{};

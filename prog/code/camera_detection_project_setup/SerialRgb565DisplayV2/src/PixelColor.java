@@ -15,7 +15,7 @@ public class PixelColor {
     public PixelColor(int rgb565) {
         r = (rgb565 & 0b1111100000000000) >> 8;
         g = (rgb565 & 0b11111100000) >> 3;
-        b = rgb565 & 0b11111;
+        b = (rgb565 & 0b11111) << 3;
     }
 
     public PixelColor(byte rgb565Msb, byte rgb565Lsb) {
