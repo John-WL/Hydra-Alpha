@@ -20,7 +20,6 @@ void FunctioningMode::execute()
     switch(_functioningMode)
     {
         case LISTENING_TO_YOUR_COMMANDS_FUNCTIONING_MODE:
-            Serial.println(input.throttle);
             ListeningToYourCommands::execute(input);
             break;
         case SWARM_IS_SWARMY_FUNCTIONING_MODE:
@@ -51,4 +50,4 @@ unsigned char FunctioningMode::get()
     return _functioningMode;
 }
 
-unsigned char FunctioningMode::_functioningMode = LISTENING_TO_YOUR_COMMANDS_FUNCTIONING_MODE;
+unsigned char FunctioningMode::_functioningMode = RF_LESS_CONTROL_TEST;

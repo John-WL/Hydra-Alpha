@@ -35,9 +35,12 @@ void Outputs::update()
     _outputSequencer.update();
 }
 
+float Outputs::leftBdcPwmValues[] = {-0.98, -0.9, -0.82, -0.76, 0, 0.78, 0.82, 0.9, 1};
+float Outputs::rightBdcPwmValues[] = {-1, -0.9, -0.85, -0.78, 0, 0.78, 0.85, 0.93, 1};
+
 // bdc definitions
-BdcMotor Outputs::bdcMotorLeft{1, 27};
-BdcMotor Outputs::bdcMotorRight{0, 14};
+BdcMotor Outputs::bdcMotorLeft{1, 27, leftBdcPwmValues};
+BdcMotor Outputs::bdcMotorRight{0, 14, rightBdcPwmValues};
 
 // servo definitions
 ServoMotor Outputs::servoMotorSonarZ{0, 4096 * 0.028, 4096 * 0.132};

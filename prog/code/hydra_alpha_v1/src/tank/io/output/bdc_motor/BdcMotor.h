@@ -16,6 +16,7 @@ class BdcMotor
 {
     public:
         BdcMotor(uint8_t channelNumber, uint8_t pwmPinNumber);
+        BdcMotor(uint8_t channelNumber, uint8_t pwmPinNumber, float* bdcPwmValues);
         void update();
         void setMotorTorque(float desiredTorque);
 
@@ -24,6 +25,7 @@ class BdcMotor
         uint8_t _pwmPinNumber;
         float _motorTorque;
         Int8_tPulseController _pulseController;
+        float* _bdcPwmValues;
 };
 
 #endif

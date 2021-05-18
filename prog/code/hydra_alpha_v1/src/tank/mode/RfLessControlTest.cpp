@@ -20,6 +20,7 @@ void RfLessControlTest::execute()
     //Outputs::bdcMotorLeft.setMotorTorque(-desiredOrientation.findRotator(currentOrientation).z*3.2 + Bno055::angularVelocity().z*0.3);
     //Outputs::bdcMotorRight.setMotorTorque(-desiredOrientation.findRotator(currentOrientation).z*3.2 + Bno055::angularVelocity().z*0.3);
     Outputs::bdcMotorLeft.setMotorTorque(-1);
+    Outputs::bdcMotorRight.setMotorTorque(1);
 
     //servoMotorSonarZ.setMotorAngle(desiredOrientation.findRotator(currentOrientation).z);
     //Outputs::servoMotorSonarZ.setMotorAngle(SonarScanner::getDesiredSonarAngle());

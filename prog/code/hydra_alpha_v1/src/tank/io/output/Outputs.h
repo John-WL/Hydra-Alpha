@@ -20,6 +20,9 @@ class Outputs
         static void init();
         static void update();
 
+        static float leftBdcPwmValues[];
+        static float rightBdcPwmValues[];
+
         static BdcMotor bdcMotorLeft;
         static BdcMotor bdcMotorRight;
 
