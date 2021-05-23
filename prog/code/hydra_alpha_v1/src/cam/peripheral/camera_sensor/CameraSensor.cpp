@@ -90,6 +90,14 @@ void CameraSensor::update()
     // send over WiFi the way you want, I don't care anymore
     if(_isSendingFramesOverWiFi)
     {
+        _generateRectanglesFromColorDetection(cameraFrameBuffer);
+
+        for(long i = 0; i < cameraFrameBuffer->len; i++)
+        {
+            Serial.write(cameraFrameBuffer->buf[i]);
+        }
+        
+        /*
         // convert 565 to JPEG
         static uint8_t* jpegBuffer;
         static size_t jpegLength;
@@ -115,6 +123,7 @@ void CameraSensor::update()
 
         // we need to free the pointers after use
         free(jpegBuffer);
+        */
     }
 
     // return the frame buffer to be reused
@@ -158,7 +167,7 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
 void CameraSensor::_generateRectanglesFromColorDetection(camera_fb_t* cameraFrameBuffer)
 {
     ColorDetection::generateRectanglesFrom565Buffer(
-        (uint16_t*)cameraFrameBuffer->buf,
+        (uint16_t*)(cameraFrameBuffer->buf + 1),    // ok wtf
         cameraFrameBuffer->width,
         cameraFrameBuffer->height,
         &faceRectangles

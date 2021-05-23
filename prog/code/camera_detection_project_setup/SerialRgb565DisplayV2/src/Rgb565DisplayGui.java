@@ -23,7 +23,7 @@ public class Rgb565DisplayGui extends Canvas {
             PixelColor color = new PixelColor(displayData[i], displayData[i+1]);
             g.setColor(color.toAwt());
 
-            int halfI = i >> 2;
+            int halfI = i >> 1;
             g.drawRect(
                     halfI % 320,
                     halfI / 320,
@@ -32,6 +32,4 @@ public class Rgb565DisplayGui extends Canvas {
             );
         }
     }
-
-
 }

@@ -22,7 +22,7 @@ namespace ColorDetection
         unsigned long averageX = 0;
         unsigned long averageY = 0;
         unsigned long validPixelCount = 0;
-        unsigned int x, y;
+        unsigned long x, y;
 
         for(y = 0; y < height; y++)
         {
@@ -33,6 +33,8 @@ namespace ColorDetection
                     averageX += x;
                     averageY += y;
                     validPixelCount++;
+
+                    buffer[x + (y * width)] = 0b1111100000000000;
                 }
             }
         }
