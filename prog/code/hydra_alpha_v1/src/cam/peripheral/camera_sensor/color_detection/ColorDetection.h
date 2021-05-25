@@ -50,6 +50,12 @@ namespace ColorDetection
             averageY / validPixelCount
         };
 
+        Serial.print("X: ");
+        Serial.println(rectangleCenter.x);
+        Serial.print("Y: ");
+        Serial.println(rectangleCenter.y);
+        Serial.println("");
+
         float squareSideLength = sqrt(validPixelCount);
         float halfSideLength = squareSideLength/2;
 

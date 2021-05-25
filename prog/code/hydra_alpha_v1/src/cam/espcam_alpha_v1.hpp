@@ -13,7 +13,7 @@
 
 void setup()
 {
-    Tank::init();
+    //Tank::init();
     Esp32DualCore::init();
     
     pinMode(33, OUTPUT);
@@ -21,7 +21,7 @@ void setup()
 
 void loop()
 {
-    Tank::update();
+    //Tank::update();
 }
 
 void Esp32DualCore::main()
@@ -30,6 +30,8 @@ void Esp32DualCore::main()
     WiFiClientHydra::init();
     CameraSensor::init(WiFiClientHydra::sendDataToRemote);
 
+    CameraSensor::enableSendingFramesOverWiFi(true);
+    
     while(true)
     {
         WiFiClientHydra::reconnectWiFiOnConnectionLost();

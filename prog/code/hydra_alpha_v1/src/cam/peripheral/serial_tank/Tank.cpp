@@ -55,6 +55,9 @@ void Tank::onReceive(QueueArray<uint8_t>& dataReceived)
 
     // make sure to remember what the last command id was
     _lastReceivedCommandId = dataReceived.pop();
+
+    CameraSensor::enableSendingFramesOverWiFi(_lastReceivedCommandId & 0xF0);
+
     switch(_lastReceivedCommandId)
     {
         case TankCommands::ENABLE_DISABLE_SENDING_CAMERA_FRAME_OVER_WI_FI:

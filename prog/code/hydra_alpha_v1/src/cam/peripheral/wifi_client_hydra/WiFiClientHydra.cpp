@@ -62,7 +62,7 @@ void WiFiClientHydra::reconnectWiFiOnConnectionLost()
 void WiFiClientHydra::_sendData(std::vector<uint8_t> data)
 {
     // send data with the client object
-    _client.sendBinary((const char*)&data, data.size());
+    _client.sendBinary((const char*)&data[0], data.size());
 }
 
 websockets::WebsocketsClient WiFiClientHydra::_client{};

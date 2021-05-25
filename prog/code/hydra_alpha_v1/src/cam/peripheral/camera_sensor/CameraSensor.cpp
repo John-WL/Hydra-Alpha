@@ -40,8 +40,8 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
     config.pin_pwdn = PWDN_GPIO_NUM;
     config.pin_reset = RESET_GPIO_NUM;
     config.xclk_freq_hz = 20000000;
-    //config.pixel_format = PIXFORMAT_JPEG;
-    config.pixel_format = PIXFORMAT_RGB565;
+    config.pixel_format = PIXFORMAT_JPEG;
+    //config.pixel_format = PIXFORMAT_RGB565;
 
     // frame size is 320x240,
     // what we need for the lcd, and
@@ -60,6 +60,10 @@ void CameraSensor::init(void (*sendOverWiFiCallback)(std::vector<uint8_t>))
         return;
     }
 
+    sensor_t * s = esp_camera_sensor_get();
+    s->set_brightness(s, 2);
+    s->set_saturation(s, 2);
+
     _mtmnConfig = mtmn_init_config();
 }
 
@@ -67,10 +71,6 @@ void CameraSensor::update()
 {
     // if we don't need to query the camera image, 
     // then don't query it for no reason
-    if(!_isSendingFramesOverWiFi && (rectanglesBakingStatus != EspCamRectanglesBakingStatus::PENDING))
-    {
-        return;
-    }
 
     // camera frame buffer
     camera_fb_t* cameraFrameBuffer = esp_camera_fb_get();
@@ -88,18 +88,19 @@ void CameraSensor::update()
     }
 
     // send over WiFi the way you want, I don't care anymore
-    if(_isSendingFramesOverWiFi)
+    //if(_isSendingFramesOverWiFi)
+    if(true)
     {
-        _generateRectanglesFromColorDetection(cameraFrameBuffer);
+        // test code to use with the serial printer in java to display the pixel data
+        /*_generateRectanglesFromColorDetection(cameraFrameBuffer);
 
         for(long i = 0; i < cameraFrameBuffer->len; i++)
         {
             Serial.write(cameraFrameBuffer->buf[i]);
-        }
+        }*/
         
-        /*
         // convert 565 to JPEG
-        static uint8_t* jpegBuffer;
+        /*static uint8_t* jpegBuffer;
         static size_t jpegLength;
         fmt2jpg(
             cameraFrameBuffer->buf,
@@ -124,6 +125,17 @@ void CameraSensor::update()
         // we need to free the pointers after use
         free(jpegBuffer);
         */
+
+        // convert the data array to a vector<uint8_t>
+
+        
+        std::vector<uint8_t> cameraFramebufferVector
+        {
+            cameraFrameBuffer->buf,
+            cameraFrameBuffer->buf + cameraFrameBuffer->len
+        };
+
+        _sendOverWiFiCallback(cameraFramebufferVector);
     }
 
     // return the frame buffer to be reused
@@ -139,7 +151,6 @@ void CameraSensor::_generateRectanglesFromFaceDetection(camera_fb_t* cameraFrame
 
     if(boxes != NULL)
     {
-
         for(uint16_t i = 0; i < boxes->len; i++)
         {
             box_t* faceBox = boxes[i].box;

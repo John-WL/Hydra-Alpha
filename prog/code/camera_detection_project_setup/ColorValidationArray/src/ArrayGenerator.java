@@ -25,10 +25,10 @@ public class ArrayGenerator {
     }
 
     public static final int RED_SELECTED_COLOR = 28;
-    public static final int GREEN_SELECTED_COLOR = 138;
-    public static final int BLUE_SELECTED_COLOR = 212;
+    public static final int GREEN_SELECTED_COLOR = 137;
+    public static final int BLUE_SELECTED_COLOR = 140;
     public static final PixelColor SELECTED_COLOR = new PixelColor(RED_SELECTED_COLOR, GREEN_SELECTED_COLOR, BLUE_SELECTED_COLOR);
-    public static final double MAX_COLOR_DISTANCE_TO_BE_CONSIDERED_VALID = 100;
+    public static final double MAX_COLOR_DISTANCE_TO_BE_CONSIDERED_VALID = 50;
 
     public static boolean compare(double red, double green, double blue) {
         return new PixelColor(red, green, blue).computeDistance(SELECTED_COLOR)

@@ -50,4 +50,4 @@ unsigned char FunctioningMode::get()
     return _functioningMode;
 }
 
-unsigned char FunctioningMode::_functioningMode = RF_LESS_CONTROL_TEST;
+unsigned char FunctioningMode::_functioningMode = LISTENING_TO_YOUR_COMMANDS_FUNCTIONING_MODE;

@@ -20,7 +20,8 @@
 #ifndef CAMERA_SENSOR_H
 #define CAMERA_SENSOR_H
 
-#define DESIRED_JPEG_QUALITY 80
+//#define DESIRED_JPEG_QUALITY 80
+#define DESIRED_JPEG_QUALITY 10
 
 #include "esp_camera.h"
 #include "fd_forward.h"
